@@ -9,7 +9,10 @@ const router: Router = Router();
 
 router.post("/post", adminMiddleware, async (req: any, res: Response) => {
   try {
-    const post = await new Post(req.body);
+    const user = await User.findById(req.user.id);
+    console.log(user);
+    const post = await new Post({ ...req.body, user });
+    console.log(post);
     await post.save();
     res.send(post).status(201);
   } catch (e) {
@@ -18,9 +21,12 @@ router.post("/post", adminMiddleware, async (req: any, res: Response) => {
 });
 
 router.get("/all", adminMiddleware, async (req: any, res: Response) => {
-  const id = req.user.id;
-  const posts = await Post.find({ user: id });
-  res.send(posts);
+  try {
+    const list = await Post.find({});
+    res.send(list);
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 export default router;
