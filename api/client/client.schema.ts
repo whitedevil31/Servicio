@@ -14,7 +14,6 @@ const userSchema: mongoose.Schema = new mongoose.Schema({
     age: { type: Number, default: null },
     gender: { type: String, default: null },
     residence: { type: String, default: null },
-    services: [{ type: String }],
   },
 });
 
