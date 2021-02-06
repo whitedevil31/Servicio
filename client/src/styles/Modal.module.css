@@ -1,0 +1,18 @@
+.modal{
+    display: 'flex';
+    align-items: 'center';
+    justify-content: 'center';
+}
+
+.paper{
+    margin-top: 40px;
+    margin-left: 470px;
+    width: 250px;
+    height:550px;
+    background-color: #ffffff;
+    outline: none;
+    border-radius: 5px;
+    border: none;
+    overflow: auto;
+    padding: 5px;
+}

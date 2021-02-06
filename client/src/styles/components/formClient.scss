@@ -1,0 +1,146 @@
+.formContainer{
+    display: inline-block; 
+    background-color: #581845; 
+    width: 100%;
+    height: 85%; 
+}
+
+.Email {
+       color:white;
+       margin-left: 10px;
+       margin-top: 10px;
+       margin-bottom: 5px;
+       flex-direction: column;
+       font-family: $font;
+       font-size: $font-size;
+       font-weight: 500;
+       font-stretch: normal;
+       font-style: normal;
+       line-height: normal;
+       letter-spacing: normal;
+       text-align: left;
+       color: #777777;
+}
+
+.Age{  
+       color:white;
+       margin-left: 10px;
+       margin-top: 10px;
+       margin-bottom: 5px;
+       flex-direction: column;
+       font-family: $font;
+       font-size: $font-size;
+       font-weight: 500;
+       font-stretch: normal;
+       font-style: normal;
+       line-height: normal;
+       letter-spacing: normal;
+       text-align: left;
+       color: #777777;
+}
+
+.Gender{
+       color:white;
+       margin-left: 10px;
+       margin-top: 10px;
+       margin-bottom: 5px;
+       flex-direction: column;
+       font-family: $font;
+       font-size: $font-size;
+       font-weight: 500;
+       font-stretch: normal;
+       font-style: normal;
+       line-height: normal;
+       letter-spacing: normal;
+       text-align: left;
+       color: #777777;
+}
+
+.Services{
+       color:white;
+       margin-left: 10px;
+       margin-top: 10px;
+       margin-bottom: 5px;
+       flex-direction: column;
+       font-family: $font;
+       font-size: $font-size;
+       font-weight: 500;
+       font-stretch: normal;
+       font-style: normal;
+       line-height: normal;
+       letter-spacing: normal;
+       text-align: left;
+       color: #777777;
+}
+.Residence{
+       color:white;
+       margin-left: 10px;
+       margin-top: 10px;
+       margin-bottom: 5px;
+       flex-direction: column;
+       font-family: $font;
+       font-size: $font-size;
+       font-weight: 500;
+       font-stretch: normal;
+       font-style: normal;
+       line-height: normal;
+       letter-spacing: normal;
+       text-align: left;
+       color: #777777;
+}
+   
+.Rectangle-18 {
+       width: 203px;
+       height: 19.5px;
+       margin: 0 42.5px 1px 12px;
+       flex-direction: column;
+       border-radius: 5px;
+       border-bottom: 1px solid gold;
+       border-top: none;
+       border-left: none;
+       border-right: none;
+       border-bottom-left-radius: 20px;
+       border-bottom-right-radius: 20px;
+       background-color: transparent;
+       font-size: 8px;
+       color: gold;
+       font-family: $font;
+       padding: 5px  ;
+}
+
+.Rectangle-21 {
+       width: 100.5px;
+       height: 29.5px;
+       font-size: 15px;
+       margin-left: 10px;
+       margin-top: 5px;
+       border-radius: 2.5px;
+       border: solid 0.75px gold;
+       background-color: transparent;
+       font-size: 8px;
+       color: gold;
+       font-family: $font;
+}
+
+.select{
+       font-size: 15px;
+       background-color: #581845;
+       color: gold;
+}
+
+.Submit{
+       margin-top: 15px;
+       margin-left: 150px;
+       background-color: #581845;
+       border-radius: 20px;
+       color:gold;
+       padding: 8px;
+       cursor: pointer;
+       transition: .3s ease-in-out;
+}
+
+.Submit:hover{
+       background-color: gold;
+       color: #581845;
+       transform: scale(1.05);
+}
