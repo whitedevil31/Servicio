@@ -13,7 +13,6 @@ require("./passport/passport.config");
 import clientroute from "./client/client.routes";
 import postroute from "./worker/post.routes.ts";
 
-const port = process.env.PORT || 5000;
 const app: Express = express();
 
 app.use(
@@ -32,6 +31,6 @@ app.use(passport.session());
 app.use(clientroute);
 app.use(postroute);
 
-app.listen(port, () => {
-  console.log(`server is up and running on port ${port}`);
+app.listen(3000, () => {
+  console.log("server is up and running on port 3000");
 });
