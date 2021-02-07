@@ -37,7 +37,7 @@ router.post("/register/worker", (req: Request, res: Response) => {
         role: "worker",
       });
       await newUser.save();
-      res.send("success");
+      res.send(newUser);
     }
   });
 });
