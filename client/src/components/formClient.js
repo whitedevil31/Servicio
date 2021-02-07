@@ -40,6 +40,10 @@ function FormClient() {
     const res = await response.json();
     console.log(res);
     console.log(response);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 92272f1e0196624c5e74942d89f60891e1b1df1f
     if (response.status == "200") {
       history.goBack();
     }

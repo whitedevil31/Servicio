@@ -44,6 +44,10 @@ function FormWorker() {
     const res = await response.json();
     console.log(res);
     console.log(response);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 92272f1e0196624c5e74942d89f60891e1b1df1f
     if (response.status == "200") {
       history.goBack();
     }
@@ -116,7 +120,39 @@ function FormWorker() {
           <option className="select" value="Other">
             Other
           </option>
+<<<<<<< HEAD
         </select>      
+=======
+        </select>
+        <div>
+          <label className="Services">Services</label>
+        </div>
+        <select
+          className="Rectangle-21"
+          value={service}
+          onChange={handleChangeService}
+        >
+          <option value="none" selected hidden>
+            Service
+          </option>
+          <option className="select" value="Chef">
+            Chef
+          </option>
+          <option className="select" value="House Helper">
+            House Helper
+          </option>
+          <option className="select" value="Laundry">
+            Laundry
+          </option>
+          <option className="select" value="Plumber">
+            Plumber
+          </option>
+          <option className="select" value="Electrical">
+            Electrical
+          </option>
+        </select>
+
+>>>>>>> 92272f1e0196624c5e74942d89f60891e1b1df1f
         <div className="Residence">
           <label>Residence</label>
         </div>
