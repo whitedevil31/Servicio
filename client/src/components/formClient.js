@@ -40,7 +40,6 @@ function FormClient() {
     const res = await response.json();
     console.log(res);
     console.log(response);
-    <Redirect to="/" />;
     if (response.status == "200") {
       history.goBack();
     }

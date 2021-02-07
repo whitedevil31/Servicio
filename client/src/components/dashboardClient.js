@@ -49,12 +49,18 @@ const DashboardClient = () => {
                 <div className="navContent">
                     <i id="logo" class="fas fa-shopping-cart"></i>
                     <Link className="headerTitle" to="/dashboard">
-                    <h1>StudentFolio</h1>
+                    <h1>Servicio</h1>
                     </Link>
                     <button id="logoutButton" className="fas fa-sign-out-alt" onClick = {logoutHandler} ></button>
                 </div>
-
             </div>  
+            <Link className="listItem" to={`/edit/${id}`}>
+            <div>
+              <h3 className="lisItem-title">{description}</h3>
+              <span className="listItem-sub-title">{moment(createdAt).format('ddd, Do MMM YYYY')}</span>
+            </div>
+            <h3 className="listItem-data">{numeral(amount).format('$0,0.00')}</h3>
+    </Link>
             
         </div>
     )

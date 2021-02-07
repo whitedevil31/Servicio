@@ -6,7 +6,6 @@ function FormWorker() {
   const [age, setAge] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [gender, setGender] = React.useState("");
-  const [service, setService] = React.useState("");
   const [residence, setResidence] = React.useState("");
   const [role, setRole] = React.useState("");
 
@@ -34,7 +33,7 @@ function FormWorker() {
       residence: residence,
     };
 
-    const response = await fetch("http://localhost:3000/register/client", {
+    const response = await fetch("http://localhost:3000/register/worker", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +44,6 @@ function FormWorker() {
     const res = await response.json();
     console.log(res);
     console.log(response);
-    <Redirect to="/" />;
     if (response.status == "200") {
       history.goBack();
     }
@@ -118,35 +116,7 @@ function FormWorker() {
           <option className="select" value="Other">
             Other
           </option>
-        </select>
-        <div>
-          <label className="Services">Services</label>
-        </div>
-        <select
-          className="Rectangle-21"
-          value={service}
-          onChange={handleChangeService}
-        >
-          <option value="none" selected hidden>
-            Service
-          </option>
-          <option className="select" value="Chef">
-            Chef
-          </option>
-          <option className="select" value="House Helper">
-            House Helper
-          </option>
-          <option className="select" value="Laundry">
-            Laundry
-          </option>
-          <option className="select" value="Plumber">
-            Plumber
-          </option>
-          <option className="select" value="Electrical">
-            Electrical
-          </option>
-        </select>
-        
+        </select>      
         <div className="Residence">
           <label>Residence</label>
         </div>
