@@ -34,7 +34,7 @@ function FormWorker() {
       residence: residence,
     };
 
-    const response = await fetch("http://localhost:3000/register/client", {
+    const response = await fetch("http://localhost:3000/register/worker", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +45,7 @@ function FormWorker() {
     const res = await response.json();
     console.log(res);
     console.log(response);
-    <Redirect to="/" />;
+
     if (response.status == "200") {
       history.goBack();
     }
@@ -146,7 +146,7 @@ function FormWorker() {
             Electrical
           </option>
         </select>
-        
+
         <div className="Residence">
           <label>Residence</label>
         </div>
