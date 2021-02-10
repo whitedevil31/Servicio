@@ -2,6 +2,7 @@
 # yarn lockfile v1
 
 
+<<<<<<< HEAD
 "@babel/runtime@^7.10.5":
   version "7.12.13"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.13.tgz#0a21452352b02542db0ffb928ac2d3ca7cb6d66d"
@@ -9,6 +10,10 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 830fec3fa76b9c90f6cc76dc2dd7776cc81c3962
 "@types/bcryptjs@^2.4.2":
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/@types/bcryptjs/-/bcryptjs-2.4.2.tgz#e3530eac9dd136bfdfb0e43df2c4c5ce1f77dfae"
@@ -926,6 +931,7 @@ yn@3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/yn/-/yn-3.1.1.tgz#1e87401a09d767c1d5eab26a6e4c185182d2eb50"
   integrity sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
+<<<<<<< HEAD
 
 yup@^0.32.8:
   version "0.32.8"
@@ -939,3 +945,6 @@ yup@^0.32.8:
     nanoclone "^0.2.1"
     property-expr "^2.0.4"
     toposort "^2.0.2"
+=======
+>>>>>>> 92272f1e0196624c5e74942d89f60891e1b1df1f
+>>>>>>> 830fec3fa76b9c90f6cc76dc2dd7776cc81c3962

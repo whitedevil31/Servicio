@@ -6,7 +6,6 @@ function FormWorker() {
   const [age, setAge] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [gender, setGender] = React.useState("");
-  const [service, setService] = React.useState("");
   const [residence, setResidence] = React.useState("");
   const [role, setRole] = React.useState("");
 
@@ -45,7 +44,10 @@ function FormWorker() {
     const res = await response.json();
     console.log(res);
     console.log(response);
+<<<<<<< HEAD
+=======
 
+>>>>>>> 92272f1e0196624c5e74942d89f60891e1b1df1f
     if (response.status == "200") {
       history.goBack();
     }
@@ -118,6 +120,9 @@ function FormWorker() {
           <option className="select" value="Other">
             Other
           </option>
+<<<<<<< HEAD
+        </select>      
+=======
         </select>
         <div>
           <label className="Services">Services</label>
@@ -147,6 +152,7 @@ function FormWorker() {
           </option>
         </select>
 
+>>>>>>> 92272f1e0196624c5e74942d89f60891e1b1df1f
         <div className="Residence">
           <label>Residence</label>
         </div>
