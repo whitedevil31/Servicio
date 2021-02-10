@@ -1,16 +1,17 @@
-import mongoose from "mongoose";
-import { postType } from "../types/types";
-const postSchema = new mongoose.Schema({
-  services: [{ type: String }],
-  amount: { type: String },
-  user: {
-    email: { type: String },
-    role: { type: String },
-    id: mongoose.Types.ObjectId,
-    info: { type: Object },
-  },
-});
+import * as yup from "yup";
+import * as mongoDB from "mongodb";
 
-type POST = postType & mongoose.Document;
-const Worker = mongoose.model("Worker", postSchema);
-export default Worker;
+const postSchema = yup
+  .object({
+    services: yup.array().of(yup.string().strict().required()),
+    pay: yup.number().required(),
+  })
+  .noUnknown(true)
+  .required();
+type postType = yup.InferType<typeof postSchema>;
+interface postInterface extends postType {
+  _id: mongoDB.ObjectId;
+  userID?: mongoDB.ObjectID;
+}
+
+export { postSchema, postType, postInterface };
