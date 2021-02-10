@@ -12,5 +12,5 @@ const postSchema = new mongoose.Schema({
 });
 
 type POST = postType & mongoose.Document;
-const Worker: mongoose.Model<POST> = mongoose.model("Worker", postSchema);
+const Worker = mongoose.model("Worker", postSchema);
 export default Worker;
