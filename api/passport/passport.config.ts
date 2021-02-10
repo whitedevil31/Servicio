@@ -1,16 +1,21 @@
 import passportLocal from "passport-local";
 import passport from "passport";
-import User from "../client/client.schema";
-import { userType, userDB, errorType } from "../types/types";
+import { userInterface, userSchema, userType } from "../user/user.schema";
+import { errorType } from "../types/types";
 import bcrypt from "bcryptjs";
+import * as mongodb from "mongodb";
+import { getClient } from "../db/db.connect";
+import { connection } from "mongoose";
 
 const localStrategy = passportLocal.Strategy;
 
 passport.use(
-  new localStrategy((email: string, password: string, done) => {
+  new localStrategy(async (email: string, password: string, done) => {
     //err how to solve it
+    const client: mongodb.MongoClient = await getClient();
+    const connection = await client.db().collection("USERS");
 
-    User.findOne({ email: email }, (err: errorType, user: userDB) => {
+    connection.findOne({ email: email }, (err, user) => {
       if (err) throw err;
       if (!user) return done(null, false);
       bcrypt.compare(password, user.password, (err, result: boolean) => {
@@ -25,19 +30,26 @@ passport.use(
   })
 );
 
-passport.serializeUser<userDB, any>((user: userDB, cb: any) => {
-  cb(null, user._id);
+passport.serializeUser<userInterface, any>((user: userInterface, cb: any) => {
+  cb(null, user.email);
 });
 
-passport.deserializeUser((id: string, cb) => {
+passport.deserializeUser(async (userEmail: string, cb) => {
+  const client: mongodb.MongoClient = await getClient();
+  const connection = await client.db().collection("USERS");
   //err doubt how to solve that
-  User.findOne({ _id: id }, (err: errorType, user: userDB) => {
+  const find = { email: userEmail };
+  console.log(find);
+  try {
+    const result = await connection.findOne(find);
+    console.log(result);
     const userInformation: userType = {
-      email: user.email,
-      role: user.role,
-      id: user._id,
-      info: user.info,
+      email: result.email,
+      password: result.password,
+      role: result.role,
     };
-    cb(err, userInformation);
-  });
+    cb(null, userInformation);
+  } catch (err) {
+    cb(err, undefined);
+  }
 });
