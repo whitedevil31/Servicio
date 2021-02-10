@@ -1,20 +1,10 @@
-export interface userType {
-  email: string;
-  id: string;
-  role: string;
-
-  info: { username: string; age: number };
-}
+import mongodb from "mongodb";
 
 export interface userDB {
-  id?: string;
+  _id: mongodb.ObjectID;
   email: string;
-  password: string;
-  _id: string;
   role: string;
-  // username: string;
-  // age: number;
-  info: { username: string; age: number };
+  username: string;
 }
 
 export interface postType {

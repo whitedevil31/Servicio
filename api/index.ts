@@ -11,7 +11,7 @@ connectDB();
 require("./passport/passport.config");
 
 import clientroute from "./user/user.routes";
-import postroute from "./worker/post.routes.ts";
+import postroute from "./worker/post.routes";
 
 const app: Express = express();
 
