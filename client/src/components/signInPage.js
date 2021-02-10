@@ -28,7 +28,7 @@ export default function SignIn() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = { username: email, password: password };
-    fetch("http://localhost:5000/login", {
+    fetch("http://localhost:3000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
