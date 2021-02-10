@@ -10,7 +10,7 @@ import connectDB from "./db/db.connect";
 connectDB();
 require("./passport/passport.config");
 
-import clientroute from "./client/client.routes";
+import clientroute from "./user/user.routes";
 import postroute from "./worker/post.routes.ts";
 
 const app: Express = express();
