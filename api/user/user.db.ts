@@ -20,6 +20,9 @@ export const signUpClient = async (data: userType) => {
       email: data.email,
       password: hashedPassword,
       role: "client",
+      username: data.username,
+      gender: data.gender,
+      residence: data.residence,
     };
     const add = await connection.insertOne(insertData);
     if (add.insertedCount <= 0) {
@@ -46,6 +49,10 @@ export const signUpWorker = async (data: userType) => {
       email: data.email,
       password: hashedPassword,
       role: "worker",
+      username: data.username,
+      gender: data.gender,
+      residence: data.residence,
+      age: data.age,
     };
     const add = await connection.insertOne(insertData);
     if (add.insertedCount <= 0) {
@@ -55,3 +62,5 @@ export const signUpWorker = async (data: userType) => {
   }
   throw "invalid data";
 };
+
+export const patchClient = async (data: userType) => {};

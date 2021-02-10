@@ -29,14 +29,14 @@ import * as yup from "yup";
 const userSchema = yup
   .object({
     email: yup.string().trim().required(),
-    password: yup.string().required(),
+    password: yup.string().trim().required(),
     role: yup.string(),
+    username: yup.string().trim().required(),
+    gender: yup.string().trim().required(),
+    age: yup.number(),
+    residence: yup.string().trim().required(),
   })
   .required();
-
-// userSchema
-//   .validate({ username: 12, age: "23" })
-//   .catch((err) => console.log(err));
 type userType = yup.InferType<typeof userSchema>;
 
 interface userInterface extends userType {

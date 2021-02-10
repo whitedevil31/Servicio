@@ -5,9 +5,9 @@ import passport from "passport";
 // import User from "./client.schema";
 import { getClient } from "../db/db.connect";
 // import { userDB, errorType } from "../types/types";
-import { userType, userSchema } from "./user.schema";
+import { userType, userSchema, userInterface } from "./user.schema";
 import { MongoClient } from "mongodb";
-import { signUpClient, signUpWorker } from "./user.db";
+import { signUpClient, signUpWorker, patchClient } from "./user.db";
 import { nextTick } from "process";
 const router: Router = Router();
 router.post(
@@ -26,6 +26,7 @@ router.post(
   "/api/register/worker",
   async (req: Request, res: Response, next: NextFunction) => {
     const data = req.body as userType;
+
     try {
       const result = await signUpWorker(data);
       res.status(201).send(result);
@@ -49,12 +50,6 @@ router.get("/logout", (req: Request, res: Response) => {
 router.get("/user", adminMiddleware, (req: Request, res: Response) => {
   res.send(req.user);
 });
-// try {
-//
-//   res.send(datas);
-// } catch (e) {
-//   console.log("catch block");
-// }
 
 // router.post("/register/client", (req: Request, res: Response) => {
 //   const { email, password } = req?.body;
@@ -92,26 +87,37 @@ router.get("/user", adminMiddleware, (req: Request, res: Response) => {
 //   });
 // });
 
-// router.patch("/client/info", adminMiddleware, async (req: any, res) => {
-//   let infoExist = req.user.info.username;
-//   console.log(infoExist);
-//   if (infoExist == null) {
-//     await User.findByIdAndUpdate(
-//       req.user.id,
-//       req.body,
-//       { new: true },
-//       (err, docs) => {
-//         if (err) {
-//           console.log(err);
-//         } else {
-//           res.send(docs);
-//         }
+// router.patch(
+//   "/client/info",
+//   adminMiddleware,
+//   async (req: Request, res: Response, next: NextFunction) => {
+//     const data = req.body as userType;
+//     try {
+//       const result = await patchClient(data);
+//     } catch (err) {
+//       next(err);
+//     }
+
+// let infoExist = req.user.info.username;
+// console.log(infoExist);
+// if (infoExist == null) {
+//   await User.findByIdAndUpdate(
+//     req.user.id,
+//     req.body,
+//     { new: true },
+//     (err, docs) => {
+//       if (err) {
+//         console.log(err);
+//       } else {
+//         res.send(docs);
 //       }
-//     );
-//   } else {
-//     res.redirect("/");
+//     }
+//   );
+// } else {
+//   res.redirect("/");
+// }
 //   }
-// });
+// );
 // router.patch("/worker/info", adminMiddleware, async (req: Request, res) => {
 //   let infoExist = req.user.info.username;
 //   const role = req.user.role;
