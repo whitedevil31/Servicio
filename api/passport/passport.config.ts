@@ -1,7 +1,7 @@
 import passportLocal from "passport-local";
 import passport from "passport";
 import { userInterface, userSchema, userType } from "../user/user.schema";
-import { errorType } from "../types/types";
+
 import bcrypt from "bcryptjs";
 import * as mongodb from "mongodb";
 import { getClient } from "../db/db.connect";
