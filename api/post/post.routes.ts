@@ -12,9 +12,10 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     const data = req.body as postType;
     const user = req.user as userInterface;
+    console.log(user);
 
     try {
-      const result = await postData(data, user._id);
+      const result = await postData(data, user);
 
       res.status(201).send(result);
     } catch (err) {

@@ -25,6 +25,9 @@ passport.use(
             email: user.email,
             username: user.username,
             role: user.role,
+            gender: user.gender,
+            age: user.age,
+            residence: user.residence,
           });
         } else {
           return done(null, false);
@@ -50,6 +53,9 @@ passport.deserializeUser(async (userEmail: string, cb) => {
       email: result.email,
       role: result.role,
       username: result.username,
+      gender: result.gender,
+      age: result.age,
+      residence: result.residence,
     };
     cb(null, userInformation);
   } catch (err) {

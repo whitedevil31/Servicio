@@ -5,6 +5,9 @@ export interface userDB {
   email: string;
   role: string;
   username: string;
+  gender: string;
+  age: number;
+  residence: string;
 }
 
 export interface postType {
