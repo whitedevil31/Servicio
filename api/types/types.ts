@@ -10,7 +10,6 @@ export interface userDB {
 export interface postType {
   productTitle: string;
 }
-
-export interface errorType {
-  Error: () => void;
+export interface ServiceType {
+  services: Array<string>;
 }

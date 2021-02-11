@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-import { errorType } from "../types/types";
+
 let client: MongoClient;
 export async function connectDB(): Promise<MongoClient> {
   client = await MongoClient.connect(process.env.MONGO_URI || "", {
