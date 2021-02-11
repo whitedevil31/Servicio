@@ -11,7 +11,6 @@ const localStrategy = passportLocal.Strategy;
 
 passport.use(
   new localStrategy(async (email: string, password: string, done) => {
-    //err how to solve it
     const client: mongodb.MongoClient = await getClient();
     const connection = await client.db().collection("USERS");
 
