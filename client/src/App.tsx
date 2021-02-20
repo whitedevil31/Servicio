@@ -5,7 +5,7 @@ function App() {
     <div className="App">
       <h1 className="text-red-600">hello</h1>
       <h5 className="text-gray-500">
-        Quisque semper malesuada lectus, iaculis metus malesuada eu. In quis
+        uisque semper malesuada lectus, iaculis metus malesuada eu. In quis
         consequat ante, sed vestibulum nisl. Ut fermentum dictum quam, eu
         elementum velit finibus sed. Nullam volutpat, odio sed euismod
         sollicitudin, tortor tortor dictum mi, dapibus fermentum tortor sapien
