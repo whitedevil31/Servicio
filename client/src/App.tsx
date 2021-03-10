@@ -1,9 +1,12 @@
 import React from "react";
-import "./App.css";
+
 function App() {
   return (
-    <div className="App">
-      <h1 className="text-red-600">hello</h1>
+    <div className="flex flex-col ">
+      <div className="flex items-center justify-center">
+        {" "}
+        <h1 className="text-red-600 ">hello</h1>
+      </div>
       <h5 className="text-gray-500">
         uisque semper malesuada lectus metus malesuada eu. In quis consequat
         ante, sed vestibulum nisl. Ut fermentum dictum quam, eu elementum velit
