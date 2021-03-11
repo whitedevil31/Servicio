@@ -31,6 +31,6 @@ app.use(passport.session());
 app.use(clientroute);
 app.use(postroute);
 
-app.listen(3000, () => {
-  console.log("server is up and running on port 3000");
+app.listen(5000, () => {
+  console.log("server is up and running on port 5000");
 });
