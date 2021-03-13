@@ -6,7 +6,7 @@ import { getClient } from "../db/db.connect";
 import { userType, userSchema, userInterface } from "./user.schema";
 import { MongoClient } from "mongodb";
 import { signUpClient, signUpWorker, patchClient } from "./user.db";
-import { nextTick } from "process";
+
 const router: Router = Router();
 router.post(
   "/api/register/client",
@@ -45,7 +45,7 @@ router.get("/logout", (req: Request, res: Response) => {
   req.logout();
   res.send("success").status(200);
 });
-router.get("/user", adminMiddleware, (req: Request, res: Response) => {
+router.get("/api/user", adminMiddleware, (req: Request, res: Response) => {
   res.send(req.user);
 });
 
@@ -138,7 +138,7 @@ router.get("/user", adminMiddleware, (req: Request, res: Response) => {
 //   }
 // });
 
-// router.get("/", adminMiddleware, (req, res) => {
+// router.get("/", (req, res) => {
 //   res.send("dashbord");
 // });
 

@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { GlobalContext } from "../context/GlobalState";
 
 function Login() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+
   let history = useHistory();
+  const { login, loggedIn } = useContext(GlobalContext);
+  console.log(loggedIn);
 
   const handleSubmit = (e: React.FormEvent<EventTarget>): void => {
     e.preventDefault();
@@ -20,6 +24,7 @@ function Login() {
       response.json().then((res) => {
         console.log(res);
         if (response.status === 200) {
+          login!();
           history.push("/dashboard", {});
         }
       });

@@ -8,7 +8,7 @@ const isAdministratorMiddleware = (
   if (req.isAuthenticated()) {
     return next();
   } else {
-    res.send("you are not authenticated");
+    res.status(401).json("You are not Authenticated");
   }
 };
 
