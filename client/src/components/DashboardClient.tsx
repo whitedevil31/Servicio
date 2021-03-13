@@ -23,6 +23,12 @@ function DashboardClient() {
       }, 800);
     });
   };
+  const x = () => {
+    setTimeout(() => {
+      console.log("hi");
+      history.push("/");
+    }, 3500);
+  };
 
   return (
     <div>
@@ -38,7 +44,13 @@ function DashboardClient() {
           </button>
         </div>
       ) : (
-        <Redirect to="/" />
+        <div className="w-full flex justify-center items-center h-screen">
+          <div className="bg-red-600 rounded-lg flex items-center flex-col justify-center w-1/2 h-1/3">
+            <h1 className="text-yellow-300">You are not Authenticated ma </h1>
+            <h3 className="text-yellow-300">Go back</h3>
+          </div>
+          {x()}
+        </div>
       )}
     </div>
   );
