@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalState";
+import Cookies from "js-cookie";
 
 function Login() {
   const [email, setEmail] = React.useState("");
@@ -9,6 +10,17 @@ function Login() {
   let history = useHistory();
   const { login, loggedIn } = useContext(GlobalContext);
   console.log(loggedIn);
+
+  const readCookie = () => {
+    const user = Cookies.get('user')
+    if(user){
+      loggedIn: true
+    }
+  }
+
+  React.useEffect(() => {
+      readCookie()
+  }, [])
 
   const handleSubmit = (e: React.FormEvent<EventTarget>): void => {
     e.preventDefault();
@@ -26,6 +38,7 @@ function Login() {
         if (response.status === 200) {
           login!();
           history.push("/dashboard", {});
+          Cookies.set('User','LoginTrue')
         }
       });
     });
