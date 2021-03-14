@@ -8,8 +8,6 @@ function Login() {
 
   let history = useHistory();
   const { login, loggedIn } = useContext(GlobalContext);
-  console.log(loggedIn);
-
   const handleSubmit = (e: React.FormEvent<EventTarget>): void => {
     e.preventDefault();
     const data = { username: email, password: password };

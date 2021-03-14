@@ -3,10 +3,10 @@ import { useLocation, useHistory, Link, Redirect } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalState";
 
 function DashboardClient() {
-  const [logout, setLogout] = useState(false);
+  const [Logout, setLogout] = useState(false);
   const history = useHistory();
 
-  const { loggedIn } = React.useContext(GlobalContext);
+  const { logout, loggedIn } = React.useContext(GlobalContext);
   const logoutHandler = () => {
     fetch("http://localhost:5000/logout", {
       method: "GET",
@@ -18,7 +18,9 @@ function DashboardClient() {
       setLogout(true);
       setTimeout(() => {
         if (response.status === 200) {
+          logout!();
           history.push("/", {});
+          console.log("logout" + loggedIn);
         }
       }, 800);
     });
@@ -46,8 +48,10 @@ function DashboardClient() {
       ) : (
         <div className="w-full flex justify-center items-center h-screen">
           <div className="bg-red-600 rounded-lg flex items-center flex-col justify-center w-1/2 h-1/3">
-            <h1 className="text-yellow-300">You are not Authenticated ma </h1>
-            <h3 className="text-yellow-300">Go back</h3>
+            <h1 className="text-yellow-300 text-xl">
+              You are not Authenticated ma{" "}
+            </h1>
+            <h3 className="text-yellow-300 text-xl">Go back</h3>
           </div>
           {x()}
         </div>

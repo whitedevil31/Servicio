@@ -6,6 +6,7 @@ import AppReducer from "./appReducer";
 export interface globalState {
   loggedIn: boolean;
   login?: () => void;
+  logout?: () => void;
 }
 
 const initialState = { loggedIn: false };
@@ -22,18 +23,19 @@ export const GlobalProvider: React.FC = ({ children }) => {
       type: "LOGIN_USER",
     });
   };
-
-  // const logout: () => boolean = () => {
-  //   dispatch({
-  //     type: "LOGOUT_USER",
-  //   });
-  // };
+  // Actions
+  const logout = () => {
+    dispatch({
+      type: "LOGOUT_USER",
+    });
+  };
 
   return (
     <GlobalContext.Provider
       value={{
         loggedIn: state.loggedIn,
         login,
+        logout,
       }}
     >
       {children}
