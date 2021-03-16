@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useHistory, Link, Redirect } from "react-router-dom";
+import { useHistory, Link, Redirect } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalState";
 import Cookies from "js-cookie";
+import axios, { AxiosRequestConfig } from "axios";
 
 function DashboardClient() {
+  const [worker, setWorker] = useState<any[]>([]);
   useEffect(() => {
-    fetch("http://localhost:5000/api/user", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    }).then((response) => {
-      response.json().then((res) => {
-        console.log(res);
+    axios
+      .get("http://localhost:5000/api/workerpost/all", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
+      .then((response) => {
+        setWorker(response.data);
       });
-    });
   }, []);
-  // const [Logout, setLogout] = useState(false);
+
+  const [Logout, setLogout] = useState(false);
   const history = useHistory();
 
   const { logout, loggedIn } = React.useContext(GlobalContext);
@@ -42,6 +44,11 @@ function DashboardClient() {
       {Cookies.get("user") ? (
         <div>
           <h1> Dashboard Client</h1>
+          {worker.map((item) => (
+            <div key={item._id}>
+              <h1>{item.userID}</h1>;
+            </div>
+          ))}
 
           <button
             type="submit"
