@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalState";
@@ -8,6 +9,7 @@ function Login() {
 
   let history = useHistory();
   const { login, loggedIn } = useContext(GlobalContext);
+
   const handleSubmit = (e: React.FormEvent<EventTarget>): void => {
     e.preventDefault();
     const data = { username: email, password: password };
@@ -16,13 +18,14 @@ function Login() {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(data),
     }).then((response) => {
-      console.log(response);
       response.json().then((res) => {
-        console.log(res);
         if (response.status === 200) {
           login!();
+          Cookies.set("user", "true");
+
           history.push("/dashboard", {});
         }
       });

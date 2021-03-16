@@ -5,11 +5,11 @@ import { config } from "dotenv";
 import morgan from "morgan";
 import passport from "passport";
 import session from "express-session";
+import connectMongo from "connect-mongo";
 config({ path: "./config/.env" });
 import connectDB from "./db/db.connect";
 connectDB();
 require("./passport/passport.config");
-
 import clientroute from "./user/user.routes";
 import postroute from "./post/post.routes";
 
@@ -17,14 +17,15 @@ const app: Express = express();
 
 app.use(
   session({
-    resave: true,
+    resave: false,
     saveUninitialized: true,
     secret: "thisissparta",
+    cookie: { maxAge: 2 * 60 * 60 * 1000 },
   })
 );
 
-app.use(cors());
 app.use(morgan("tiny"));
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
