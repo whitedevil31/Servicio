@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, Link, Redirect } from "react-router-dom";
-import { GlobalContext } from "../context/GlobalState";
 import Cookies from "js-cookie";
 import axios, { AxiosRequestConfig } from "axios";
 
@@ -19,10 +18,7 @@ function DashboardClient() {
       });
   }, []);
 
-  const [Logout, setLogout] = useState(false);
   const history = useHistory();
-
-  const { logout, loggedIn } = React.useContext(GlobalContext);
   const logoutHandler = () => {
     fetch("http://localhost:5000/logout", {
       method: "GET",
@@ -44,9 +40,9 @@ function DashboardClient() {
       {Cookies.get("user") ? (
         <div>
           <h1> Dashboard Client</h1>
-          {worker.map((item) => (
-            <div key={item._id}>
-              <h1>{item.userID}</h1>;
+          {worker.map((obj) => (
+            <div key={obj._id}>
+              <h1>{obj.userID}</h1>;
             </div>
           ))}
 
