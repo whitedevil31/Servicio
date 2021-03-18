@@ -38,11 +38,11 @@ export const signUpWorker = async (data: userType) => {
   console.log(isValid);
   if (isValid) {
     const client: mongodb.MongoClient = await getClient();
-    const connection = await client.db().collection("USERS");
+    const connection = await client.db().collection("worker");
     const result = await connection.findOne({ email: data.email });
     console.log(result);
     if (result) {
-      throw "user exist";
+      throw "worker exist";
     }
     const hashedPassword = await bcrypt.hash(data.password, 10);
     const insertData = {
