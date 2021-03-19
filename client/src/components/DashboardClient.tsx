@@ -89,11 +89,9 @@ function DashboardClient() {
                       src=""
                       alt="Workflow"
                     ></img>
-                    <img
-                      className="hidden lg:block h-8 w-auto"
-                      src=""
-                      alt="Workflow"
-                    ></img>
+                    <h1 className="hidden lg:block h-8 w-auto text-white">
+                      Servicio
+                    </h1>
                   </div>
                   <div className="hidden sm:block sm:ml-6">
                     <div className="flex space-x-4">
@@ -107,25 +105,24 @@ function DashboardClient() {
                         href="#"
                         className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                       >
-                        Team
+                        About
                       </a>
                       <a
                         href="#"
                         className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                       >
-                        Projects
+                        FAQ
                       </a>
                       <a
                         href="#"
                         className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                       >
-                        Calendar
+                        Contact Us
                       </a>
                     </div>
                   </div>
                 </div>
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-
                   <div className="ml-3 relative">
                     <div>
                       <button
@@ -138,7 +135,7 @@ function DashboardClient() {
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="h-8 w-8 rounded-full"
-                          src=""
+                          src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
                           alt=""
                         ></img>
                       </button>
@@ -170,16 +167,43 @@ function DashboardClient() {
               </div>
             </div>
           </nav>
-          
-            <div className="px-4 py-5 sm:px-6">
+
+          <div className="px-4 py-5 sm:px-6">
             {worker.map((obj) => (
-                <div className="bg-indigo-50 mr-5 ml-5 mt-8 h-40 shadow overflow-hidden sm:rounded-lg">
-                  <h1>Name: {obj.username}</h1>
-                </div>
-              ))}
-            </div>
-  
-{/* 
+              <div
+                className="bg-indigo-50 mr-5 ml-5 mt-8 h-40 shadow-inner overflow-hidden sm:rounded-2xl border-b-4 
+               border-green-800 flex
+               transition duration-300 ease-in-out hover:scale-y-125 hover:bg-indigo-100
+               "
+              >
+                <img
+                  className="h-20 w-20 ml-6 mt-7 rounded-b-full"
+                  src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+                  alt=""
+                ></img>
+                <h1 className=" block ml-5 mt-6 font-display text-xl text-green-800">
+                  {obj.username}
+                </h1>
+                <button className="w-14 h-8 mt-24 mr-8 -ml-8 shadow-lg flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700">
+                  Hire!
+                </button>
+                <p className=" block ml-5 mt-12 mr-7 font-display text-lg text-green-800">
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit
+                  repellat quas velit pariatur totam corporis ipsa animi maiores
+                  sapiente at tempora eveniet necessitatibus quasi sit sint,
+                  laborum magnam voluptatem similique.
+                </p>
+                <a className="ml-16 -mr-16 mt-12 w-12 h-12 px-5 py-5 shadow-lg flex items-center justify-center rounded-full bg-green-300 hover:bg-green-500">
+                  <i className="far fa-comments"></i>
+                </a>
+                <p className="block mt-28 mr-5 font-cursive text-xl text-green-800">
+                  <b>₹10,000{obj.pay}</b>
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* 
           <button
             type="submit"
             className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-400 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
