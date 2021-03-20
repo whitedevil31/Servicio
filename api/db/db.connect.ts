@@ -5,9 +5,9 @@ export async function connectDB(): Promise<MongoClient> {
   client = await MongoClient.connect(process.env.MONGO_URI || "", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    ignoreUndefined: true,
+    
   });
-  console.log("✔️   Connected to Database");
+  console.log("✔️ Connected to Database.");
   return client;
 }
 export async function getClient(): Promise<MongoClient> {

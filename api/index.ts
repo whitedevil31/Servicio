@@ -1,15 +1,16 @@
 import express, { Express, Response, Request, NextFunction } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import { config } from "dotenv";
+import  dotenv from "dotenv";
+dotenv.config({ path: "./.env" });
 import morgan from "morgan";
 import passport from "passport";
 import session from "express-session";
 import connectMongo from "connect-mongo";
-config({ path: "./config/.env" });
 import connectDB from "./db/db.connect";
 connectDB();
 require("./passport/passport.config");
+
 import clientroute from "./user/user.routes";
 import postroute from "./post/post.routes";
 
