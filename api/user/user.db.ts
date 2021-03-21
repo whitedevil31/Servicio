@@ -48,7 +48,7 @@ export const signUpWorker = async (data: userType) => {
     const insertData = {
       email: data.email,
       password: hashedPassword,
-      role: "worker",
+      role: data.role,
       username: data.username,
       gender: data.gender,
       residence: data.residence,

@@ -1,57 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, Link, Redirect } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import axios from "axios";
 
 function Signup() {
-  const [username, setUsername] = React.useState<any[]>(['']);
-  const [age, setAge] = React.useState<any[]>(['']);
-  const [password, setPassword] = React.useState<any[]>(['']);
-  const [gender, setGender] = React.useState<any[]>(['']);
-  const [residence, setResidence] = React.useState<any[]>(['']);
-  const [role, setRole] = React.useState<any[]>(['']);
-  const [about, setAbout] = React.useState<any[]>(['']);
+  // const [role, setRole] = React.useState<any[]>([]);
+  // const [gender, setGender] = React.useState<any[]>([]);
+  const { register, handleSubmit } = useForm<any>();
+
 
   let history = useHistory();
 
-  const handleChangeRole = (event: any) => {
-    setRole(event.target.value);
+  
+
+  const onSubmit = (data: any) => {
+    
+    let config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+  
+    console.log(data)
+    axios.post ('http://localhost:5000/api/register/client', data, config 
+    ).then((response) => {
+      console.log(response)
+    })
+      
   };
 
-  const handleChangeGender = (event: any) => {
-    setGender(event.target.value);
-  };
-
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    const data = {
-      username: username,
-      password: password,
-      age: age,
-      gender: gender,
-      about: about,
-      role: role,
-      residence: residence,
-    };
-
-    axios
-      .post("http://localhost:3000/register/client", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-      .then((response) => {
-        const { data } = response;
-        console.log(data);
-        console.log(response);
-      });
-  };
   return (
     <div>
       <div className="mt-10 sm:mt-10 sm:ml-16">
         <div className="md:grid md:grid-cols-2 md:gap-2">
           <div className="md:col-span-1">
-            <form action="#" method="POST" onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="shadow overflow-hidden sm:rounded-md ">
                 <div className="px-4 py-5 bg-white sm:p-6 border-r-2 border-indigo-400">
                   <div className="grid grid-cols-6 gap-10">
@@ -62,29 +45,32 @@ function Signup() {
                       >
                         Username
                       </label>
+
                       <input
                         type="text"
-                        name="first_name"
-                        id="first_name"
-                        
-                        autoComplete="given-name"
+                        name="username"
+                        ref={register}
+                        className="mt-1 h-10 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-inner sm:text-sm border-gray-500 border-b-2  rounded-md"
+                      ></input>
+
+                      <input
+                        type="text"
+                        name="email"                        
+                        ref={register}
                         className="mt-1 h-10 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-inner sm:text-sm border-gray-500 border-b-2  rounded-md"
                       ></input>
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
                       <label
-                        htmlFor="last_name"
                         className="block text-sm font-medium text-indigo-700"
                       >
                         Password
                       </label>
                       <input
                         type="password"
-                        value={password}
                         name="password"
-                        id="password"
-          
+                        ref={register}
                         className="mt-1 h-10 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-inner sm:text-sm border-gray-500 border-b-2 rounded-md"
                       ></input>
                       <p className="mt-2 text-sm text-indigo-700">
@@ -100,7 +86,8 @@ function Signup() {
                       <div className="mt-1">
                         <input
                           type="number"
-                          value={age}
+                          name="age"
+                          ref={register}
                           className="mt-1 h-10 px-2 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-inner sm:text-sm border-gray-500 border-b-2 rounded-md"
                         ></input>
                       </div>
@@ -116,8 +103,10 @@ function Signup() {
                       <div className="mt-1">
                         <select
                           className="mt-1 h-10 px-2 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-inner sm:text-sm border-gray-500 border-b-2 rounded-md"
-                          value={gender}
-                          onChange={handleChangeGender}
+                          // value={gender}
+                          ref={register}
+                          name="gender"
+                          // onChange={handleChangeGender}
                         >
                           <option value="none" selected hidden>
                             Gender
@@ -145,8 +134,9 @@ function Signup() {
                       <div className="mt-1">
                         <input
                           type="text"
-                          name="area"
-                          id="area"                    
+                          name="residence"
+                          id="area"
+                          ref={register}
                           className="mt-1 h-10 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-inner sm:text-sm border-gray-500 border-b-2  rounded-md"
                         ></input>
                       </div>
@@ -159,16 +149,18 @@ function Signup() {
                       <div className="mt-1 space-y-4">
                         <select
                           className="mt-1 h-10 px-2 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-inner sm:text-sm border-gray-500 border-b-2 rounded-md"
-                          value={role}
-                          onChange={handleChangeRole}
+                          // value={role}
+                          ref={register}
+                          name="role"
+                          // onChange={handleChangeRole}
                         >
                           <option value="none" selected hidden>
                             Role
                           </option>
-                          <option className="select" value="Male">
+                          <option className="select" value="Utility Helper">
                             Utility Helper
                           </option>
-                          <option className="select" value="Female">
+                          <option className="select" value="User">
                             User
                           </option>
                         </select>
@@ -184,9 +176,8 @@ function Signup() {
                       </label>
                       <div className="mt-1">
                         <textarea
-                          value={about}
                           name="about"
-                          id="about"
+                          ref={register}
                           className="mt-1 h-20 px-2 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-inner sm:text-sm border-gray-500 border-b-2 rounded-md"
                           placeholder="Short Introduction"
                         ></textarea>
@@ -195,19 +186,21 @@ function Signup() {
                         Let us know something about you.
                       </p>
                     </div>
+
+                    <div className="col-span-6 sm:col-span-6">
+                      
+                      
+                      <i className="fas fa-arrow-right">
+                        <input type ="submit" className="mt-2 text-sm text-indigo-700" />
+                      </i>
+                    </div>
+
                   </div>
                 </div>
               </div>
             </form>
           </div>
         </div>
-      </div>
-      <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-        <img
-          className=" ml-16 mb-5 mt-5 h-56 w-full sm:h-72 md:h-30 lg:w-5/6 lg:h-5/6 rounded-2xl"
-          src="https://images.unsplash.com/photo-1605106325682-3482f7c1c9c4?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjN8fHBhdHRlcm5zfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"
-          alt=""
-        ></img>
       </div>
     </div>
   );
