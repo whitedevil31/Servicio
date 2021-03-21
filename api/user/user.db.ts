@@ -3,13 +3,16 @@ import { getClient } from "../db/db.connect";
 import { userSchema, userType } from "./user.schema";
 import bcrypt from "bcryptjs";
 import passport from "passport";
+import { ParsedUrlQuery } from "node:querystring";
+import { connection } from "mongoose";
+import findDistance from "../test";
 
 export const signUpClient = async (data: userType) => {
   const isValid = await userSchema.isValid(data);
   console.log(isValid);
   if (isValid) {
     const client: mongodb.MongoClient = await getClient();
-    const connection = await client.db().collection("USERS");
+    const connection = await client.db().collection("users");
     const result = await connection.findOne({ email: data.email });
     console.log(result);
     if (result) {
@@ -38,7 +41,7 @@ export const signUpWorker = async (data: userType) => {
   console.log(isValid);
   if (isValid) {
     const client: mongodb.MongoClient = await getClient();
-    const connection = await client.db().collection("worker");
+    const connection = await client.db().collection("users");
     const result = await connection.findOne({ email: data.email });
     console.log(result);
     if (result) {
@@ -53,6 +56,10 @@ export const signUpWorker = async (data: userType) => {
       gender: data.gender,
       residence: data.residence,
       age: data.age,
+      location: {
+        latitude: data.location.latitude,
+        longitude: data.location.longitude,
+      },
     };
     const add = await connection.insertOne(insertData);
     if (add.insertedCount <= 0) {
@@ -63,4 +70,26 @@ export const signUpWorker = async (data: userType) => {
   throw "invalid data";
 };
 
-export const patchClient = async (data: userType) => {};
+interface cord {
+  latitude: String;
+  longitude: String;
+}
+export const locationFilter = async (data: cord) => {
+  const client: mongodb.MongoClient = await getClient();
+  const userList = await client.db().collection("cord").insertOne(data);
+};
+interface userLocation {
+  longitude: number;
+  latitude: number;
+}
+export const latpost = async (userLocation: userLocation) => {
+  const client: mongodb.MongoClient = await getClient();
+  const userList = await client
+    .db()
+    .collection("users")
+    .find({ role: "worker" })
+    .toArray();
+
+  const result = findDistance(userList, userLocation);
+  return result;
+};
