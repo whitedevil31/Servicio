@@ -10,11 +10,7 @@ const userSchema = yup
     age: yup.number(),
     about: yup.string(),
     residence: yup.string().trim().required(),
-    location: yup
-      .object({ latitude: yup.string(), longitude: yup.string() })
-      .required(),
-  })
-  .required();
+    location: yup.object({ latitude: yup.number(), longitude: yup.number()}.required();
 type userType = yup.InferType<typeof userSchema>;
 
 interface userInterface extends userType {
