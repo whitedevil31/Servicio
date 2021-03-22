@@ -2,37 +2,33 @@ import * as mongodb from "mongodb";
 import { getClient } from "../db/db.connect";
 import { userSchema, userType } from "./user.schema";
 import bcrypt from "bcryptjs";
-import passport from "passport";
-import { ParsedUrlQuery } from "node:querystring";
-import { connection } from "mongoose";
-// import findDistance from "../test";
 
 export const signUpClient = async (data: userType) => {
-  const isValid = await userSchema.isValid(data);
-  console.log(isValid);
-  if (isValid) {
-    const client: mongodb.MongoClient = await getClient();
-    const connection = await client.db().collection("users");
-    const result = await connection.findOne({ username: data.username });
-    console.log(result);
-    if (result) {
-      throw "user exist";
-    }
-    const hashedPassword = await bcrypt.hash(data.password, 10);
-    const insertData = {
-      password: hashedPassword,
-      role: data.role,
-      username: data.username,
-      gender: data.gender,
-      residence: data.residence,
-    };
-    const add = await connection.insertOne(insertData);
-    if (add.insertedCount <= 0) {
-      throw "error";
-    }
-    return { _id: add.insertedId };
+  await userSchema.validate(data).catch((err) => {
+    throw { success: false, message: err.errors };
+  });
+  const client: mongodb.MongoClient = await getClient();
+  const DB = await client.db().collection("users");
+  const result = await DB.findOne({ username: data.username });
+  if (result) {
+    throw { success: false, message: "User already exist" };
   }
-  throw "invalid data";
+  const hashedPassword = await bcrypt.hash(data.password, 10);
+  const insertData = {
+    username: data.username,
+    password: hashedPassword,
+    role: data.role,
+    age: data.age,
+    gender: data.gender,
+    residence: data.residence,
+    about: data.about,
+    location: data.location,
+  };
+  const response = await DB.insertOne(insertData);
+  if (response.insertedCount <= 0) {
+    throw { process: false, message: "MongoDB Error" };
+  }
+  return { success: true, _id: response.insertedId };
 };
 
 // export const signUpWorker = async (data: userType) => {

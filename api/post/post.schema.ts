@@ -6,12 +6,17 @@ const postSchema = yup
     services: yup.array().of(yup.string().strict().required()),
     pay: yup.number().required(),
   })
-  .noUnknown(true)
   .required();
+
 type postType = yup.InferType<typeof postSchema>;
-interface postInterface extends postType {
+
+interface workerPosts extends postType {
   _id: mongoDB.ObjectId;
   userID?: mongoDB.ObjectID;
 }
 
-export { postSchema, postType, postInterface };
+export interface ServiceType {
+  services: Array<string>;
+}
+
+export { postSchema, postType, workerPosts };
