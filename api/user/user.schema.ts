@@ -35,6 +35,7 @@ const userSchema = yup
     gender: yup.string().trim().required(),
     age: yup.number(),
     residence: yup.string().trim().required(),
+    location: yup.object({ latitude: yup.number(), longitude: yup.number() }),
   })
   .required();
 type userType = yup.InferType<typeof userSchema>;

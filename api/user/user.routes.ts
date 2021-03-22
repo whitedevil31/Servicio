@@ -5,8 +5,8 @@ import passport from "passport";
 import { getClient } from "../db/db.connect";
 import { userType, userSchema, userInterface } from "./user.schema";
 import { MongoClient } from "mongodb";
-import { signUpClient, signUpWorker, patchClient } from "./user.db";
-import { nextTick } from "process";
+import { signUpClient, signUpWorker, locationFilter, latpost } from "./user.db";
+
 const router: Router = Router();
 router.post(
   "/api/register/client",
@@ -24,7 +24,6 @@ router.post(
   "/api/register/worker",
   async (req: Request, res: Response, next: NextFunction) => {
     const data = req.body as userType;
-
     try {
       const result = await signUpWorker(data);
       res.status(201).send(result);
@@ -45,8 +44,27 @@ router.get("/logout", (req: Request, res: Response) => {
   req.logout();
   res.send("success").status(200);
 });
-router.get("/user", adminMiddleware, (req: Request, res: Response) => {
+router.get("/api/user", adminMiddleware, (req: Request, res: Response) => {
   res.send(req.user);
+});
+
+router.get(
+  "/locationfilter",
+  adminMiddleware,
+  (req: Request, res: Response) => {
+    const data = req.body;
+    locationFilter(data);
+  }
+);
+interface userLocation {
+  longitude: number;
+  latitude: number;
+}
+
+router.post("/lats", async (req, res) => {
+  const data = req.body as userLocation;
+  const result = await latpost(data);
+  res.json(result);
 });
 
 // router.post("/register/client", (req: Request, res: Response) => {
@@ -138,7 +156,7 @@ router.get("/user", adminMiddleware, (req: Request, res: Response) => {
 //   }
 // });
 
-// router.get("/", adminMiddleware, (req, res) => {
+// router.get("/", (req, res) => {
 //   res.send("dashbord");
 // });
 

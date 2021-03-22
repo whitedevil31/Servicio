@@ -7,7 +7,7 @@ import { ServiceType } from "../types/types";
 export const postData = async (data: postType, user: userInterface) => {
   const validatedData = await postSchema.validate(data);
   const client: mongodb.MongoClient = await getClient();
-  const connection = await client.db().collection("workerPost");
+  const connection = await client.db().collection("post");
   const addData = { user, ...validatedData };
   const add = await connection.insertOne(addData);
   if (add.insertedCount <= 0) {
@@ -18,13 +18,13 @@ export const postData = async (data: postType, user: userInterface) => {
 
 export const getAllPost = async () => {
   const client: mongodb.MongoClient = await getClient();
-  const connection = await client.db().collection("workerPost");
+  const connection = await client.db().collection("post");
   return await connection.find().toArray();
 };
 
 export const filterPost = async (service: string) => {
   const client: mongodb.MongoClient = await getClient();
-  const connection = await client.db().collection("workerPost");
+  const connection = await client.db().collection("post");
   const PostArray = await connection.find().toArray();
   const filterArray = PostArray.filter((obj: ServiceType) =>
     obj.services.find((ele) => ele === service)
