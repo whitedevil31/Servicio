@@ -1,10 +1,18 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useEffect } from "react";
 
 function Signup() {
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(showPosition);
+    function showPosition(position: any) {
+      console.log(position.coords.latitude);
+      console.log(position.coords.longitude);
+      console.log(`More or less ${position.coords.accuracy} meters.`);
+    }
+  }, []);
 
   const { register, handleSubmit } = useForm<any>();
-
 
   const onSubmit = (data: any) => {
     let config = {
@@ -169,13 +177,14 @@ function Signup() {
                         Let us know something about you.
                       </p>
                     </div>
-
-                    <button className="-mt-4 ml-96">
-                      <input
-                        type="submit"
-                        className="border border-transparent text-base font-medium rounded-md text-indigo-50 bg-indigo-400 hover:bg-indigo-900 md:py-2 md:text-sm md:px-4 cursor-pointer"
-                      />
-                    </button>
+                    <div className="col-span-6 sm:col-span-6">
+                      <button className="float-right">
+                        <input
+                          type="submit"
+                          className="border border-transparent text-base font-medium rounded-md text-indigo-50 bg-indigo-400 hover:bg-indigo-900 md:py-2 md:text-sm md:px-4 cursor-pointer"
+                        />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
