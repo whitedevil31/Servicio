@@ -51,6 +51,7 @@
     "@types/react-router-dom": "^5.1.7",
     "autoprefixer": "9",
     "postcss": "7",
+    "react-hook-form": "^6.15.5",
     "tailwindcss": "yarn:@tailwindcss/postcss7-compat"
   }
 }

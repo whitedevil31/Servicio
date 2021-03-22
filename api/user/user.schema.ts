@@ -34,6 +34,7 @@ const userSchema = yup
     username: yup.string().trim().required(),
     gender: yup.string().trim().required(),
     age: yup.number(),
+    about: yup.string(),
     residence: yup.string().trim().required(),
   })
   .required();
