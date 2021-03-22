@@ -5,12 +5,12 @@ function Home() {
   let history = useHistory();
   const loginHandler = (e: React.FormEvent<EventTarget>): void => {
     e.preventDefault();
-    history.push("/login", {});
+    history.push("/login");
   };
 
   const signupHandler = (e: React.FormEvent<EventTarget>): void => {
     e.preventDefault();
-    history.push("/signup", {});
+    history.push("/signup");
   };
 
   return (

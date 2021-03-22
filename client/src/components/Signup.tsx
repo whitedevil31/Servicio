@@ -1,12 +1,9 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { CORDS, Coordinates, userType, UserDetails } from "../types/types";
 
 function Signup() {
-  interface Coordinates {
-    latitude: string;
-    longitude: string;
-  }
   const [position, setPosition] = useState<Coordinates>();
 
   useEffect(() => {
@@ -15,11 +12,12 @@ function Signup() {
       timeout: 15000,
       maximumAge: 0,
     };
+
     function error(err: any) {
       console.warn(`ERROR(${err.code}): ${err.message}`);
     }
     navigator.geolocation.getCurrentPosition(showPosition);
-    function showPosition(position: any) {
+    function showPosition(position: CORDS) {
       console.log(position.coords.latitude);
       console.log(position.coords.longitude);
       console.log(`More or less ${position.coords.accuracy} meters.`);
@@ -27,12 +25,14 @@ function Signup() {
     navigator.geolocation.getCurrentPosition(showPosition, error, options);
   }, []);
 
-  const { register, handleSubmit } = useForm<any>();
+  const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data: any) => {
-    const userData = {
-      latitude: position?.latitude,
-      longitude: position?.longitude,
+  const onSubmit = (data: UserDetails) => {
+    const userData: userType = {
+      location: {
+        latitude: position!.latitude,
+        longitude: position!.longitude,
+      },
       ...data,
     };
     let config = {

@@ -4,8 +4,8 @@ import { useHistory } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalState";
 
 function Login() {
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [username, setUsername] = React.useState<string | null>("");
+  const [password, setPassword] = React.useState<string | null>("");
 
   let history = useHistory();
   const { login, loggedIn } = useContext(GlobalContext);
@@ -25,8 +25,7 @@ function Login() {
         if (response.status === 200) {
           login!();
           Cookies.set("user", "true");
-
-          history.push("/dashboard", {});
+          history.push("/dashboard");
         }
       });
     });
