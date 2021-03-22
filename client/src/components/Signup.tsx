@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useHistory, Link, Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import React, { useState, useEffect } from "react";
 
 function Signup() {
   interface Coordinates {
@@ -19,22 +18,16 @@ function Signup() {
     function error(err: any) {
       console.warn(`ERROR(${err.code}): ${err.message}`);
     }
+    navigator.geolocation.getCurrentPosition(showPosition);
     function showPosition(position: any) {
-      setPosition({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-      });
       console.log(position.coords.latitude);
       console.log(position.coords.longitude);
       console.log(`More or less ${position.coords.accuracy} meters.`);
     }
     navigator.geolocation.getCurrentPosition(showPosition, error, options);
   }, []);
-  // const [role, setRole] = React.useState<any[]>([]);
-  // const [gender, setGender] = React.useState<any[]>([]);
-  const { register, handleSubmit } = useForm<any>();
 
-  let history = useHistory();
+  const { register, handleSubmit } = useForm<any>();
 
   const onSubmit = (data: any) => {
     const userData = {
@@ -43,28 +36,28 @@ function Signup() {
       ...data,
     };
     console.log(userData);
-    // let config = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // };
+    let config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
-    // console.log(data);
-    // axios
-    //   .post("http://localhost:5000/api/register/client", data, config)
-    //   .then((response) => {
-    //     console.log(response);
-    //   });
+    console.log(data);
+    axios
+      .post("http://localhost:5000/api/register/client", data, config)
+      .then((response) => {
+        console.log(response);
+      });
   };
 
   return (
     <div>
-      <div className="mt-10 sm:mt-10 sm:ml-16">
+      <div className="mt-10 sm:mt-5 sm:mb-5 sm:ml-16">
         <div className="md:grid md:grid-cols-2 md:gap-2">
           <div className="md:col-span-1">
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="shadow overflow-hidden sm:rounded-md ">
-                <div className="px-4 py-5 bg-white sm:p-6 border-r-2 border-indigo-400">
+                <div className="px-2 py-2 bg-white sm:p-6 border-r-2 border-indigo-400">
                   <div className="grid grid-cols-6 gap-10">
                     <div className="col-span-6 sm:col-span-3">
                       <label
@@ -204,7 +197,7 @@ function Signup() {
                         <textarea
                           name="about"
                           ref={register}
-                          className="mt-1 h-20 px-2 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-inner sm:text-sm border-gray-500 border-b-2 rounded-md"
+                          className="mt-1 h-15 px-2 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-inner sm:text-sm border-gray-500 border-b-2 rounded-md"
                           placeholder="Short Introduction"
                         ></textarea>
                       </div>
@@ -212,7 +205,6 @@ function Signup() {
                         Let us know something about you.
                       </p>
                     </div>
-
                     <div className="col-span-6 sm:col-span-6">
                       <i className="fas fa-arrow-right">
                         <input
@@ -220,6 +212,12 @@ function Signup() {
                           className="mt-2 text-sm text-indigo-700"
                         />
                       </i>
+                      <button className="float-right">
+                        <input
+                          type="submit"
+                          className="border border-transparent text-base font-medium rounded-md text-indigo-50 bg-indigo-400 hover:bg-indigo-900 md:py-2 md:text-sm md:px-4 cursor-pointer"
+                        />
+                      </button>
                     </div>
                   </div>
                 </div>
