@@ -10,11 +10,11 @@ import { userDB } from "../types/types";
 const localStrategy = passportLocal.Strategy;
 
 passport.use(
-  new localStrategy(async (email: string, password: string, done) => {
+  new localStrategy(async (username: string, password: string, done) => {
     const client: mongodb.MongoClient = await getClient();
-    const connection = await client.db().collection("USERS");
+    const connection = await client.db().collection("users");
 
-    connection.findOne({ email: email }, (err, user) => {
+    connection.findOne({ username: username }, (err, user) => {
       if (err) throw err;
       if (!user) return done(null, false);
       bcrypt.compare(password, user.password, (err, result: boolean) => {
@@ -22,7 +22,6 @@ passport.use(
         if (result === true) {
           return done(null, {
             _id: user._id,
-            email: user.email,
             username: user.username,
             role: user.role,
             gender: user.gender,
@@ -38,19 +37,18 @@ passport.use(
 );
 
 passport.serializeUser<userInterface, any>((user: userInterface, cb: any) => {
-  cb(null, user.email);
+  cb(null, user.username);
 });
 
-passport.deserializeUser(async (userEmail: string, cb) => {
+passport.deserializeUser(async (username: string, cb) => {
   const client: mongodb.MongoClient = await getClient();
-  const connection = await client.db().collection("USERS");
+  const connection = await client.db().collection("users");
 
-  const find = { email: userEmail };
+  const find = { username: username };
   try {
     const result = await connection.findOne(find);
     const userInformation: userDB = {
       _id: result._id,
-      email: result.email,
       role: result.role,
       username: result.username,
       gender: result.gender,

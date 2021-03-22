@@ -4,29 +4,57 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 
 function Signup() {
+  interface Coordinates {
+    latitude: string;
+    longitude: string;
+  }
+  const [position, setPosition] = useState<Coordinates>();
+
+  useEffect(() => {
+    var options = {
+      enableHighAccuracy: true,
+      timeout: 15000,
+      maximumAge: 0,
+    };
+    function error(err: any) {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+    function showPosition(position: any) {
+      setPosition({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+      console.log(position.coords.latitude);
+      console.log(position.coords.longitude);
+      console.log(`More or less ${position.coords.accuracy} meters.`);
+    }
+    navigator.geolocation.getCurrentPosition(showPosition, error, options);
+  }, []);
   // const [role, setRole] = React.useState<any[]>([]);
   // const [gender, setGender] = React.useState<any[]>([]);
   const { register, handleSubmit } = useForm<any>();
 
-
   let history = useHistory();
 
-  
-
   const onSubmit = (data: any) => {
-    
-    let config = {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }
-  
-    console.log(data)
-    axios.post ('http://localhost:5000/api/register/client', data, config 
-    ).then((response) => {
-      console.log(response)
-    })
-      
+    const userData = {
+      latitude: position?.latitude,
+      longitude: position?.longitude,
+      ...data,
+    };
+    console.log(userData);
+    // let config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
+
+    // console.log(data);
+    // axios
+    //   .post("http://localhost:5000/api/register/client", data, config)
+    //   .then((response) => {
+    //     console.log(response);
+    //   });
   };
 
   return (
@@ -55,16 +83,14 @@ function Signup() {
 
                       <input
                         type="text"
-                        name="email"                        
+                        name="email"
                         ref={register}
                         className="mt-1 h-10 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-inner sm:text-sm border-gray-500 border-b-2  rounded-md"
                       ></input>
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
-                      <label
-                        className="block text-sm font-medium text-indigo-700"
-                      >
+                      <label className="block text-sm font-medium text-indigo-700">
                         Password
                       </label>
                       <input
@@ -188,13 +214,13 @@ function Signup() {
                     </div>
 
                     <div className="col-span-6 sm:col-span-6">
-                      
-                      
                       <i className="fas fa-arrow-right">
-                        <input type ="submit" className="mt-2 text-sm text-indigo-700" />
+                        <input
+                          type="submit"
+                          className="mt-2 text-sm text-indigo-700"
+                        />
                       </i>
                     </div>
-
                   </div>
                 </div>
               </div>
