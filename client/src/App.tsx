@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import Home from './components/Home'
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import DashboardClient from "./components/DashboardClient";
@@ -12,6 +12,9 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/login">
             <Login />
           </Route>
           <Route path="/signup">
