@@ -35,16 +35,13 @@ function Signup() {
       longitude: position?.longitude,
       ...data,
     };
-    console.log(userData);
     let config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
-
-    console.log(data);
     axios
-      .post("http://localhost:5000/api/register/client", data, config)
+      .post("http://localhost:5000/api/register/client", userData, config)
       .then((response) => {
         console.log(response);
       });

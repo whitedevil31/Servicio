@@ -15,7 +15,7 @@ function DashboardClient() {
       })
       .then((response) => {
         setWorker(response.data);
-        console.log("random console");
+        console.log(response);
       });
   }, []);
 

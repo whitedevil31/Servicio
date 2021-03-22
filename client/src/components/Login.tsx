@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { GlobalContext } from "../context/GlobalState";
 
 function Login() {
-  const [email, setEmail] = React.useState("");
+  const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
   let history = useHistory();
@@ -12,7 +12,7 @@ function Login() {
 
   const handleSubmit = (e: React.FormEvent<EventTarget>): void => {
     e.preventDefault();
-    const data = { username: email, password: password };
+    const data = { username: username, password: password };
     fetch("http://localhost:5000/login", {
       method: "POST",
       headers: {
@@ -50,16 +50,15 @@ function Login() {
           <input type="hidden" name="remember" value="true"></input>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label className="sr-only">Email address</label>
+              <label className="sr-only">Username</label>
               <input
                 id="email-address"
-                name="email"
-                type="email"
-                autoComplete="email"
+                name="username"
+                type="text"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
-                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Username"
+                onChange={(e) => setUsername(e.target.value)}
               ></input>
             </div>
 
