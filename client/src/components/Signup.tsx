@@ -1,42 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { useHistory, Link, Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
 function Signup() {
-  // const [role, setRole] = React.useState<any[]>([]);
-  // const [gender, setGender] = React.useState<any[]>([]);
+
   const { register, handleSubmit } = useForm<any>();
 
 
-  let history = useHistory();
-
-  
-
   const onSubmit = (data: any) => {
-    
     let config = {
       headers: {
-        "Content-Type": "application/json"
-      }
-    }
-  
-    console.log(data)
-    axios.post ('http://localhost:5000/api/register/client', data, config 
-    ).then((response) => {
-      console.log(response)
-    })
-      
+        "Content-Type": "application/json",
+      },
+    };
+
+    console.log(data);
+    axios
+      .post("http://localhost:5000/api/register/client", data, config)
+      .then((response) => {
+        console.log(response);
+      });
   };
 
   return (
     <div>
-      <div className="mt-10 sm:mt-10 sm:ml-16">
+      <div className="mt-10 sm:mt-5 sm:mb-5 sm:ml-16">
         <div className="md:grid md:grid-cols-2 md:gap-2">
           <div className="md:col-span-1">
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="shadow overflow-hidden sm:rounded-md ">
-                <div className="px-4 py-5 bg-white sm:p-6 border-r-2 border-indigo-400">
+                <div className="px-2 py-2 bg-white sm:p-6 border-r-2 border-indigo-400">
                   <div className="grid grid-cols-6 gap-10">
                     <div className="col-span-6 sm:col-span-3">
                       <label
@@ -52,19 +44,10 @@ function Signup() {
                         ref={register}
                         className="mt-1 h-10 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-inner sm:text-sm border-gray-500 border-b-2  rounded-md"
                       ></input>
-
-                      <input
-                        type="text"
-                        name="email"                        
-                        ref={register}
-                        className="mt-1 h-10 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-inner sm:text-sm border-gray-500 border-b-2  rounded-md"
-                      ></input>
                     </div>
 
                     <div className="col-span-6 sm:col-span-3">
-                      <label
-                        className="block text-sm font-medium text-indigo-700"
-                      >
+                      <label className="block text-sm font-medium text-indigo-700">
                         Password
                       </label>
                       <input
@@ -178,7 +161,7 @@ function Signup() {
                         <textarea
                           name="about"
                           ref={register}
-                          className="mt-1 h-20 px-2 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-inner sm:text-sm border-gray-500 border-b-2 rounded-md"
+                          className="mt-1 h-15 px-2 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-inner sm:text-sm border-gray-500 border-b-2 rounded-md"
                           placeholder="Short Introduction"
                         ></textarea>
                       </div>
@@ -187,14 +170,12 @@ function Signup() {
                       </p>
                     </div>
 
-                    <div className="col-span-6 sm:col-span-6">
-                      
-                      
-                      <i className="fas fa-arrow-right">
-                        <input type ="submit" className="mt-2 text-sm text-indigo-700" />
-                      </i>
-                    </div>
-
+                    <button className="-mt-4 ml-96">
+                      <input
+                        type="submit"
+                        className="border border-transparent text-base font-medium rounded-md text-indigo-50 bg-indigo-400 hover:bg-indigo-900 md:py-2 md:text-sm md:px-4 cursor-pointer"
+                      />
+                    </button>
                   </div>
                 </div>
               </div>
