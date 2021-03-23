@@ -1,11 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, Link, Redirect } from "react-router-dom";
 import Cookies from "js-cookie";
+import Modal from "@material-ui/core/Modal";
 import axios, { AxiosRequestConfig } from "axios";
 import { useForm } from "react-hook-form";
 
 const DashboardWorker = () => {
   const { register, handleSubmit } = useForm();
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const history = useHistory();
   const logoutHandler = () => {
@@ -49,16 +60,39 @@ const DashboardWorker = () => {
 
     const workerData: any = {
       ...data,
-      services: selected
+      services: selected,
     };
 
-  
     axios
       .post("http://localhost:5000/api/worker/post", workerData, config)
       .then((response) => {
         console.log(response);
       });
   };
+
+  window.addEventListener('DOMContentLoaded', () =>{
+    const overlay = document.querySelector('#overlay')
+    const delBtn = document.querySelector('#delete-btn')
+    const closeBtn = document.querySelector('#close-modal')
+
+    const toggleModal = () => {
+
+      if(overlay){
+        overlay.classList.toggle('hidden')
+        overlay.classList.toggle('flex')
+      }
+
+    }
+    
+    if(closeBtn){
+    
+    closeBtn.addEventListener('click', toggleModal)
+    }
+
+    if(delBtn){
+      delBtn.addEventListener('click', toggleModal)
+    }
+})
 
   return (
     <div>
@@ -193,19 +227,123 @@ const DashboardWorker = () => {
           </nav>
 
           <div className="w-screen h-full flex ">
-            <div className="w-1/5 float-left bg-gray-200 rounded-md h-96 ml-5 mt-5 shadow-2xl transition duration-400 ease-in-out hover:scale-y-125 hover:bg-gray-300 ">
-              testsdsdsdfdsfsdfsdfdsfsdf
-            </div>
-
-            <div className="flex flex-col w-1/2 h-3/4 mr-4">
+            <div className="flex flex-row w-3/4 h-2/6 mr-4">
               <div
-                className="flex justify-between bg-indigo-50 ml-6 mt-4 h-full w-full shadow-inner sm:rounded-2xl border-b-4 
+                className="flex bg-indigo-50 ml-6 mt-4 h-full w-full shadow-inner sm:rounded-2xl border-b-4 
                border-green-800 
                transition duration-300 ease-in-out hover:scale-y-125 hover:bg-indigo-100
                "
               >
-                Hey, Let's Get you started.
-                <form onSubmit={handleSubmit(onSubmit)} id="worker">
+                <div className="flex flex-col">
+                  <p className="px-4 py-4">Hey, Let's Get you started.</p>
+
+                  <div className="flex-row float-left px-5">
+                    <img
+                      className="h-8 w-8 mr-0 rounded-full"
+                      src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+                      alt=""
+                    ></img>
+                    <input
+                      className="px-5 py-5 h-5 w-96 mt-4 rounded-md cursor-pointer "
+                      type="text"
+                      placeholder="Enter post"
+                      id="delete-btn"
+                    ></input>
+
+                    <div
+                      className="bg-black bg-opacity-50 absolute inset-0 hidden justify-center items-center"
+                      id="overlay"
+                    >
+                      <div className="bg-gray-200 max-w-2xl py-2 px-3 rounded shadow-xl text-gray-800">
+                        <div className="flex justify-between items-center">
+                          <h4 className="text-lg mt-3 font-bold">Let's start here</h4>
+                          <svg
+                            className="h-6 w-6 cursor-pointer p-1 hover:bg-gray-300 rounded-full"
+                            id="close-modal"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              clip-rule="evenodd"
+                            ></path>
+                          </svg>                  
+                        </div>
+                        <div className="flex flex-col mt-10">
+                          <div>
+                            <label className="mr-3 ml-5">Pay: </label>
+                            <input type="number" className="h-4 px-3 py-3 rounded-md w-20"></input>
+                            </div>
+                          
+                          <div className="mt-5">
+                            <label className="mr-3 ml-5">Services: </label>                            
+                          </div>
+                          
+                          <div className="mr-4 ml-4 mt-3 flex flex-row space-x-3">
+                          <input
+                                id="plumbing"
+                                name="plumbing"
+                                type="checkbox"
+                                value="plumbing"
+                                className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                              ></input>
+                              <label className="font-medium text-gray-700">
+                                Plumbing
+                              </label>
+
+                              <input
+                                id="plumbing"
+                                name="plumbing"
+                                type="checkbox"
+                                value="plumbing"
+                                className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                              ></input>
+                              <label className="font-medium text-gray-700">
+                                Plumbing
+                              </label>
+                              <input
+                                id="plumbing"
+                                name="plumbing"
+                                type="checkbox"
+                                value="plumbing"
+                                className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                              ></input>
+                              <label className="font-medium text-gray-700">
+                                Plumbing
+                              </label>
+                              <input
+                                id="plumbing"
+                                name="plumbing"
+                                type="checkbox"
+                                value="plumbing"
+                                className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                              ></input>
+                              <label className="font-medium text-gray-700">
+                                Plumbing
+                              </label>
+                              <input
+                                id="plumbing"
+                                name="plumbing"
+                                type="checkbox"
+                                value="plumbing"
+                                className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                              ></input>
+                              <label className="font-medium text-gray-700">
+                                Plumbing
+                              </label>
+                        </div>
+                        
+                          
+                              <button className="px-3 py-1 mt-5 rounded hover:bg-red-300 hover:bg-opacity-50 hover:text-red-900">
+                            Cancel
+                          </button> 
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* <form onSubmit={handleSubmit(onSubmit)} id="worker">
                   <div className="flex flex-col">
                     <div className="mt-16 w-1/2 mr-72 ">
                       <label
@@ -272,8 +410,11 @@ const DashboardWorker = () => {
                       className="w-40 h-20 mt-24 mr-8 -ml-8 shadow-lg flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700"
                     />
                   </button>
-                </form>
+                </form> */}
               </div>
+            </div>
+            <div className="w-1/5 float-right bg-gray-200 rounded-md h-96 ml-5 mt-5 shadow-2xl transition duration-400 ease-in-out hover:scale-y-125 hover:bg-gray-300 ">
+              testsdsdsdfdsfsdfsdfdsfsdf
             </div>
           </div>
         </div>
