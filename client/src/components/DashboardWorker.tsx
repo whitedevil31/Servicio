@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 const DashboardWorker = () => {
   const { register, handleSubmit } = useForm();
 
-  const workerPost = () => {};
 
   const history = useHistory();
   const logoutHandler = () => {
@@ -27,33 +26,42 @@ const DashboardWorker = () => {
   };
 
   const onSubmit = (data: any) => {
-    alert("poda naye");
-    console.log(data)
+    var selected = new Array();
+    var worker = document.getElementById("worker");
+
+    if (worker) {
+      var ticks = worker.getElementsByTagName("input");
+
+      for (var i = 0; i < ticks.length; i++) {
+        if (ticks[i].checked) {
+          selected.push(ticks[i].value);
+        }
+      }
+    }
+  
+ 
     let config = {
+
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json",
       },
     };
-    // if (position?.latitude === undefined) {
-    //   return window.alert("Enable location or refresh the page to continue ");
-    // }
-    // const userData: userType = {
-    //   location: {
-    //     latitude: position!.latitude,
-    //     longitude: position!.longitude,
-    //   },
-    //   ...data,
-    // };
-    // let config = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // };
-    // axios
-    //   .post("http://localhost:5000/api/worker/post", data, config)
-    //   .then((response) => {
-    //     console.log(response);
-    //   });
+   
+    const workerData: any = {
+      services: {
+        ...selected
+      },
+      ...data
+    };
+
+    console.log(workerData)
+  
+    axios
+      .post("http://localhost:5000/api/worker/post", workerData, config)
+      .then((response) => {
+        console.log(response);
+      });
   };
 
   return (
@@ -206,7 +214,7 @@ const DashboardWorker = () => {
                "
               >
                 Hey, Let's Get you started.
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} id="worker">
                   <div className="flex flex-col">
                     <div className="mt-10 w-1/2 ml-3 mr-5">
                       <label
@@ -234,10 +242,10 @@ const DashboardWorker = () => {
                           <div className="flex items-start">
                             <div className="flex items-center h-5">
                               <input
-                                id="comments"
+                                id="plumbing"
                                 name="plumbing"
-                                ref={register}
                                 type="checkbox"
+                                value="plumbing"
                                 className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                               ></input>
                             </div>
@@ -250,10 +258,10 @@ const DashboardWorker = () => {
                           <div className="flex items-start">
                             <div className="flex items-center h-5">
                               <input
-                                id="candidates"
+                                id="cooking"
                                 name="cooking"
-                                ref={register}
                                 type="checkbox"
+                                value="cooking"
                                 className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                               ></input>
                             </div>
@@ -261,20 +269,17 @@ const DashboardWorker = () => {
                               <label className="font-medium text-gray-700">
                                 Cooking
                               </label>
-                  
                             </div>
                           </div>
-                      
                         </div>
                       </fieldset>
                     </div>
                   </div>
                   <button>
                     <input
-                    type="submit"
-                    className="w-40 h-20 mt-24 mr-8 -ml-8 shadow-lg flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700"
-                  />
-                    
+                      type="submit"
+                      className="w-40 h-20 mt-24 mr-8 -ml-8 shadow-lg flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700"
+                    />
                   </button>
                 </form>
               </div>

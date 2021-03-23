@@ -42,8 +42,8 @@ function DashboardClient() {
   return (
     <div>
       {Cookies.get("user") ? (
-        <div>
-          <nav className="bg-gray-800">
+        <div className="w-full h-screen flex flex-col">
+          <nav className="w-screen bg-gray-800">
             <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
               <div className="relative flex items-center justify-between h-16">
                 <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -172,18 +172,16 @@ function DashboardClient() {
               </div>
             </div>
           </nav>
-          <div className="flex">
-            <div className="flex flex-row">
-              <div className="bg-gray-200 shadow-2xl rounded-2xl mt-10 ml-5 relative h-2/4 w-72 min-h-screen">
-                <div className="xl:py-2">
-                  <div className="xl:flex uppercase font-bold text-white text-lg px-4 py-2">
+
+          <div className="w-screen h-full border-2 p-1 flex justify-center">
+            <div className="w-1/5 border-2 border-yellow-500 h-full mr-4">
+              
                     testsdsdsdfdsfsdfsdfdsfsdf
                   </div>
-                </div>
-              </div>
-            </div>
+             
+           
 
-            <div className="flex flex-col">
+            <div className="w-1/2 border-2 border-blue-500 h-full mr-4">
               {worker.map((obj) => (
                 <div
                   className="flex justify-between bg-indigo-50 ml-6 mt-8 h-40 w-11/12 shadow-inner sm:rounded-2xl border-b-4 
@@ -219,13 +217,13 @@ function DashboardClient() {
               ))}
             </div>
 
-            <div className="flex flex-row">
-              <div className="bg-gray-200 shadow-2xl rounded-2xl mt-10 mr-5 relative h-3/4 w-56 min-h-screen">
-                <div className="xl:py-2">
+            <div className="bg-gray-200 shadow-2xl rounded-2xl w-1/4S h-full">
+              
+                  <div className="xl:flex uppercase font-bold text-black text-lg px-4 py-2">
                     Workers Near By:
-                </div>
-              </div>
+                  </div>
             </div>
+
           </div>
         </div>
       ) : (
