@@ -24,13 +24,15 @@ function Login() {
       response.json().then((res) => {
         if (response.status === 200) {
           login!();
-          Cookies.set("user", "true");
+          // Cookies.set("user", "true");
           console.log(res.role);
           if (res.role == "User") {
             history.push("/dashboard");
+            Cookies.set("user", "true");
             console.log("he i user");
           } else {
             console.log("he is worler");
+            Cookies.set("worker", "true");
             history.push("/worker/dashboard");
           }
         }
