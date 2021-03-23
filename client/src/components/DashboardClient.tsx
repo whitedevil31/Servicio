@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, Link, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
-import axios, { AxiosRequestConfig } from "axios";
+import { workerPost } from "../types/types";
+import axios from "axios";
 
 function DashboardClient() {
-  const [worker, setWorker] = useState<any[]>([]);
-
-  
+  const [worker, setWorker] = useState<workerPost[]>([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/worker/get", {
+      .get<workerPost[]>("http://localhost:5000/api/worker/get", {
         headers: {
           "Content-Type": "application/json",
         },
-        withCredentials: true
+        withCredentials: true,
       })
       .then((response) => {
         setWorker(response.data);
         console.log(response);
       });
-  });
+  }, []);
 
   const history = useHistory();
   const logoutHandler = () => {
@@ -127,48 +126,46 @@ function DashboardClient() {
                   </div>
                 </div>
 
-                  <div className="ml-3 relative">
-                    <div>
-                      <button
-                        type="button"
-                        className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                        id="user-menu"   
-                        aria-haspopup="true"
-                        aria-expanded="false"                     
-                      >
-                        <img
-                          className="h-8 w-8 rounded-full"
-                          src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-                          alt=""
-                        ></img>
-                      </button>
-                    </div>
-                    <div
-                      hidden={true}
-                      className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-                      role="menu"
-                      aria-orientation="vertical"
-                      aria-labelledby="user-menu"
-                      
+                <div className="ml-3 relative">
+                  <div>
+                    <button
+                      type="button"
+                      className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                      id="user-menu"
+                      aria-haspopup="true"
+                      aria-expanded="false"
                     >
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        role="menuitem"
-                      >
-                        Your Profile
-                      </a>
-
-                      <a
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                        onClick={logoutHandler}
-                        role="menuitem"
-                      >
-                        Sign out
-                      </a>
-                    </div>
+                      <img
+                        className="h-8 w-8 rounded-full"
+                        src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+                        alt=""
+                      ></img>
+                    </button>
                   </div>
-                
+                  <div
+                    hidden={true}
+                    className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="user-menu"
+                  >
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      role="menuitem"
+                    >
+                      Your Profile
+                    </a>
+
+                    <a
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                      onClick={logoutHandler}
+                      role="menuitem"
+                    >
+                      Sign out
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </nav>
@@ -197,10 +194,10 @@ function DashboardClient() {
                     alt=""
                   ></img>
                   <h1 className="flex ml-5 mt-6 font-display text-xl text-green-800">
-                    Name{obj.username}
+                    Name{obj.user.username}
                   </h1>
                   <p className="flex flex-row mt-16 -ml-12 font-display text-sm font-bold text-green-800">
-                    Age{obj.age}
+                    Age{obj.user.age}
                   </p>
                   <button className="w-14 h-8 mt-24 mr-8 -ml-8 shadow-lg flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700">
                     Hire!
@@ -221,9 +218,7 @@ function DashboardClient() {
 
             <div className="flex flex-row">
               <div className="bg-gray-200 shadow-2xl rounded-2xl mt-10 mr-5 relative h-3/4 w-56 min-h-screen">
-                <div className="xl:py-2">
-                    Workers Near By:
-                </div>
+                <div className="xl:py-2">Workers Near By:</div>
               </div>
             </div>
           </div>

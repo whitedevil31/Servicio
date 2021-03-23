@@ -7,9 +7,10 @@ import {
   userType,
   UserDetails,
 } from "../types/types";
-
+import { useHistory } from "react-router-dom";
 
 function Signup() {
+  const history = useHistory();
   const [position, setPosition] = useState<Coordinates | null>();
   const { register, handleSubmit } = useForm();
   useEffect(() => {
@@ -55,6 +56,11 @@ function Signup() {
       .post("http://localhost:5000/api/register ", userData, config)
       .then((response) => {
         console.log(response);
+        if (response.status == 201) {
+          setTimeout(() => {
+            history.push("/");
+          }, 500);
+        }
       });
   };
 
@@ -67,14 +73,19 @@ function Signup() {
           alt=""
         ></img>
         <div className="px-2 py-2 shadow-inner bg-blur-md bg-brightness-75 sm:p-6 rounded-xl -ml-72 mt-28 h-full w-72 text-white">
-            <div className="pt-12 text-3xl font-extrabold">Find your perfect Utility helper</div>
-            <div className="pt-12 text-5xl font-bold">In a single Click</div>
-            <div className="pt-5 text-xs">Already a member? <a className="font-bold" href="http://localhost:3000/login">Sign in</a>
-            </div>
+          <div className="pt-12 text-3xl font-extrabold">
+            Find your perfect Utility helper
+          </div>
+          <div className="pt-12 text-5xl font-bold">In a single Click</div>
+          <div className="pt-5 text-xs">
+            Already a member?{" "}
+            <a className="font-bold" href="http://localhost:3000/login">
+              Sign in
+            </a>
+          </div>
         </div>
-
       </div>
-      
+
       <div className="float-right w-2/4 mt-10 sm:mt-3 sm:mb-3 sm:mr-28">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="shadow-2xl overflow-hidden sm:rounded-md ">
