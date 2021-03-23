@@ -251,7 +251,7 @@ const DashboardWorker = () => {
                     ></input>
 
                     <div
-                      className="bg-black bg-opacity-50 absolute inset-0 hidden justify-center items-center"
+                      className="bg-black bg-opacity-50 absolute inset-0 flex justify-center items-center"
                       id="overlay"
                     >
                       <div className="bg-gray-200 max-w-2xl py-2 px-3 rounded shadow-xl text-gray-800">
