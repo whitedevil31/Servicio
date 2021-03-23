@@ -13,7 +13,7 @@ function Login() {
   const handleSubmit = (e: React.FormEvent<EventTarget>): void => {
     e.preventDefault();
     const data = { username: username, password: password };
-    fetch("http://localhost:5000/login", {
+    fetch("http://localhost:5000/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,7 +25,14 @@ function Login() {
         if (response.status === 200) {
           login!();
           Cookies.set("user", "true");
-          history.push("/dashboard");
+          console.log(res.role);
+          if (res.role == "User") {
+            history.push("/dashboard");
+            console.log("he i user");
+          } else {
+            console.log("he is worler");
+            history.push("/worker/dashboard");
+          }
         }
       });
     });

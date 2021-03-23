@@ -1,11 +1,16 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { CORDS, Coordinates, userType, UserDetails } from "../types/types";
+import {
+  geoPosition,
+  Coordinates,
+  userType,
+  UserDetails,
+} from "../types/types";
 
 function Signup() {
-  const [position, setPosition] = useState<Coordinates>();
-
+  const [position, setPosition] = useState<Coordinates | null>();
+  const { register, handleSubmit } = useForm();
   useEffect(() => {
     var options = {
       enableHighAccuracy: true,
@@ -14,20 +19,25 @@ function Signup() {
     };
 
     function error(err: any) {
-      console.warn(`ERROR(${err.code}): ${err.message}`);
+      window.alert("Please enable location services to continue");
     }
     navigator.geolocation.getCurrentPosition(showPosition);
-    function showPosition(position: CORDS) {
+    function showPosition(position: geoPosition) {
       console.log(position.coords.latitude);
       console.log(position.coords.longitude);
       console.log(`More or less ${position.coords.accuracy} meters.`);
+      setPosition({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
     }
     navigator.geolocation.getCurrentPosition(showPosition, error, options);
   }, []);
 
-  const { register, handleSubmit } = useForm();
-
   const onSubmit = (data: UserDetails) => {
+    if (position?.latitude === undefined) {
+      return window.alert("Enable location or refresh the page to continue ");
+    }
     const userData: userType = {
       location: {
         latitude: position!.latitude,
@@ -41,7 +51,7 @@ function Signup() {
       },
     };
     axios
-      .post("http://localhost:5000/api/register/client", userData, config)
+      .post("http://localhost:5000/api/register ", userData, config)
       .then((response) => {
         console.log(response);
       });

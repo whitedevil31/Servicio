@@ -8,7 +8,7 @@ function DashboardClient() {
   const [worker, setWorker] = useState<workerPost[]>([]);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/workerpost/all", {
+      .get("http://localhost:5000/api/worker/get", {
         headers: {
           "Content-Type": "application/json",
         },
@@ -22,7 +22,7 @@ function DashboardClient() {
 
   const history = useHistory();
   const logoutHandler = () => {
-    fetch("http://localhost:5000/logout", {
+    fetch("http://localhost:5000/api/logout", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

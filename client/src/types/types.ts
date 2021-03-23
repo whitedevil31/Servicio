@@ -10,7 +10,7 @@ export interface Coordinates {
   longitude: number;
 }
 
-export interface CORDS {
+export interface geoPosition {
   coords: {
     latitude: number;
     longitude: number;
