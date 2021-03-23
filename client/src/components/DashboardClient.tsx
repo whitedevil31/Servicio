@@ -6,15 +6,13 @@ import axios, { AxiosRequestConfig } from "axios";
 function DashboardClient() {
   const [worker, setWorker] = useState<any[]>([]);
 
-  
-
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/worker/get", {
         headers: {
           "Content-Type": "application/json",
         },
-        withCredentials: true
+        withCredentials: true,
       })
       .then((response) => {
         setWorker(response.data);
@@ -127,59 +125,54 @@ function DashboardClient() {
                   </div>
                 </div>
 
-                  <div className="ml-3 relative">
-                    <div>
-                      <button
-                        type="button"
-                        className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                        id="user-menu"   
-                        aria-haspopup="true"
-                        aria-expanded="false"                     
-                      >
-                        <img
-                          className="h-8 w-8 rounded-full"
-                          src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-                          alt=""
-                        ></img>
-                      </button>
-                    </div>
-                    <div
-                      hidden={true}
-                      className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-                      role="menu"
-                      aria-orientation="vertical"
-                      aria-labelledby="user-menu"
-                      
+                <div className="ml-3 relative">
+                  <div>
+                    <button
+                      type="button"
+                      className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                      id="user-menu"
+                      aria-haspopup="true"
+                      aria-expanded="false"
                     >
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        role="menuitem"
-                      >
-                        Your Profile
-                      </a>
-
-                      <a
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                        onClick={logoutHandler}
-                        role="menuitem"
-                      >
-                        Sign out
-                      </a>
-                    </div>
+                      <img
+                        className="h-8 w-8 rounded-full"
+                        src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+                        alt=""
+                      ></img>
+                    </button>
                   </div>
-                
+                  <div
+                    hidden={true}
+                    className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="user-menu"
+                  >
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      role="menuitem"
+                    >
+                      Your Profile
+                    </a>
+
+                    <a
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                      onClick={logoutHandler}
+                      role="menuitem"
+                    >
+                      Sign out
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </nav>
 
-          <div className="w-screen h-full border-2 p-1 flex justify-center">
-            <div className="w-1/5 border-2 border-yellow-500 h-full mr-4">
-              
-                    testsdsdsdfdsfsdfsdfdsfsdf
-                  </div>
-             
-           
+          <div className="w-screen bg-gray-500 h-full p-1 flex justify-center">
+            <div className="w-1/5 bg-gray-500 h-full mr-4">
+              testsdsdsdfdsfsdfsdfdsfsdf
+            </div>
 
             <div className="w-1/2 border-2 border-blue-500 h-full mr-4">
               {worker.map((obj) => (
@@ -218,12 +211,10 @@ function DashboardClient() {
             </div>
 
             <div className="bg-gray-200 shadow-2xl rounded-2xl w-1/4S h-full">
-              
-                  <div className="xl:flex uppercase font-bold text-black text-lg px-4 py-2">
-                    Workers Near By:
-                  </div>
+              <div className="xl:flex uppercase font-bold text-black text-lg px-4 py-2">
+                Workers Near By:
+              </div>
             </div>
-
           </div>
         </div>
       ) : (

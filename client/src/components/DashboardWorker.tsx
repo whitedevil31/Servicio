@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 const DashboardWorker = () => {
   const { register, handleSubmit } = useForm();
 
-
   const history = useHistory();
   const logoutHandler = () => {
     fetch("http://localhost:5000/logout", {
@@ -38,24 +37,21 @@ const DashboardWorker = () => {
         }
       }
     }
-  
- 
-    let config = {
 
-      credentials: 'include',
+    console.log(selected);
+
+    let config = {
+      withCredentials: true,
       headers: {
         "Content-Type": "application/json",
       },
     };
-   
+
     const workerData: any = {
-      services: {
-        ...selected
-      },
-      ...data
+      ...data,
+      services: selected
     };
 
-    console.log(workerData)
   
     axios
       .post("http://localhost:5000/api/worker/post", workerData, config)
@@ -67,7 +63,7 @@ const DashboardWorker = () => {
   return (
     <div>
       {Cookies.get("worker") ? (
-        <div>
+        <div className="w-full h-screen flex flex-col">
           <nav className="bg-gray-800">
             <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
               <div className="relative flex items-center justify-between h-16">
@@ -195,20 +191,15 @@ const DashboardWorker = () => {
               </div>
             </div>
           </nav>
-          <div className="flex">
-            <div className="flex flex-row">
-              <div className="bg-gray-200 shadow-2xl rounded-2xl mt-10 ml-5 relative h-2/4 w-72 min-h-screen">
-                <div className="xl:py-2">
-                  <div className="xl:flex uppercase font-bold text-white text-lg px-4 py-2">
-                    testsdsdsdfdsfsdfsdfdsfsdf
-                  </div>
-                </div>
-              </div>
+
+          <div className="w-screen h-full flex ">
+            <div className="w-1/5 float-left bg-gray-200 rounded-md h-96 ml-5 mt-5 shadow-2xl transition duration-400 ease-in-out hover:scale-y-125 hover:bg-gray-300 ">
+              testsdsdsdfdsfsdfsdfdsfsdf
             </div>
 
-            <div className="flex flex-col">
+            <div className="flex flex-col w-1/2 h-3/4 mr-4">
               <div
-                className="flex justify-between bg-indigo-50 ml-6 mt-8 h-full w-full shadow-inner sm:rounded-2xl border-b-4 
+                className="flex justify-between bg-indigo-50 ml-6 mt-4 h-full w-full shadow-inner sm:rounded-2xl border-b-4 
                border-green-800 
                transition duration-300 ease-in-out hover:scale-y-125 hover:bg-indigo-100
                "
@@ -216,7 +207,7 @@ const DashboardWorker = () => {
                 Hey, Let's Get you started.
                 <form onSubmit={handleSubmit(onSubmit)} id="worker">
                   <div className="flex flex-col">
-                    <div className="mt-10 w-1/2 ml-3 mr-5">
+                    <div className="mt-16 w-1/2 mr-72 ">
                       <label
                         htmlFor="first_name"
                         className="block text-sm font-medium text-indigo-700"
@@ -283,40 +274,6 @@ const DashboardWorker = () => {
                   </button>
                 </form>
               </div>
-
-              {/* {worker.map((obj) => (
-                <div
-                  className="flex justify-between bg-indigo-50 ml-6 mt-8 h-40 w-11/12 shadow-inner sm:rounded-2xl border-b-4 
-               border-green-800 
-               transition duration-300 ease-in-out hover:scale-y-125 hover:bg-indigo-100
-               "
-                >
-                  <img
-                    className="h-8 w-8 ml-6 mt-7 rounded-b-full"
-                    src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-                    alt=""
-                  ></img>
-                  <h1 className="flex ml-5 mt-6 font-display text-xl text-green-800">
-                    Name{obj.username}
-                  </h1>
-                  <p className="flex flex-row mt-16 -ml-12 font-display text-sm font-bold text-green-800">
-                    Age{obj.age}
-                  </p>
-                  <button className="w-14 h-8 mt-24 mr-8 -ml-8 shadow-lg flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700">
-                    Hire!
-                  </button>
-                  <p className="ml-5 mt-9 mr-2 mb-3 font-display text-mg text-green-800">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Odit repellat quas velit.
-                  </p>
-                  <a className="ml-2 -mr-10 mt-12 w-12 h-12 px-5 py-5 shadow-lg flex items-center justify-center rounded-full bg-green-300 hover:bg-green-500">
-                    <i className="far fa-comments"></i>
-                  </a>
-                  <p className="flex mt-28 mr-5 font-cursive text-xl text-green-800">
-                    <b>₹{obj.pay}</b>
-                  </p>
-                </div>
-              ))} */}
             </div>
           </div>
         </div>
