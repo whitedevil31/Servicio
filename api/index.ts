@@ -1,16 +1,14 @@
-import express, { Express, Response, Request, NextFunction } from "express";
+import express, { Express } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import  dotenv from "dotenv";
+import dotenv from "dotenv";
 dotenv.config({ path: "./.env" });
 import morgan from "morgan";
 import passport from "passport";
 import session from "express-session";
-import connectMongo from "connect-mongo";
 import connectDB from "./db/db.connect";
 connectDB();
 require("./passport/passport.config");
-
 import clientroute from "./user/user.routes";
 import postroute from "./post/post.routes";
 
@@ -24,10 +22,9 @@ app.use(
     cookie: { maxAge: 2 * 60 * 60 * 1000 },
   })
 );
-
+app.use(bodyParser.json());
 app.use(morgan("tiny"));
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
-app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(clientroute);

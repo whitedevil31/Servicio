@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, Link, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
+import { workerPost } from "../types/types";
 
 function DashboardClient() {
-  const [worker, setWorker] = useState<any[]>([]);
+  const [worker, setWorker] = useState<workerPost[]>([]);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/workerpost/all", {
+      .get("http://localhost:5000/api/worker/get", {
         headers: {
           "Content-Type": "application/json",
         },
@@ -15,13 +16,13 @@ function DashboardClient() {
       })
       .then((response) => {
         setWorker(response.data);
-        console.log(response);
+        // console.log(response);
       });
   }, []);
 
   const history = useHistory();
   const logoutHandler = () => {
-    fetch("http://localhost:5000/logout", {
+    fetch("http://localhost:5000/api/logout", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -30,7 +31,7 @@ function DashboardClient() {
       setTimeout(() => {
         if (response.status === 200) {
           Cookies.remove("user");
-          history.push("/", {});
+          history.push("/");
         }
       }, 800);
     });
@@ -183,7 +184,7 @@ function DashboardClient() {
                   alt=""
                 ></img>
                 <h1 className=" block ml-5 mt-6 font-display text-xl text-green-800">
-                  {obj.username}
+                  {obj.user.username}
                 </h1>
                 <button className="w-14 h-8 mt-24 mr-8 -ml-8 shadow-lg flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700">
                   Hire!

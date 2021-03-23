@@ -1,10 +1,11 @@
 import React from "react";
-import Home from './components/Home'
+import Home from "./components/Home";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import DashboardClient from "./components/DashboardClient";
+import DashboardWorker from "./components/DashboardWorker";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
-import { GlobalProvider } from './context/GlobalState';
+import { GlobalProvider } from "./context/GlobalState";
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
           </Route>
           <Route path="/dashboard">
             <DashboardClient />
+          </Route>
+          <Route path="/worker/dashboard">
+            <DashboardWorker />
           </Route>
         </Switch>
       </Router>

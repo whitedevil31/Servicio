@@ -1,51 +1,48 @@
 import { Router, Request, Response, NextFunction } from "express";
 import adminMiddleware from "../middleware/auth";
-import bcrypt from "bcryptjs";
 import passport from "passport";
-import { getClient } from "../db/db.connect";
-import { userType, userSchema, userInterface } from "./user.schema";
-import { MongoClient } from "mongodb";
+import { userType } from "./user.schema";
 import { signUpClient } from "./user.db";
 
 const router: Router = Router();
 router.post(
-  "/api/register/client",
+  "/api/register",
   async (req: Request, res: Response, next: NextFunction) => {
     const data = req.body as userType;
     try {
       const result = await signUpClient(data);
-      res.status(201).send(result);
+      res.status(201).json(result);
     } catch (err) {
-      next(err);
+      res.json(err);
     }
   }
 );
-// router.post(
-//   "/api/register/worker",
-//   async (req: Request, res: Response, next: NextFunction) => {
-//     const data = req.body as userType;
-//     try {
-//       const result = await signUpWorker(data);
-//       res.status(201).send(result);
-//     } catch (err) {
-//       next(err);
-//     }
-//   }
-// );
 
 router.post(
-  "/login",
+  "/api/login",
   passport.authenticate("local"),
   (req: Request, res: Response) => {
-    res.send(req.user).status(200);
+    try {
+      res.send(req.user).status(200);
+    } catch (err) {
+      res.json({ success: false, message: err });
+    }
   }
 );
-router.get("/logout", (req: Request, res: Response) => {
-  req.logout();
-  res.send("success").status(200);
+router.get("/api/logout", (req: Request, res: Response) => {
+  try {
+    req.logout();
+    res.json({ success: true, message: "Logged Out" }).status(200);
+  } catch (err) {
+    res.json({ process: false, message: err });
+  }
 });
 router.get("/api/user", adminMiddleware, (req: Request, res: Response) => {
-  res.send(req.user);
+  try {
+    res.json(req.user).status(200);
+  } catch (err) {
+    res.json({ success: false, message: err });
+  }
 });
 
 export default router;
