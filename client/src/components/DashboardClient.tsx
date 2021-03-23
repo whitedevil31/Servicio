@@ -1,28 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link, Redirect } from "react-router-dom";
 import Cookies from "js-cookie";
-import axios from "axios";
-import { workerPost } from "../types/types";
+import axios, { AxiosRequestConfig } from "axios";
 
 function DashboardClient() {
-  const [worker, setWorker] = useState<workerPost[]>([]);
+  const [worker, setWorker] = useState<any[]>([]);
+
+  
+
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/worker/get", {
         headers: {
           "Content-Type": "application/json",
         },
-        withCredentials: true,
+        withCredentials: true
       })
       .then((response) => {
         setWorker(response.data);
-        // console.log(response);
+        console.log(response);
       });
-  }, []);
+  });
 
   const history = useHistory();
   const logoutHandler = () => {
-    fetch("http://localhost:5000/api/logout", {
+    fetch("http://localhost:5000/logout", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +33,7 @@ function DashboardClient() {
       setTimeout(() => {
         if (response.status === 200) {
           Cookies.remove("user");
-          history.push("/");
+          history.push("/", {});
         }
       }, 800);
     });
@@ -124,17 +126,16 @@ function DashboardClient() {
                     </div>
                   </div>
                 </div>
-                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+
                   <div className="ml-3 relative">
                     <div>
                       <button
                         type="button"
                         className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                        id="user-menu"
-                        aria-expanded="false"
-                        aria-haspopup="false"
+                        id="user-menu"   
+                        aria-haspopup="true"
+                        aria-expanded="false"                     
                       >
-                        <span className="sr-only">Open user menu</span>
                         <img
                           className="h-8 w-8 rounded-full"
                           src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
@@ -143,10 +144,12 @@ function DashboardClient() {
                       </button>
                     </div>
                     <div
+                      hidden={true}
                       className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                       role="menu"
                       aria-orientation="vertical"
                       aria-labelledby="user-menu"
+                      
                     >
                       <a
                         href="#"
@@ -165,54 +168,65 @@ function DashboardClient() {
                       </a>
                     </div>
                   </div>
-                </div>
+                
               </div>
             </div>
           </nav>
+          <div className="flex">
+            <div className="flex flex-row">
+              <div className="bg-gray-200 shadow-2xl rounded-2xl mt-10 ml-5 relative h-2/4 w-72 min-h-screen">
+                <div className="xl:py-2">
+                  <div className="xl:flex uppercase font-bold text-white text-lg px-4 py-2">
+                    testsdsdsdfdsfsdfsdfdsfsdf
+                  </div>
+                </div>
+              </div>
+            </div>
 
-          <div className="px-4 py-5 sm:px-6">
-            {worker.map((obj) => (
-              <div
-                className="bg-indigo-50 mr-5 ml-5 mt-8 h-40 shadow-inner overflow-hidden sm:rounded-2xl border-b-4 
-               border-green-800 flex
+            <div className="flex flex-col">
+              {worker.map((obj) => (
+                <div
+                  className="flex justify-between bg-indigo-50 ml-6 mt-8 h-40 w-11/12 shadow-inner sm:rounded-2xl border-b-4 
+               border-green-800 
                transition duration-300 ease-in-out hover:scale-y-125 hover:bg-indigo-100
                "
-              >
-                <img
-                  className="h-20 w-20 ml-6 mt-7 rounded-b-full"
-                  src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-                  alt=""
-                ></img>
-                <h1 className=" block ml-5 mt-6 font-display text-xl text-green-800">
-                  {obj.user.username}
-                </h1>
-                <button className="w-14 h-8 mt-24 mr-8 -ml-8 shadow-lg flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700">
-                  Hire!
-                </button>
-                <p className=" block ml-5 mt-12 mr-7 font-display text-lg text-green-800">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit
-                  repellat quas velit pariatur totam corporis ipsa animi maiores
-                  sapiente at tempora eveniet necessitatibus quasi sit sint,
-                  laborum magnam voluptatem similique.
-                </p>
-                <a className="ml-16 -mr-16 mt-12 w-12 h-12 px-5 py-5 shadow-lg flex items-center justify-center rounded-full bg-green-300 hover:bg-green-500">
-                  <i className="far fa-comments"></i>
-                </a>
-                <p className="block mt-28 mr-5 font-cursive text-xl text-green-800">
-                  <b>₹10,000{obj.pay}</b>
-                </p>
-              </div>
-            ))}
-          </div>
+                >
+                  <img
+                    className="h-8 w-8 ml-6 mt-7 rounded-b-full"
+                    src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+                    alt=""
+                  ></img>
+                  <h1 className="flex ml-5 mt-6 font-display text-xl text-green-800">
+                    Name{obj.username}
+                  </h1>
+                  <p className="flex flex-row mt-16 -ml-12 font-display text-sm font-bold text-green-800">
+                    Age{obj.age}
+                  </p>
+                  <button className="w-14 h-8 mt-24 mr-8 -ml-8 shadow-lg flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700">
+                    Hire!
+                  </button>
+                  <p className="ml-5 mt-9 mr-2 mb-3 font-display text-mg text-green-800">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    Odit repellat quas velit.
+                  </p>
+                  <a className="ml-2 -mr-10 mt-12 w-12 h-12 px-5 py-5 shadow-lg flex items-center justify-center rounded-full bg-green-300 hover:bg-green-500">
+                    <i className="far fa-comments"></i>
+                  </a>
+                  <p className="flex mt-28 mr-5 font-cursive text-xl text-green-800">
+                    <b>₹{obj.pay}</b>
+                  </p>
+                </div>
+              ))}
+            </div>
 
-          {/* 
-          <button
-            type="submit"
-            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-400 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            onClick={logoutHandler}
-          >
-            Logout
-          </button> */}
+            <div className="flex flex-row">
+              <div className="bg-gray-200 shadow-2xl rounded-2xl mt-10 mr-5 relative h-3/4 w-56 min-h-screen">
+                <div className="xl:py-2">
+                    Workers Near By:
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       ) : (
         <div className="w-full flex justify-center items-center h-screen">
