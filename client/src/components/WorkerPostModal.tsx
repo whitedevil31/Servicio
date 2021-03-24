@@ -114,7 +114,7 @@ export default function WorkerModal() {
             >
               <div className="bg-gray-200 w-3/4 py-2 px-3 rounded shadow-xl text-gray-800">
                 <div className="flex justify-between items-center">
-                  <h4 className="text-lg mt-3 font-bold">Let's start here</h4>
+                  <h4 className="text-lg mt-3 ml-5 font-bold font-display">Let's start here</h4>
                   <button onClick={handleClose}>
                     <svg
                       className="h-6 w-6 cursor-pointer p-1 hover:bg-gray-300 rounded-full"

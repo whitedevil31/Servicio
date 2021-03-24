@@ -43,12 +43,20 @@ function DashboardClient() {
       {Cookies.get("user") ? (
         <div className="w-full h-screen flex flex-col">
           <NavBar />
-          <div className="w-screen bg-gray-500 h-full p-1 flex justify-center">
-            <div className="w-1/5 bg-gray-500 h-full mr-4">
-              testsdsdsdfdsfsdfsdfdsfsdf
+          <div className="w-full bg-gray-300 h-full flex justify-center">
+            <div className="w-1/5 px-7 py-7 font-bold  bg-gray-200 shadow-2xl rounded-2xl h-full mr-5 mt-5">
+              Selected workers: 
+              {/* {hiredworker.map((obj) => ( */}
+                <div className="flex px-5 py-5 bg-indigo-100 rounded-xl mt-6 w-full hover:bg-indigo-200 shadow-inner">
+                  <div className="flex flex-col float-left">Thala</div>
+                  <a className="flex flex-col float-right ml-24 mt-2 cursor-pointer">
+                    <i className="far fa-comments"></i>
+                  </a>
+                </div>
+                {/* ))} */}
             </div>
 
-            <div className="w-1/2 border-2 border-blue-500 h-full mr-4">
+            <div className="w-1/2 h-full mr-4">
               {worker.map((obj) => (
                 <div
                   className="flex justify-between bg-indigo-50 ml-6 mt-8 h-40 w-11/12 shadow-inner sm:rounded-2xl border-b-4 
@@ -84,8 +92,8 @@ function DashboardClient() {
               ))}
             </div>
 
-            <div className="bg-gray-200 shadow-2xl rounded-2xl w-1/4S h-full">
-              <div className="xl:flex uppercase font-bold text-black text-lg px-4 py-2">
+            <div className="bg-gray-200 shadow-2xl rounded-2xl h-1/2 mt-5">
+              <div className="xl:flex uppercase font-bold text-black text-lg px-4 py-7">
                 Workers Near By:
               </div>
             </div>
