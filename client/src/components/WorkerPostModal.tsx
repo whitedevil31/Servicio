@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -21,43 +21,47 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-
+interface Slot {
+  startTime: string;
+  endTime: string;
+}
 export default function WorkerModal() {
+  const [startTime, setStartTime] = useState<string | null>("");
+  const [endTime, setEndTime] = useState<string | null>("");
+  const [slot, setSlot] = useState<any>([]);
+  const onSubmit = (data: any) => {
+    var selected = new Array();
+    var worker = document.getElementById("worker");
 
-    const onSubmit = (data: any) => {
-        var selected = new Array();
-        var worker = document.getElementById("worker");
-    
-        if (worker) {
-          var ticks = worker.getElementsByTagName("input");
-    
-          for (var i = 0; i < ticks.length; i++) {
-            if (ticks[i].checked) {
-              selected.push(ticks[i].value);
-            }
-          }
+    if (worker) {
+      var ticks = worker.getElementsByTagName("input");
+
+      for (var i = 0; i < ticks.length; i++) {
+        if (ticks[i].checked) {
+          selected.push(ticks[i].value);
         }
-    
-        console.log(selected);
-    
-        let config = {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        };
-    
-        const workerData: any = {
-          ...data,
-          services: selected,
-        };
-    
-        axios
-          .post("http://localhost:5000/api/worker/post", workerData, config)
-          .then((response) => {
-            console.log(response);
-          });
-      };
+      }
+    }
+
+    let config = {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const workerData: any = {
+      ...data,
+      services: selected,
+      timeslots: slot,
+    };
+    console.log(workerData);
+    // axios
+    //   .post("http://localhost:5000/api/worker/post", workerData, config)
+    //   .then((response) => {
+    //     console.log(response);
+    //   });
+  };
 
   const { register, handleSubmit } = useForm();
   const classes = useStyles();
@@ -70,7 +74,13 @@ export default function WorkerModal() {
   const handleClose = () => {
     setOpen(false);
   };
+  const timeslotSubmit = (e: any) => {
+    e.preventDefault();
+    const data = { startTime: startTime, endTime: endTime };
+    setSlot((slot: any) => [...slot, data]);
 
+    e.target.reset();
+  };
   return (
     <div>
       <button type="button" onClick={handleOpen}>
@@ -125,91 +135,121 @@ export default function WorkerModal() {
                       </svg>
                     </button>
                   </div>
+                  <form onSubmit={handleSubmit(onSubmit)} id="worker">
+                    <div className="flex flex-col mt-10">
+                      <div>
+                        <label className="mr-3 ml-5">Pay: </label>
+                        <input
+                          type="number"
+                          ref={register}
+                          className="h-4 px-3 py-3 rounded-md w-20"
+                        />
+                      </div>
 
-                  <form onSubmit={handleSubmit(onSubmit)} id="worker" >
-                  <div className="flex flex-col mt-10">
-                    <div>
-                      <label className="mr-3 ml-5">Pay: </label>
-                      <input
-                        type="number"
-                        ref={register}
-                        className="h-4 px-3 py-3 rounded-md w-20"
-                      ></input>
+                      <div className="mt-5">
+                        <label className="mr-3 ml-5">Services: </label>
+                      </div>
+
+                      <div className="mr-4 ml-4 mt-3 flex flex-row space-x-3">
+                        <input
+                          id="plumbing"
+                          name="plumbing"
+                          ref={register}
+                          type="checkbox"
+                          value="plumbing"
+                          className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                        ></input>
+                        <label className="font-medium text-gray-700">
+                          Plumbing
+                        </label>
+
+                        <input
+                          id="plumbing"
+                          name="plumbing"
+                          ref={register}
+                          type="checkbox"
+                          value="Driver"
+                          className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                        ></input>
+                        <label className="font-medium text-gray-700">
+                          Driver
+                        </label>
+                        <input
+                          id="plumbing"
+                          name="plumbing"
+                          ref={register}
+                          type="checkbox"
+                          value="Carpentry"
+                          className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                        ></input>
+                        <label className="font-medium text-gray-700">
+                          Carpenter
+                        </label>
+                        <input
+                          id="plumbing"
+                          name="plumbing"
+                          ref={register}
+                          type="checkbox"
+                          value="Cleaning"
+                          className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                        ></input>
+                        <label className="font-medium text-gray-700">
+                          Cleaning
+                        </label>
+                        <input
+                          id="plumbing"
+                          name="plumbing"
+                          ref={register}
+                          type="checkbox"
+                          value="cooking"
+                          className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                        ></input>
+                        <label className="font-medium text-gray-700">
+                          Chef
+                        </label>
+                      </div>
                     </div>
-
-                    <div className="mt-5">
-                      <label className="mr-3 ml-5">Services: </label>
-                    </div>
-
-                    <div className="mr-4 ml-4 mt-3 flex flex-row space-x-3">
-                      <input
-                        id="plumbing"
-                        name="plumbing"
-                        ref={register}
-                        type="checkbox"
-                        value="plumbing"
-                        className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                      ></input>
-                      <label className="font-medium text-gray-700">
-                        Plumbing
-                      </label>
-
-                      <input
-                        id="plumbing"
-                        name="plumbing"
-                        ref={register}
-                        type="checkbox"
-                        value="Driver"
-                        className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                      ></input>
-                      <label className="font-medium text-gray-700">
-                        Driver
-                      </label>
-                      <input
-                        id="plumbing"
-                        name="plumbing"
-                        ref={register}
-                        type="checkbox"
-                        value="Carpentry"
-                        className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                      ></input>
-                      <label className="font-medium text-gray-700">
-                        Carpenter
-                      </label>
-                      <input
-                        id="plumbing"
-                        name="plumbing"
-                        ref={register}
-                        type="checkbox"
-                        value="Cleaning"
-                        className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                      ></input>
-                      <label className="font-medium text-gray-700">
-                        Cleaning
-                      </label>
-                      <input
-                        id="plumbing"
-                        name="plumbing"
-                        ref={register}
-                        type="checkbox"
-                        value="cooking"
-                        className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                      ></input>
-                      <label className="font-medium text-gray-700">
-                        Chef
-                      </label>
-                    </div>
-                    
 
                     <button>
+                      <input
+                        type="submit"
+                        className="w-12 h-12 mr-8 shadow-lg flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700"
+                      />
+                    </button>
+                  </form>{" "}
+                  <form onSubmit={timeslotSubmit} id="time">
+                    {" "}
+                    <div className="w-full h-12 border-3 border-red-500">
+                      <h1>Create Your time slots</h1>
+                    </div>
                     <input
-                      type="submit"
-                      className="w-12 h-12 mr-8 shadow-lg flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700"
+                      type="number"
+                      className="px-1 py-1 mx-2"
+                      placeholder="start time"
+                      onChange={(e) => setStartTime(e.target.value)}
                     />
-                  </button>
-                  </div>
+                    <input
+                      id="endTime"
+                      type="number"
+                      className="px-1 py-1 mx-2"
+                      placeholder="end time"
+                      onChange={(e) => setEndTime(e.target.value)}
+                    />
+                    <button>
+                      <input type="submit" />
+                    </button>
                   </form>
-
+                  {slot.length == 0 ? (
+                    <h1>No time slot created</h1>
+                  ) : (
+                    <div className="w-full h-12 border-3 border-red-500 flex flex-row">
+                      {slot.map((item: any) => (
+                        <div className="w-16 h-8 flex bg-green-500 m-3 rounded-xl justify-center items-center ">
+                          <p>{item.startTime}</p>-<p>{item.endTime}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
