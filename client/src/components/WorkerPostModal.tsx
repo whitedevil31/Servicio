@@ -28,7 +28,9 @@ interface Slot {
 }
 export default function WorkerModal() {
   const [startTime, setStartTime] = useState<string | null>("");
+  const [startFormat, setStartFormat] = useState<string | null>("");
   const [endTime, setEndTime] = useState<string | null>("");
+  const [endFormat, setEndFormat] = useState<string | null>("");
   const [slot, setSlot] = useState<any>([]);
   const { register, handleSubmit, errors } = useForm({
     criteriaMode: "all",
@@ -45,7 +47,13 @@ export default function WorkerModal() {
   };
   const timeslotSubmit = (e: any) => {
     e.preventDefault();
-    const data = { startTime: startTime, endTime: endTime };
+
+    const data = {
+      start: { startTime, startFormat },
+      end: { endTime, endFormat },
+    };
+    console.log(data);
+
     setSlot((slot: any) => [...slot, data]);
 
     e.target.reset();
@@ -64,8 +72,8 @@ export default function WorkerModal() {
       }
     }
 
-    console.log(selected);
-    console.log(data.pay);
+    // console.log(selected);
+    // console.log(data);
 
     let config = {
       withCredentials: true,
@@ -74,7 +82,7 @@ export default function WorkerModal() {
       },
     };
     const workerData: any = {
-      ...data,
+      pay: data.pay,
       services: selected,
       timeslots: slot,
     };
@@ -224,12 +232,10 @@ export default function WorkerModal() {
                     </div>
                   </div>
 
-               
-                    {/* <input
+                  {/* <input
                       type="submit"
                       className="cursor-pointer h-12 mt-6 shadow-lg flex justify-center px-8 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
                     /> */}
-                 
                 </form>{" "}
                 <form onSubmit={timeslotSubmit} id="time">
                   {" "}
@@ -242,6 +248,21 @@ export default function WorkerModal() {
                     placeholder="HH:MM"
                     onChange={(e) => setStartTime(e.target.value)}
                   />
+                  <select
+                    className="mt-1 h-10 px-2 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-2xl sm:text-sm border-gray-500 border-b-2 rounded-md hover:shadow-inner"
+                    name="AM/PM"
+                    onChange={(e) => setStartFormat(e.target.value)}
+                  >
+                    <option value="none" selected hidden>
+                      AM/PM
+                    </option>
+                    <option className="select" value="AM">
+                      AM
+                    </option>
+                    <option className="select" value="PM">
+                      PM
+                    </option>
+                  </select>
                   <input
                     id="endTime"
                     type="number"
@@ -249,27 +270,46 @@ export default function WorkerModal() {
                     placeholder="HH:MM"
                     onChange={(e) => setEndTime(e.target.value)}
                   />
-                  
-                    <input type="submit" className="cursor-pointer h-6 shadow-lg ml-5 justify-center items-center px-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-900" />
-                 
+                  <select
+                    className="mt-1 h-10 px-2 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-2xl sm:text-sm border-gray-500 border-b-2 rounded-md hover:shadow-inner"
+                    name="AM/PM"
+                    onChange={(e) => setEndFormat(e.target.value)}
+                  >
+                    <option value="none" selected hidden>
+                      AM/PM
+                    </option>
+                    <option className="select" value="AM">
+                      AM
+                    </option>
+                    <option className="select" value="PM">
+                      PM
+                    </option>
+                  </select>
+                  <button>
+                    <input type="submit" />
+                  </button>
                 </form>
                 {slot.length == 0 ? (
-                  <h1 className="ml-5 mt-10 font-extrabold">Time slots not created.</h1>
+                  <h1 className="ml-5 mt-10 font-extrabold">
+                    Time slots not created.
+                  </h1>
                 ) : (
                   <div className="w-full h-12 border-3 border-red-500 flex flex-row">
                     {slot.map((item: any) => (
-                      <div className="w-20 h-12 flex bg-indigo-800 text-white m-3 text-sm rounded-full justify-center items-center ">
-                        <p>{item.startTime}</p> - <p>{item.endTime}</p>
+                      <div className="w-20 h-8 flex bg-green-500 m-3 rounded-xl justify-center items-center ">
+                        <p>{item.start.startTime}</p>
+                        <p>{item.start.startFormat}</p>-
+                        <p>{item.end.endTime}</p>
+                        <p>{item.end.endFormat}</p>
                       </div>
                     ))}
                   </div>
                 )}
                 <input
-                type="submit"
-                className="cursor-pointer w-full h-12 mt-6 shadow-lg flex flex-col items-center justify-center px-8 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
-              />
+                  type="submit"
+                  className="cursor-pointer w-full h-12 mt-6 shadow-lg flex flex-col items-center justify-center px-8 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
+                />
               </div>
-              
             </div>
           </div>
         </Fade>
