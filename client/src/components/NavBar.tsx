@@ -5,14 +5,13 @@ import { useHistory, Link, Redirect } from "react-router-dom";
 function NavBar() {
   var isOpen;
 
-  if(isOpen){
+  if (isOpen) {
     isOpen = true;
   }
-    
 
-    const history = useHistory();
+  const history = useHistory();
   const logoutHandler = () => {
-    fetch("http://localhost:5000/logout", {
+    fetch("http://localhost:5000/api/logout", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +25,6 @@ function NavBar() {
       }, 800);
     });
   };
-
 
   return (
     <div className="w-full h-20 flex flex-col">
@@ -113,6 +111,12 @@ function NavBar() {
                 </div>
               </div>
             </div>
+            <a
+              className="cursor-pointer text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              onClick={logoutHandler}
+            >
+              Sign out
+            </a>
 
             <div className="ml-3 relative">
               <div>
@@ -130,29 +134,6 @@ function NavBar() {
                   ></img>
                 </button>
               </div>
-              <div
-                v-if="isOpen"
-                className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-                role="menu"
-                aria-orientation="vertical"
-                aria-labelledby="user-menu"
-              >
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  role="menuitem"
-                >
-                  Your Profile
-                </a>
-
-                <a
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                  onClick={logoutHandler}
-                  role="menuitem"
-                >
-                  Sign out
-                </a>
-              </div>
             </div>
           </div>
         </div>
@@ -161,4 +142,4 @@ function NavBar() {
   );
 }
 
-export default NavBar
+export default NavBar;
