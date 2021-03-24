@@ -5,14 +5,13 @@ import { useHistory, Link, Redirect } from "react-router-dom";
 function NavBar() {
   var isOpen;
 
-  if(isOpen){
+  if (isOpen) {
     isOpen = true;
   }
-    
 
-    const history = useHistory();
+  const history = useHistory();
   const logoutHandler = () => {
-    fetch("http://localhost:5000/logout", {
+    fetch("http://localhost:5000/api/logout", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +25,6 @@ function NavBar() {
       }, 800);
     });
   };
-
 
   return (
     <div className="w-full h-20 flex flex-col">
@@ -113,16 +111,15 @@ function NavBar() {
                 </div>
               </div>
             </div>
+            <a
+              className="cursor-pointer text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              onClick={logoutHandler}
+            >
+              Sign out
+            </a>
 
             <div className="ml-3 relative">
               <div>
-              <a
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  onClick={logoutHandler}
-                  role="menuitem"
-                >
-                  Sign out
-                </a>
                 <button
                   type="button"
                   className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
@@ -145,4 +142,4 @@ function NavBar() {
   );
 }
 
-export default NavBar
+export default NavBar;
