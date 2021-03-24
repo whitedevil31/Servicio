@@ -173,10 +173,10 @@ export default function WorkerModal() {
 
                     <div className="mr-4 ml-4 mt-3 flex flex-row space-x-3">
                       <input
-                        id="plumbing"
+                        name="Plumbing"
                         ref={register}
                         type="checkbox"
-                        value="plumbing"
+                        value="Plumbing"
                         className="focus:ring-gray-500 h-4 w-4 text-gray-600 border-gray-400 rounded-full"
                       ></input>
                       <label className="font-medium mr-5 text-gray-700">
@@ -184,8 +184,7 @@ export default function WorkerModal() {
                       </label>
 
                       <input
-                        id="plumbing"
-                        name="plumbing"
+                        name="Driver"
                         ref={register}
                         type="checkbox"
                         value="Driver"
@@ -195,8 +194,7 @@ export default function WorkerModal() {
                         Driver
                       </label>
                       <input
-                        id="plumbing"
-                        name="plumbing"
+                        name="Carpentry"
                         ref={register}
                         type="checkbox"
                         value="Carpentry"
@@ -206,8 +204,7 @@ export default function WorkerModal() {
                         Carpenter
                       </label>
                       <input
-                        id="plumbing"
-                        name="plumbing"
+                        name="Cleaning"
                         ref={register}
                         type="checkbox"
                         value="Cleaning"
@@ -217,62 +214,62 @@ export default function WorkerModal() {
                         Cleaning
                       </label>
                       <input
-                        id="plumbing"
-                        name="plumbing"
+                        name="Cooking"
                         ref={register}
                         type="checkbox"
-                        value="cooking"
+                        value="Cooking"
                         className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                       ></input>
                       <label className="font-medium text-gray-700">Chef</label>
                     </div>
                   </div>
 
-                  <button>
-                    <input
+               
+                    {/* <input
                       type="submit"
-                      className="w-12 h-12 mr-8 shadow-lg flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700"
-                    />
-                  </button>
+                      className="cursor-pointer h-12 mt-6 shadow-lg flex justify-center px-8 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
+                    /> */}
+                 
                 </form>{" "}
                 <form onSubmit={timeslotSubmit} id="time">
                   {" "}
                   <div className="w-full h-12 border-3 border-red-500">
-                    <h1>Create Your time slots</h1>
+                    <h1 className="ml-5 mt-10">Select your time slots</h1>
                   </div>
                   <input
                     type="number"
-                    className="px-1 py-1 mx-2"
-                    placeholder="start time"
+                    className="px-1 py-1 ml-5"
+                    placeholder="HH:MM"
                     onChange={(e) => setStartTime(e.target.value)}
                   />
                   <input
                     id="endTime"
                     type="number"
-                    className="px-1 py-1 mx-2"
-                    placeholder="end time"
+                    className="px-1 py-1 ml-3"
+                    placeholder="HH:MM"
                     onChange={(e) => setEndTime(e.target.value)}
                   />
-                  <button>
-                    <input type="submit" />
-                  </button>
+                  
+                    <input type="submit" className="cursor-pointer h-6 shadow-lg ml-5 justify-center items-center px-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-900" />
+                 
                 </form>
                 {slot.length == 0 ? (
-                  <h1>No time slot created</h1>
+                  <h1 className="ml-5 mt-10 font-extrabold">Time slots not created.</h1>
                 ) : (
                   <div className="w-full h-12 border-3 border-red-500 flex flex-row">
                     {slot.map((item: any) => (
-                      <div className="w-16 h-8 flex bg-green-500 m-3 rounded-xl justify-center items-center ">
-                        <p>{item.startTime}</p>-<p>{item.endTime}</p>
+                      <div className="w-20 h-12 flex bg-indigo-800 text-white m-3 text-sm rounded-full justify-center items-center ">
+                        <p>{item.startTime}</p> - <p>{item.endTime}</p>
                       </div>
                     ))}
                   </div>
                 )}
-              </div>
-              <input
+                <input
                 type="submit"
-                className="cursor-pointer h-12 mt-6 shadow-lg flex justify-center px-8 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
+                className="cursor-pointer w-full h-12 mt-6 shadow-lg flex flex-col items-center justify-center px-8 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
               />
+              </div>
+              
             </div>
           </div>
         </Fade>
