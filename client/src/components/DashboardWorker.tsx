@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, Link, Redirect } from "react-router-dom";
 import Cookies from "js-cookie";
-import Modal from "@material-ui/core/Modal";
+import WorkerPostModal from './WorkerPostModal'
 import axios, { AxiosRequestConfig } from "axios";
 import { useForm } from "react-hook-form";
+import WorkerModal from "./WorkerPostModal";
 
 const DashboardWorker = () => {
   const { register, handleSubmit } = useForm();
@@ -70,29 +71,7 @@ const DashboardWorker = () => {
       });
   };
 
-  window.addEventListener('DOMContentLoaded', () =>{
-    const overlay = document.querySelector('#overlay')
-    const delBtn = document.querySelector('#delete-btn')
-    const closeBtn = document.querySelector('#close-modal')
-
-    const toggleModal = () => {
-
-      if(overlay){
-        overlay.classList.toggle('hidden')
-        overlay.classList.toggle('flex')
-      }
-
-    }
-    
-    if(closeBtn){
-    
-    closeBtn.addEventListener('click', toggleModal)
-    }
-
-    if(delBtn){
-      delBtn.addEventListener('click', toggleModal)
-    }
-})
+  
 
   return (
     <div>
@@ -236,8 +215,9 @@ const DashboardWorker = () => {
               >
                 <div className="flex flex-col">
                   <p className="px-4 py-4">Hey, Let's Get you started.</p>
+                  <WorkerPostModal />
 
-                  <div className="flex-row float-left px-5">
+                  {/* <div className="flex-row float-left px-5">
                     <img
                       className="h-8 w-8 mr-0 rounded-full"
                       src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
@@ -341,7 +321,7 @@ const DashboardWorker = () => {
                           </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 {/* <form onSubmit={handleSubmit(onSubmit)} id="worker">
                   <div className="flex flex-col">
