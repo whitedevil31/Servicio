@@ -51,6 +51,7 @@ const DashboardWorker = () => {
     }
 
     console.log(selected);
+    console.log(data)
 
     let config = {
       withCredentials: true,

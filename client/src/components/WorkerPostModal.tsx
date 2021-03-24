@@ -39,6 +39,7 @@ export default function WorkerModal() {
         }
     
         console.log(selected);
+        console.log(data.pay)
     
         let config = {
           withCredentials: true,
@@ -74,7 +75,7 @@ export default function WorkerModal() {
   return (
     <div>
       <button type="button" onClick={handleOpen}>
-        react-transition-group
+        <input className="ml-3 mt-5 px-2 py-2 w-96 rounded-2xl cursor-pointer" placeholder="Create a post"></input>
       </button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -132,7 +133,9 @@ export default function WorkerModal() {
                       <label className="mr-3 ml-5">Pay: </label>
                       <input
                         type="number"
+                        name="pay"
                         ref={register}
+                        autoComplete="off"
                         className="h-4 px-3 py-3 rounded-md w-20"
                       ></input>
                     </div>
@@ -144,7 +147,6 @@ export default function WorkerModal() {
                     <div className="mr-4 ml-4 mt-3 flex flex-row space-x-3">
                       <input
                         id="plumbing"
-                        name="plumbing"
                         ref={register}
                         type="checkbox"
                         value="plumbing"
