@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, Link, Redirect } from "react-router-dom";
 import Cookies from "js-cookie";
-import WorkerPostModal from './WorkerPostModal'
+import WorkerPostModal from "./WorkerPostModal";
 import axios, { AxiosRequestConfig } from "axios";
 import { useForm } from "react-hook-form";
 import WorkerModal from "./WorkerPostModal";
+import Divider from "@material-ui/core/Divider";
 
 const DashboardWorker = () => {
   const { register, handleSubmit } = useForm();
+  const [client, setClient] = useState<any[]>([]);
+  const [assignee, setAssignee] = useState<any[]>([]);
 
   const [open, setOpen] = React.useState(false);
 
@@ -51,6 +54,7 @@ const DashboardWorker = () => {
     }
 
     console.log(selected);
+    console.log(data);
 
     let config = {
       withCredentials: true,
@@ -70,8 +74,6 @@ const DashboardWorker = () => {
         console.log(response);
       });
   };
-
-  
 
   return (
     <div>
@@ -206,195 +208,74 @@ const DashboardWorker = () => {
           </nav>
 
           <div className="w-screen h-full flex ">
-            <div className="flex flex-row w-3/4 h-2/6 mr-4">
+            {/* {client.map((obj) => ( */}
+            <div className="flex flex-col w-3/4  mr-4">
               <div
-                className="flex bg-indigo-50 ml-6 mt-4 h-full w-full shadow-inner sm:rounded-2xl border-b-4 
+                className="flex bg-gray-100 ml-6 mt-4 h-40 w-full shadow-2xl sm:rounded-2xl border-b-4 
                border-green-800 
-               transition duration-300 ease-in-out hover:scale-y-125 hover:bg-indigo-100
+               transition duration-300 ease-in-out hover:scale-y-125 hover:shadow-inner hover:bg-gray-200
                "
               >
                 <div className="flex flex-col">
                   <p className="px-4 py-4">Hey, Let's Get you started.</p>
                   <WorkerPostModal />
-
-                  {/* <div className="flex-row float-left px-5">
-                    <img
-                      className="h-8 w-8 mr-0 rounded-full"
-                      src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-                      alt=""
-                    ></img>
-                    <input
-                      className="px-5 py-5 h-5 w-96 mt-4 rounded-md cursor-pointer "
-                      type="text"
-                      placeholder="Enter post"
-                      id="delete-btn"
-                    ></input>
-
-                    <div
-                      className="bg-black bg-opacity-50 absolute inset-0 flex justify-center items-center"
-                      id="overlay"
-                    >
-                      <div className="bg-gray-200 max-w-2xl py-2 px-3 rounded shadow-xl text-gray-800">
-                        <div className="flex justify-between items-center">
-                          <h4 className="text-lg mt-3 font-bold">Let's start here</h4>
-                          <svg
-                            className="h-6 w-6 cursor-pointer p-1 hover:bg-gray-300 rounded-full"
-                            id="close-modal"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              fill-rule="evenodd"
-                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                              clip-rule="evenodd"
-                            ></path>
-                          </svg>                  
-                        </div>
-                        <div className="flex flex-col mt-10">
-                          <div>
-                            <label className="mr-3 ml-5">Pay: </label>
-                            <input type="number" className="h-4 px-3 py-3 rounded-md w-20"></input>
-                            </div>
-                          
-                          <div className="mt-5">
-                            <label className="mr-3 ml-5">Services: </label>                            
-                          </div>
-                          
-                          <div className="mr-4 ml-4 mt-3 flex flex-row space-x-3">
-                          <input
-                                id="plumbing"
-                                name="plumbing"
-                                type="checkbox"
-                                value="plumbing"
-                                className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                              ></input>
-                              <label className="font-medium text-gray-700">
-                                Plumbing
-                              </label>
-
-                              <input
-                                id="plumbing"
-                                name="plumbing"
-                                type="checkbox"
-                                value="plumbing"
-                                className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                              ></input>
-                              <label className="font-medium text-gray-700">
-                                Plumbing
-                              </label>
-                              <input
-                                id="plumbing"
-                                name="plumbing"
-                                type="checkbox"
-                                value="plumbing"
-                                className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                              ></input>
-                              <label className="font-medium text-gray-700">
-                                Plumbing
-                              </label>
-                              <input
-                                id="plumbing"
-                                name="plumbing"
-                                type="checkbox"
-                                value="plumbing"
-                                className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                              ></input>
-                              <label className="font-medium text-gray-700">
-                                Plumbing
-                              </label>
-                              <input
-                                id="plumbing"
-                                name="plumbing"
-                                type="checkbox"
-                                value="plumbing"
-                                className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                              ></input>
-                              <label className="font-medium text-gray-700">
-                                Plumbing
-                              </label>
-                        </div>
-                        
-                          
-                              <button className="px-3 py-1 mt-5 rounded hover:bg-red-300 hover:bg-opacity-50 hover:text-red-900">
-                            Cancel
-                          </button> 
-                          </div>
-                      </div>
-                    </div>
-                  </div> */}
                 </div>
-                {/* <form onSubmit={handleSubmit(onSubmit)} id="worker">
-                  <div className="flex flex-col">
-                    <div className="mt-16 w-1/2 mr-72 ">
-                      <label
-                        htmlFor="first_name"
-                        className="block text-sm font-medium text-indigo-700"
-                      >
-                        Pay
-                      </label>
+              </div>
 
-                      <input
-                        type="number"
-                        name="pay"
-                        ref={register}
-                        autoComplete="off"
-                        className="mt-1 h-10 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-2xl sm:text-sm border-gray-500 border-b-2 rounded-md transition duration-500 ease-in-out hover:shadow-inner"
-                      ></input>
-                    </div>
-
-                    <div className="mt-10 float-right w-1/2 ml-3 mr-5">
-                      <fieldset>
-                        <legend className="text-base font-medium text-gray-900">
-                          Services
-                        </legend>
-                        <div className="mt-4 space-y-4">
-                          <div className="flex items-start">
-                            <div className="flex items-center h-5">
-                              <input
-                                id="plumbing"
-                                name="plumbing"
-                                type="checkbox"
-                                value="plumbing"
-                                className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                              ></input>
-                            </div>
-                            <div className="ml-3 text-sm">
-                              <label className="font-medium text-gray-700">
-                                Plumbing
-                              </label>
-                            </div>
-                          </div>
-                          <div className="flex items-start">
-                            <div className="flex items-center h-5">
-                              <input
-                                id="cooking"
-                                name="cooking"
-                                type="checkbox"
-                                value="cooking"
-                                className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                              ></input>
-                            </div>
-                            <div className="ml-3 text-sm">
-                              <label className="font-medium text-gray-700">
-                                Cooking
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                      </fieldset>
-                    </div>
-                  </div>
-                  <button>
-                    <input
-                      type="submit"
-                      className="w-40 h-20 mt-24 mr-8 -ml-8 shadow-lg flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700"
-                    />
+              <div
+                className="flex bg-gray-300 ml-6 mt-20 h-52 w-full shadow-2xl sm:rounded-2xl border-b-4 
+               border-green-800 
+               transition duration-300 ease-in-out hover:scale-y-125 hover:shadow-inner hover:bg-gray-200
+               "
+              >
+                <div className="flex">
+                  <img
+                    className="h-8 w-8 ml-6 mt-7 rounded-b-full"
+                    src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+                    alt=""
+                  ></img>
+                  <h1 className="flex ml-5 mt-6 float-left font-display text-xl text-green-800">
+                    Name
+                  </h1>
+                  <p className="flex flex-row mt-16 -ml-12 float-left font-display text-sm font-bold text-green-800">
+                    Age
+                  </p>
+                  <button className="w-14 h-8 mt-40 mr-12 -ml-8 float-left shadow-lg flex flex-row items-center justify-center px-8 py-3 text-base font-medium rounded-md text-green-700 border-2 border-green-600 hover:bg-green-700 hover:text-white">
+                    Accept
                   </button>
-                </form> */}
+                  <button className="w-14 h-8 mt-40 mr-12 -ml-8 float-left shadow-lg flex flex-row items-center justify-center px-8 py-3 text-base font-medium rounded-md text-red-500 border-2 border-red-600 hover:bg-red-700 hover:text-white">
+                    Reject
+                  </button>
+                  <div className="mt-16 mr-2 -ml-32 mb-3 font-display text-mg text-green-800">
+                    <p>
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                      Odit repellat quas velit.
+                    </p>
+                  </div>
+                  <div className="flex float-right mt-12">
+                    <a className="flex w-12 h-12 cursor-pointer px-5 py-5 shadow-lg rounded-full items-center justify-center bg-green-300 hover:bg-green-500">
+                      <i className="far fa-comments"></i>
+                    </a>
+                    <p className="flex float-right mt-20 -mr-40 font-cursive text-xl text-green-800">
+                      <b>₹20,000</b>
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="w-1/5 float-right bg-gray-200 rounded-md h-96 ml-5 mt-5 shadow-2xl transition duration-400 ease-in-out hover:scale-y-125 hover:bg-gray-300 ">
-              testsdsdsdfdsfsdfsdfdsfsdf
+            {/* ))} */}
+            <div className="w-1/5 float-right bg-gray-100 rounded-md h-96 ml-5 mt-5 shadow-2xl transition duration-400 ease-in-out hover:scale-y-125 hover:bg-gray-200 ">
+              <div className="px-5 py-5">
+                Assigned To:
+                {/* {assignee.map((obj) => ( */}
+                <div className="flex px-5 py-5 bg-indigo-100 rounded-xl mt-6 w-full hover:bg-indigo-200 shadow-inner">
+                  <div className="flex flex-col float-left">Thala</div>
+                  <a className="flex flex-col float-right ml-24 mt-2 cursor-pointer">
+                    <i className="far fa-comments"></i>
+                  </a>
+                </div>
+                {/* ))} */}
+              </div>
             </div>
           </div>
         </div>
