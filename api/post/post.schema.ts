@@ -5,6 +5,7 @@ const postSchema = yup
   .object({
     services: yup.array().of(yup.string().strict().required()),
     pay: yup.number().required(),
+    timeslots: yup.array().of(yup.object()).required(),
   })
   .required();
 

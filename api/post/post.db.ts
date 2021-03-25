@@ -1,14 +1,17 @@
 import * as mongodb from "mongodb";
 import { getClient } from "../db/db.connect";
-import { workerPosts, postSchema, postType } from "./post.schema";
+import { workerPosts, postSchema, postType, ServiceType } from "./post.schema";
 import { userInterface } from "../user/user.schema";
-import { ServiceType } from "../post/post.schema";
 
 export const workerPost = async (data: postType, user: userInterface) => {
   await postSchema.validate(data).catch((err) => {
     throw { success: false, message: err.errors };
   });
-  const workerPost = { pay: data.pay, services: data.services };
+  const workerPost = {
+    pay: data.pay,
+    services: data.services,
+    timeslots: data.timeslots,
+  };
   const client: mongodb.MongoClient = await getClient();
   const DB = await client.db().collection<workerPosts>("post");
   const addData = { user, ...workerPost };
@@ -25,12 +28,11 @@ export const getAllPost = async () => {
   return await DB.find({}).toArray();
 };
 
-export const filterPost = async (service: string) => {
+export const filterPost = async (service: ServiceType[]) => {
   const client: mongodb.MongoClient = await getClient();
   const DB = await client.db().collection<workerPosts>("post");
-  const PostArray = await DB.find().toArray();
-  const filterArray = PostArray.filter((item) =>
-    item.services!.find((item) => item === service)
-  );
-  return filterArray;
+  if (service.length == 0) {
+    return await DB.find().toArray();
+  }
+  return await DB.find({ services: { $all: service } }).toArray();
 };
