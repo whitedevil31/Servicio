@@ -34,7 +34,7 @@ router.get(
   }
 );
 
-router.get("/api/worker/filter", async (req: Request, res: Response) => {
+router.post("/api/worker/filter", async (req: Request, res: Response) => {
   try {
     const services = req.body.services as ServiceType[];
     if (services) {
