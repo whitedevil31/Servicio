@@ -11,7 +11,7 @@ import {
 
 function Signup() {
   const [position, setPosition] = useState<Coordinates | null>();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
   useEffect(() => {
     var options = {
       enableHighAccuracy: true,
@@ -78,7 +78,7 @@ function Signup() {
       <div className="float-right w-2/4 mt-10 sm:mt-3 sm:mb-3 sm:mr-28">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="shadow-2xl overflow-hidden sm:rounded-md ">
-            <div className="px-2 py-2 shadow-inner bg-white sm:p-6 border-r-2 border-indigo-400">
+            <div className="px-2 py-2 shadow-inner bg-white sm:p-6 border-r-2 border-l-2 border-indigo-400">
               <label
                 htmlFor="first_name"
                 className="block text-2xl font-cursive text-indigo-900"
@@ -93,29 +93,40 @@ function Signup() {
                   >
                     Username
                   </label>
-
+                  {errors.username && (
+                  <p className="name-error text-red-700 text-sm">Username is a must.</p> )}
                   <input
                     type="text"
                     name="username"
-                    ref={register}
+                    ref={register({
+                      required: true
+                    })}
                     autoComplete="off"
                     className="mt-1 h-10 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-2xl sm:text-sm border-gray-500 border-b-2 rounded-md transition duration-500 ease-in-out hover:shadow-inner"
                   ></input>
+                  
                 </div>
 
                 <div className="mt-10 float-right w-1/2 ml-3 mr-5">
                   <label className="block text-sm font-medium text-indigo-700">
                     Password
                   </label>
+                  {errors.password && (
+                  <p className="name-error text-red-700 text-sm">Please enter a valid password.</p> )}
                   <input
                     type="password"
                     name="password"
-                    ref={register}
+                    ref={register({
+                      required: true,
+                      minLength:8,
+                      pattern: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/
+                    })}
                     className="mt-1 h-10 focus:ring-indigo-500  focus:border-indigo-500 block w-full shadow-xl sm:text-sm border-gray-500 border-b-2 rounded-md hover:shadow-inner"
                   ></input>
                   <p className="flex-col mt-2 text-xs text-indigo-400">
-                    Use atleast 6-8 characters, include numbers and uppercase.
+                    Use atleast 6-8 characters, include numbers and uppercase <b>only</b>.
                   </p>
+                  
                 </div>
               </div>
 
@@ -124,29 +135,37 @@ function Signup() {
                   <label className="block text-sm font-medium text-indigo-700">
                     Age
                   </label>
-
+                  {errors.age && (
+                  <p className="name-error text-red-700 text-sm">Please enter an appropriate age between 18 and 40.</p> )}
                   <input
                     type="number"
                     name="age"
                     autoComplete="off"
-                    ref={register}
+                    ref={register({
+                      required: true,
+                      pattern: /^(1[40]|[2-9][0-9])$/
+                    })}
                     className="mt-1 h-10 px-2 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-2xl sm:text-sm border-gray-500 border-b-2 rounded-md hover:shadow-inner"
                   ></input>
                 </div>
 
                 <div className="mt-7 float-right w-1/2 ml-3 mr-5">
+                
                   <label className="block text-sm font-medium text-indigo-700">
                     Gender
                   </label>
+                  {errors.gender && (
+                  <p className="name-error text-red-700 text-sm">Please enter your gender.</p> )}
                   <div className="mt-1">
                     <select
                       className="mt-1 h-10 px-2 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-2xl sm:text-sm border-gray-500 border-b-2 rounded-md hover:shadow-inner"
-                      // value={gender}
-                      ref={register}
+                      required
+                      ref={register({
+                        required: true
+                      })}
                       name="gender"
-                      // onChange={handleChangeGender}
-                    >
-                      <option value="none" selected hidden>
+                     >
+                      <option selected hidden>
                         Gender
                       </option>
                       <option className="select" value="Male">
@@ -156,7 +175,7 @@ function Signup() {
                         Female
                       </option>
                       <option className="select" value="Other">
-                        Other
+                        Would rather not say
                       </option>
                     </select>
                   </div>
@@ -168,12 +187,15 @@ function Signup() {
                   <label className="block text-sm font-medium text-indigo-700">
                     Residence/Area
                   </label>
-
+                  {errors.residence && (
+                  <p className="name-error text-red-700 text-sm">Please give your address.</p> )}
                   <input
                     type="text"
                     name="residence"
                     id="area"
-                    ref={register}
+                    ref={register({
+                      required: true
+                    })}
                     className="mt-1 h-10 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-2xl sm:text-sm border-gray-500 border-b-2 rounded-md hover:shadow-inner"
                   ></input>
                 </div>
@@ -184,10 +206,11 @@ function Signup() {
                   </legend>
                   <select
                     className="mt-1 h-10 px-2 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-2xl sm:text-sm border-gray-500 border-b-2 rounded-md hover:shadow-inner"
-                    // value={role}
-                    ref={register}
+                    ref={register({
+                      required: true
+                    })}
                     name="role"
-                    // onChange={handleChangeRole}
+                
                   >
                     <option value="none" selected hidden>
                       Role
@@ -209,10 +232,14 @@ function Signup() {
                 >
                   About
                 </label>
+                {errors.about && (
+                  <p className="name-error text-red-700 text-sm">Give a short bio</p> )}
                 <div className="mt-1">
                   <textarea
                     name="about"
-                    ref={register}
+                    ref={register({
+                      required: true
+                    })}
                     className="mt-1 h-15 px-2 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-2xl sm:text-sm border-gray-500 border-b-2 rounded-md hover:shadow-inner"
                     placeholder="Short Introduction"
                   ></textarea>
