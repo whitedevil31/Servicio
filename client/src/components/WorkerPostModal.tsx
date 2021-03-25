@@ -87,11 +87,11 @@ export default function WorkerModal() {
       timeslots: slot,
     };
     console.log(workerData);
-    // axios
-    //   .post("http://localhost:5000/api/worker/post", workerData, config)
-    //   .then((response) => {
-    //     console.log(response);
-    //   });
+    axios
+      .post("http://localhost:5000/api/worker/post", workerData, config)
+      .then((response) => {
+        console.log(response);
+      });
   };
 
   return (
@@ -122,7 +122,9 @@ export default function WorkerModal() {
             >
               <div className="bg-gray-200 w-3/4 py-2 px-3 rounded shadow-xl text-gray-800">
                 <div className="flex justify-between items-center">
-                  <h4 className="text-lg mt-3 ml-5 font-bold font-display">Let's start here</h4>
+                  <h4 className="text-lg mt-3 ml-5 font-bold font-display">
+                    Let's start here
+                  </h4>
                   <button onClick={handleClose}>
                     <svg
                       className="h-6 w-6 cursor-pointer p-1 hover:bg-gray-300 rounded-full"
@@ -231,63 +233,70 @@ export default function WorkerModal() {
                       <label className="font-medium text-gray-700">Chef</label>
                     </div>
                   </div>
-
-                  {/* <input
-                      type="submit"
-                      className="cursor-pointer h-12 mt-6 shadow-lg flex justify-center px-8 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
-                    /> */}
                 </form>{" "}
                 <form onSubmit={timeslotSubmit} id="time">
                   {" "}
                   <div className="w-full h-12 border-3 border-red-500">
                     <h1 className="ml-5 mt-10">Select your time slots</h1>
                   </div>
-                  <input
-                    type="number"
-                    className="px-1 py-1 ml-5"
-                    placeholder="HH:MM"
-                    onChange={(e) => setStartTime(e.target.value)}
-                  />
-                  <select
-                    className="mt-1 h-10 px-2 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-2xl sm:text-sm border-gray-500 border-b-2 rounded-md hover:shadow-inner"
-                    name="AM/PM"
-                    onChange={(e) => setStartFormat(e.target.value)}
-                  >
-                    <option value="none" selected hidden>
-                      AM/PM
-                    </option>
-                    <option className="select" value="AM">
-                      AM
-                    </option>
-                    <option className="select" value="PM">
-                      PM
-                    </option>
-                  </select>
-                  <input
-                    id="endTime"
-                    type="number"
-                    className="px-1 py-1 ml-3"
-                    placeholder="HH:MM"
-                    onChange={(e) => setEndTime(e.target.value)}
-                  />
-                  <select
-                    className="mt-1 h-10 px-2 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-2xl sm:text-sm border-gray-500 border-b-2 rounded-md hover:shadow-inner"
-                    name="AM/PM"
-                    onChange={(e) => setEndFormat(e.target.value)}
-                  >
-                    <option value="none" selected hidden>
-                      AM/PM
-                    </option>
-                    <option className="select" value="AM">
-                      AM
-                    </option>
-                    <option className="select" value="PM">
-                      PM
-                    </option>
-                  </select>
-                  <button>
-                    <input type="submit" />
-                  </button>
+                  <div className="flex">
+                    <input
+                      type="number"
+                      name="startingtime"
+                      className="px-1 py-1 ml-5"
+                      placeholder="HH:MM"
+                      onChange={(e) => setStartTime(e.target.value)}
+                    />
+                    <div className="text-sm text-red-700">
+                      {errors.startingtime && "Please give starting time."}
+                    </div>
+                    <select
+                      className="mt-1 ml-3 h-10 px-2 py-2 focus:ring-indigo-500  block w-20 shadow-2xl sm:text-sm border-gray-500 border-b-2 rounded-md hover:shadow-inner "
+                      name="AM/PM"
+                      onChange={(e) => setStartFormat(e.target.value)}
+                    >
+                      <option value="none" selected hidden>
+                        M
+                      </option>
+                      <option className="select mr-5" value="AM">
+                        AM
+                      </option>
+                      <option className="select" value="PM">
+                        PM
+                      </option>
+                    </select>
+                    <div className="m-2">to</div>
+                    <input
+                      id="endTime"
+                      type="number"
+                      name="endtime"
+                      className="px-1 py-1"
+                      placeholder="HH:MM"
+                      onChange={(e) => setEndTime(e.target.value)}
+                    />
+                    <div className="text-sm text-red-700">
+                      {errors.endtime && "Please give starting time."}
+                    </div>
+                    <select
+                      className="mt-1 ml-3 h-10 px-2 py-2 focus:ring-indigo-500  block w-20 shadow-2xl sm:text-sm border-gray-500 border-b-2 rounded-md hover:shadow-inner "
+                      name="AM/PM"
+                      onChange={(e) => setEndFormat(e.target.value)}
+                    >
+                      <option value="none" selected hidden>
+                        M
+                      </option>
+                      <option className="select" value="AM">
+                        AM
+                      </option>
+                      <option className="select" value="PM">
+                        PM
+                      </option>
+                    </select>
+                    <input
+                      className="cursor-pointer h-10 w-20 flex shadow-lg ml-5 justify-center items-center px-3 p-b-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-900"
+                      type="submit"
+                    />
+                  </div>
                 </form>
                 {slot.length == 0 ? (
                   <h1 className="ml-5 mt-10 font-extrabold">
@@ -296,7 +305,7 @@ export default function WorkerModal() {
                 ) : (
                   <div className="w-full h-12 border-3 border-red-500 flex flex-row">
                     {slot.map((item: any) => (
-                      <div className="w-20 h-8 flex bg-green-500 m-3 rounded-xl justify-center items-center ">
+                      <div className="w-32 h-12 flex bg-indigo-800 text-white m-3 text-sm rounded-full justify-center items-center ">
                         <p>{item.start.startTime}</p>
                         <p>{item.start.startFormat}</p>-
                         <p>{item.end.endTime}</p>

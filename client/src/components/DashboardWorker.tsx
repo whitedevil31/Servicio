@@ -38,6 +38,7 @@ const DashboardWorker = () => {
     });
   };
 
+ 
   const onSubmit = (data: any) => {
     var selected = new Array();
     var worker = document.getElementById("worker");
@@ -113,10 +114,10 @@ const DashboardWorker = () => {
                   <p className="flex flex-row mt-16 -ml-12 float-left font-display text-sm font-bold text-green-800">
                     Age
                   </p>
-                  <button className="w-14 h-8 mt-40 mr-12 -ml-8 float-left shadow-lg flex flex-row items-center justify-center px-8 py-3 text-base font-medium rounded-md text-green-700 border-2 border-green-600 hover:bg-green-700 hover:text-white">
+                  <button className="w-14 h-8 mt-40 mr-12 -ml-8 shadow-lg items-center justify-center text-base font-medium rounded-md text-green-700 border-2 border-green-600 hover:bg-green-700 hover:text-white">
                     Accept
                   </button>
-                  <button className="w-14 h-8 mt-40 mr-12 -ml-8 float-left shadow-lg flex flex-row items-center justify-center px-8 py-3 text-base font-medium rounded-md text-red-500 border-2 border-red-600 hover:bg-red-700 hover:text-white">
+                  <button className="w-14 h-8 mt-40 mr-12 -ml-8 shadow-lg items-center justify-center text-base font-medium rounded-md text-red-700 border-2 border-red-600 hover:bg-red-700 hover:text-white">
                     Reject
                   </button>
                   <div className="mt-16 mr-2 -ml-32 mb-3 font-display text-mg text-green-800">
@@ -156,9 +157,9 @@ const DashboardWorker = () => {
         <div className="w-full flex justify-center items-center h-screen">
           <div className="bg-red-600 rounded-lg flex items-center flex-col justify-center w-1/2 h-1/3">
             <h1 className="text-yellow-300 text-xl">
-              You are not Authenticated ma{" "}
+              You are not Authenticated{" "}
             </h1>
-            <h3 className="text-yellow-300 text-xl">Go back</h3>
+            <h3 className="text-yellow-300 text-xl">Kindly, Go back.</h3>
           </div>
         </div>
       )}
