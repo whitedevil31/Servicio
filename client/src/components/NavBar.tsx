@@ -78,7 +78,7 @@ function NavBar() {
                   src=""
                   alt="Workflow"
                 ></img>
-                <h1 className="hidden lg:block h-8 w-auto text-white">
+                <h1 className="hidden lg:block h-8 w-auto font-extrabold text-xl text-white">
                   Servicio
                 </h1>
               </div>

@@ -114,6 +114,8 @@ function Login() {
             </button>
           </div>
         </form>
+        <div className="pt-5 flex text-xs">Not a member yet?  <a className="ml-2 font-bold flex-row" href="http://localhost:3000/signup"> Sign Up Here!</a>
+        <a className="font-bold flex-row flex ml-44" href="http://localhost:3000">Home Page?</a></div>
       </div>
     </div>
   );
