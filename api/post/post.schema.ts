@@ -19,5 +19,9 @@ interface workerPosts extends postType {
 export interface ServiceType {
   services: Array<string>;
 }
+export interface userLocation {
+  longitude: number;
+  latitude: number;
+}
 
 export { postSchema, postType, workerPosts };
