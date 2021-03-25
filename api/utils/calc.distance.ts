@@ -4,7 +4,6 @@ interface CORDS {
 var rad = function (x: number) {
   return (x * Math.PI) / 180;
 };
-
 var getDistance = function (
   filterArray: CORDS[],
   userLocation: { latitude: number; longitude: number }

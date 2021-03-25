@@ -72,18 +72,3 @@ export const signUpClient = async (data: userType) => {
 //   const client: mongodb.MongoClient = await getClient();
 //   const userList = await client.db().collection("cord").insertOne(data);
 // };
-// interface userLocation {
-//   longitude: number;
-//   latitude: number;
-// }
-// export const latpost = async (userLocation: userLocation) => {
-//   const client: mongodb.MongoClient = await getClient();
-//   const userList = await client
-//     .db()
-//     .collection("users")
-//     .find({ role: "worker" })
-//     .toArray();
-
-//   const result = findDistance(userList, userLocation);
-//   return result;
-// };

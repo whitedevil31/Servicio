@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import WorkerPostModal from "./WorkerPostModal";
 import axios, { AxiosRequestConfig } from "axios";
 import { useForm } from "react-hook-form";
-import NavBar from './NavBar'
+import NavBar from "./NavBar";
 
 const DashboardWorker = () => {
   const { register, handleSubmit } = useForm();
@@ -79,7 +79,6 @@ const DashboardWorker = () => {
     <div>
       {Cookies.get("worker") ? (
         <div className="w-full h-screen flex flex-col">
-          
           <NavBar />
           <div className="w-screen h-full flex ">
             {/* {client.map((obj) => ( */}
@@ -117,9 +116,12 @@ const DashboardWorker = () => {
                   <button className="w-14 h-8 mt-40 mr-12 -ml-8 shadow-lg items-center justify-center text-base font-medium rounded-md text-green-700 border-2 border-green-600 hover:bg-green-700 hover:text-white">
                     Accept
                   </button>
-                  <button className="w-14 h-8 mt-40 mr-12 -ml-8 shadow-lg items-center justify-center text-base font-medium rounded-md text-red-700 border-2 border-red-600 hover:bg-red-700 hover:text-white">
+                  <button className="w-14 h-8 mt-40 mr-12 -ml-8 float-right shadow-lg flex flex-row items-center justify-center px-8 py-3 text-base font-medium rounded-md text-blue-700 border-2 border-blue-600 hover:bg-blue-700 hover:text-white">
                     Reject
                   </button>
+                  {/* <button className="w-14 h-8 mt-40 mr-12 -ml-8 float-left shadow-lg flex flex-row items-center justify-center px-8 py-3 text-base font-medium rounded-md text-red-500 border-2 border-red-600 hover:bg-yellow-600 hover:text-white">
+                    Reject
+                  </button> */}
                   <div className="mt-16 mr-2 -ml-32 mb-3 font-display text-mg text-green-800">
                     <p>
                       Lorem, ipsum dolor sit amet consectetur adipisicing elit.
