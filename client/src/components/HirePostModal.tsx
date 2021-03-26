@@ -22,9 +22,22 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function HireModal() {
+interface timeslot {
+  start: {
+    startTime: string;
+    startFormat: string;
+  };
+  end: {
+    endTime: string;
+    endFormat: string;
+  };
+}
+interface hireInterface {
+  timeslots: timeslot[];
+}
 
-  const [hire, setHire] = useState<any[]>([]);
+export default function HireModal() {
+  const [hire, setHire] = useState<hireInterface[]>();
 
   useEffect(() => {
     axios
@@ -35,9 +48,10 @@ export default function HireModal() {
         withCredentials: true,
       })
       .then((response) => {
+        console.log(response.data.timeslot);
         setHire(response.data);
       });
-  });
+  }, []);
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -100,16 +114,25 @@ export default function HireModal() {
             <form onSubmit={handleSubmit(onSubmit)} id="worker">
               <div className="flex flex-col mt-10">
                 <div className="mr-4 ml-4 mt-3 flex flex-row space-x-3">
-                  <input
-                    name="Plumbing"
-                    ref={register}
-                    type="checkbox"
-                    value="Plumbing"
-                    className="focus:ring-gray-500 h-4 w-4 text-gray-600 border-gray-400 rounded-full"
-                  ></input>
-                  <label className="font-medium mr-5 text-gray-700">
-                    Plumbing
-                  </label>
+                
+               
+                  {/* <input
+                        name="Plumbing"
+                        ref={register}
+                        type="checkbox"
+                        value="Plumbing"
+                        className="focus:ring-gray-500 h-4 w-4 text-gray-600 border-gray-400 rounded-full"
+                    ></input>
+                    <label className="font-medium mr-5 text-gray-700">
+                    {hire && (hire!.map((item: any) =>
+                    item.timeslots.map((time: any) => (
+                      <div>
+                      <p>{time.start.startTime}</p>
+                      <p>{time.start.startFormat}</p>
+                      </div>
+                    ))
+                  ))}
+                    </label> */}
                 </div>
               </div>
 
