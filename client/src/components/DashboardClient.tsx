@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, Link, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios, { AxiosRequestConfig } from "axios";
 import NavBar from "./NavBar";
@@ -7,25 +7,27 @@ import HireModal from './HirePostModal'
 import { useForm } from "react-hook-form";
 
 function DashboardClient() {
+
+  const history = useHistory();
+  const [timeslot, setTimeslot] = useState<any[]>([])
+  const [worker, setWorker] = useState<any[]>([]);
+  const [workernearby, setWorkernearby] = useState<any[]>([]);
   const { register, handleSubmit, errors } = useForm({
     criteriaMode: "all",
   });
 
-  const [worker, setWorker] = useState<any[]>([]);
-  const [workernearby, setWorkernearby] = useState<any[]>([]);
+  const time = (data: any) => {
+    axios.get(`http://localhost:5000/api/worker/post/${data}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    }).then((response) => {
+        setTimeslot(response.data)
+        console.log(response.data)
+    })
+  }
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/worker/get", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
-      .then((response) => {
-        setWorker(response.data);
-      });
-  }, []);
 
   useEffect(() => {
     axios
@@ -39,23 +41,24 @@ function DashboardClient() {
         setWorkernearby(response.data);
       });
   },[]);
+  
 
-  const history = useHistory();
-  const logoutHandler = () => {
-    fetch("http://localhost:5000/api/logout", {
-      method: "GET",
+  const filterData: any = {
+    services: [],
+  };
+
+  useEffect(() => {
+    axios.post("http://localhost:5000/api/worker/filter", filterData, {
       headers: {
         "Content-Type": "application/json",
       },
-    }).then((response) => {
-      setTimeout(() => {
-        if (response.status === 200) {
-          Cookies.remove("user");
-          history.push("/", {});
-        }
-      }, 800);
+      withCredentials: true,
+    })
+    .then((response) => {
+      // console.log(response.data)
+      setWorker(response.data);
     });
-  };
+  }, [])
 
   const filterServiceSubmit = (data: any) => {
     var selected = new Array();
@@ -76,12 +79,13 @@ function DashboardClient() {
         "Content-Type": "application/json",
       },
     };
-    const serviceData: any = {
-      services: selected,
+   
+    const filterData: any = {
+      filter: selected,
     };
-    console.log(serviceData);
+    console.log(filterData)
     axios
-      .post("http://localhost:5000/api/worker/filter", serviceData, config)
+      .post("http://localhost:5000/api/worker/filter", filterData, config)
       .then((response) => {
         console.log(response);
       });
@@ -173,13 +177,13 @@ function DashboardClient() {
               {/* ))} */}
             </div>
 
-            <div className="w-1/2 h-full mr-4">
+            <div className="w-1/2 h-full mr-4" >
               {worker.map((obj) => (
                 <div
-                  className="flex justify-between bg-indigo-50 ml-6 mt-8 w-11/12 shadow-inner sm:rounded-2xl border-b-4 
+                  className="flex justify-between cursor-pointer bg-indigo-50 ml-6 mt-8 w-11/12 shadow-inner sm:rounded-2xl border-b-4 
                border-green-800 
                transition duration-300 ease-in-out hover:scale-y-125 hover:bg-indigo-100
-               "
+               " onClick={()=>time(obj._id)}
                 >
                   <img
                     className="h-8 w-8 ml-6 mt-7 rounded-b-full"
