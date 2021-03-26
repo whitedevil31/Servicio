@@ -68,7 +68,7 @@ export default function HireModal() {
   };
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    console.log(data)
   };
   return (
     <div>
@@ -118,28 +118,12 @@ export default function HireModal() {
                     hire!.map((item: any) =>
                       item.timeslots.map((time: any) => (
                         <div className="flex-row">
-                          <input
-                            className="mr-20"
-                            type="radio"
-                            name="time"
-                            value={`timeslot:{
-                                      start:{
-                                        ${time.start.startTime},
-                                        ${time.start.startFormat}
-                                      },
-                                      end:{
-                                        ${time.end.endTime},
-                                        ${time.end.endFormat}
-                                      }
-                                    }`}
-                            ref={register}
-                          />
+                          <input className="mr-20" type="radio" name="time" value={`${time.start.startTime} + ${time.start.startFormat} + ${time.end.endTime} + ${time.end.endFormat}`} ref={register} />
                           <div className="flex flex-row bg-gray-400 p-2 rounded-full text-xs">
                             <p>{time.start.startTime} </p>
                             <p>{time.start.startFormat}</p> -
                             <p>{time.end.endTime}</p>
                             <p>{time.end.endFormat}</p>
-                            {/* `${time.start.startTime} + ${time.start.startFormat} + ${time.end.endTime}+ ${time.end.endFormat}` */}
                           </div>
                         </div>
                       ))
