@@ -1,5 +1,5 @@
 interface CORDS {
-  location: { latitude: string; longitude: string };
+  user: { location: { latitude: string; longitude: string } };
 }
 var rad = function (x: number) {
   return (x * Math.PI) / 180;
@@ -13,10 +13,11 @@ var getDistance = function (
   for (i = 0; i < filterArray.length; i++) {
     var R = 6378137;
     var dLat = rad(
-      parseFloat(filterArray[i].location.latitude) - userLocation.latitude
+      parseFloat(filterArray[i].user.location.latitude) - userLocation.latitude
     );
     var dLong = rad(
-      parseFloat(filterArray[i].location.longitude) - userLocation.longitude
+      parseFloat(filterArray[i].user.location.longitude) -
+        userLocation.longitude
     );
     var a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +

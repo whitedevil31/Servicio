@@ -1,6 +1,7 @@
 import { Router, Request, Response, NextFunction } from "express";
 import adminMiddleware from "../middleware/auth";
 import { postType, ServiceType, userLocation } from "./post.schema";
+import { userDB } from "../user/user.schema";
 import { workerPost, getAllPost, filterPost, nearbyWorkers } from "./post.db";
 import { userInterface } from "../user/user.schema";
 
@@ -47,13 +48,12 @@ router.post("/api/worker/filter", async (req: Request, res: Response) => {
 });
 router.get("/api/nearby", async (req: Request, res: Response) => {
   try {
-    if (req.user) {
-      const userLocation = req.user.location;
-      const workerList = await nearbyWorkers(userLocation);
-      res.json(workerList);
-    }
+    const user = req.user as userDB;
+    console.log(user);
+    const workerList = await nearbyWorkers(user);
+    res.json(workerList);
   } catch (err) {
-    res.json(err);
+    res.json(err).status(400);
   }
 });
 export default router;

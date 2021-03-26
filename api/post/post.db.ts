@@ -7,7 +7,7 @@ import {
   ServiceType,
   userLocation,
 } from "./post.schema";
-import { userInterface } from "../user/user.schema";
+import { userDB, userInterface } from "../user/user.schema";
 import findDistance from "../utils/calc.distance";
 
 export const workerPost = async (data: postType, user: userInterface) => {
@@ -43,14 +43,13 @@ export const filterPost = async (service: ServiceType[]) => {
   }
   return await DB.find({ services: { $all: service } }).toArray();
 };
-export const nearbyWorkers = async (Location: userLocation) => {
+export const nearbyWorkers = async (user: userDB) => {
   const client: mongodb.MongoClient = await getClient();
-  const userList = await client
+  const postList: any = await client
     .db()
-    .collection("users")
-    .find({ role: "Utility Helper" })
+    .collection("post")
+    .find({ "user._id": { $ne: new mongodb.ObjectID(user._id) } })
     .toArray();
-
-  const result = findDistance(userList, Location);
+  const result = findDistance(postList, user.location);
   return result;
 };
