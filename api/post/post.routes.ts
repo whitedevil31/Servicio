@@ -35,7 +35,7 @@ router.get(
   }
 );
 
-router.post("/api/worker/filter", async (req: Request, res: Response) => {
+router.post("/api/worker/filter",adminMiddleware, async (req: Request, res: Response) => {
   try {
     const services = req.body.services as ServiceType[];
     if (services) {
@@ -46,7 +46,7 @@ router.post("/api/worker/filter", async (req: Request, res: Response) => {
     res.json(err);
   }
 });
-router.get("/api/nearby", async (req: Request, res: Response) => {
+router.get("/api/nearby",adminMiddleware, async (req: Request, res: Response) => {
   try {
     const user = req.user as userDB;
     console.log(user);
