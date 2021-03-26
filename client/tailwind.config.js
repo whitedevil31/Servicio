@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     fontFamily : {
       'display': ['Oswald', 'Roboto']
-    },
+    }, 
+
     extend: {},
   },
   variants: {

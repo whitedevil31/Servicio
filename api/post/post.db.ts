@@ -48,7 +48,7 @@ export const nearbyWorkers = async (Location: userLocation) => {
   const userList = await client
     .db()
     .collection("users")
-    .find({ role: "worker" })
+    .find({ role: "Utility Helper" })
     .toArray();
 
   const result = findDistance(userList, Location);

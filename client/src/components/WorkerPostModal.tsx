@@ -120,7 +120,7 @@ export default function WorkerModal() {
               className="bg-black bg-opacity-50 absolute inset-0 flex justify-center items-center"
               id="overlay"
             >
-              <div className="bg-gray-200 w-3/4 py-2 px-3 rounded shadow-xl text-gray-800">
+              <div className="bg-gray-200 w-3/4 h-3/4 py-2 px-3 rounded shadow-xl text-gray-800">
                 <div className="flex justify-between items-center">
                   <h4 className="text-lg mt-3 ml-5 font-bold font-display">
                     Let's start here
@@ -142,9 +142,20 @@ export default function WorkerModal() {
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} id="worker">
                   <div className="flex flex-col mt-10">
+                    <div className="flex- row">
+                      <input
+                        type="submit"
+                        className="cursor-pointer h-12 w-24 shadow-lg items-center justify-center mb-5 ml-5 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
+                      />
+
+                      <label className="mr-3 ml-5 text-green-900">
+                        Click here to submit your form.
+                      </label>
+                    </div>
                     <div>
                       <label className="mr-3 ml-5">Pay: </label>
                       <input
+                        type="number"
                         name="pay"
                         ref={register({
                           required: "This input is required.",
@@ -152,33 +163,19 @@ export default function WorkerModal() {
                             value: /\d+/,
                             message: "This input is number only.",
                           },
-                          maxLength: {
-                            value: 10,
-                            message: "This input exceed maxLength.",
-                          },
+
                         })}
                         autoComplete="off"
                         className="bg-transparent border-b-2 border-gray-500 shadow-inner h-4 px-3 py-3 rounded-md w-20"
                       ></input>
                       <div className="text-red-600">
-                        <ErrorMessage
-                          errors={errors}
-                          name="pay"
-                          render={({ messages }) => {
-                            console.log("messages", messages);
-                            return messages
-                              ? Object.entries(
-                                  messages
-                                ).map(([type, message]) => (
-                                  <p key={type}>{message}</p>
-                                ))
-                              : null;
-                          }}
-                        />
+                      {errors.pay && (
+                  <p className="ml-5 mt-2 name-error text-red-700 text-sm">Please enter the pay you require.</p> )}
                       </div>
                     </div>
-                    <div className="mt-5">
-                      <label className="mr-3 ml-5">Services: </label>
+
+                    <div className="flex mt-5">
+                      <label className="mr-96 ml-5">Services: </label>
                     </div>
 
                     <div className="mr-4 ml-4 mt-3 flex flex-row space-x-3">
@@ -225,7 +222,9 @@ export default function WorkerModal() {
                       </label>
                       <input
                         name="Cooking"
-                        ref={register}
+                        ref={register({
+                          required: true
+                        })}
                         type="checkbox"
                         value="Cooking"
                         className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
@@ -243,12 +242,15 @@ export default function WorkerModal() {
                     <input
                       type="number"
                       name="startingtime"
+                      ref={register({
+                        required: true
+                      })}
                       className="px-1 py-1 ml-5"
                       placeholder="HH:MM"
                       onChange={(e) => setStartTime(e.target.value)}
                     />
-                    <div className="text-sm text-red-700">
-                      {errors.startingtime && "Please give starting time."}
+                    <div className="text-sm ml-3 text-red-700">
+                      {errors.startingtime && "Enter starting time."}
                     </div>
                     <select
                       className="mt-1 ml-3 h-10 px-2 py-2 focus:ring-indigo-500  block w-20 shadow-2xl sm:text-sm border-gray-500 border-b-2 rounded-md hover:shadow-inner "
@@ -269,13 +271,16 @@ export default function WorkerModal() {
                     <input
                       id="endTime"
                       type="number"
+                      ref={register({
+                        required: true
+                      })}
                       name="endtime"
                       className="px-1 py-1"
                       placeholder="HH:MM"
                       onChange={(e) => setEndTime(e.target.value)}
                     />
-                    <div className="text-sm text-red-700">
-                      {errors.endtime && "Please give starting time."}
+                    <div className="text-sm ml-3 text-red-700">
+                      {errors.endtime && "Enter ending time."}
                     </div>
                     <select
                       className="mt-1 ml-3 h-10 px-2 py-2 focus:ring-indigo-500  block w-20 shadow-2xl sm:text-sm border-gray-500 border-b-2 rounded-md hover:shadow-inner "
@@ -314,10 +319,6 @@ export default function WorkerModal() {
                     ))}
                   </div>
                 )}
-                <input
-                  type="submit"
-                  className="cursor-pointer w-full h-12 mt-6 shadow-lg flex flex-col items-center justify-center px-8 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
-                />
               </div>
             </div>
           </div>
