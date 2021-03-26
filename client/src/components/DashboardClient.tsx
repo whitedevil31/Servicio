@@ -12,6 +12,7 @@ function DashboardClient() {
 
   const [worker, setWorker] = useState<any[]>([]);
   const [workernearby, setWorkernearby] = useState<any[]>([]);
+  const [service, setService] = useState<any[]>([]);
 
   useEffect(() => {
     axios
@@ -57,7 +58,6 @@ function DashboardClient() {
   };
 
   const filterServiceSubmit = (data: any) => {
-
     var selected = new Array();
     var service = document.getElementById("service");
 
@@ -77,9 +77,9 @@ function DashboardClient() {
       },
     };
     const serviceData: any = {
-      services: selected
+      services: selected,
     };
-    console.log(serviceData)
+    console.log(serviceData);
     axios
       .post("http://localhost:5000/api/worker/filter", serviceData, config)
       .then((response) => {
@@ -97,14 +97,13 @@ function DashboardClient() {
               <div className="mb-3">Select the service: </div>
               <div className="mb-5">
                 <form onSubmit={handleSubmit(filterServiceSubmit)} id="service">
-               
                   <div className="flex items-center mb-2">
                     <input
                       type="text"
                       placeholder="Search"
                       className="mt-1 mb-5 h-8 px-2 py-2 block w-full shadow-sm text-black sm:text-sm bg-gray-300 rounded-md"
                     ></input>
-                     <input
+                    <input
                       className="cursor-pointer h-7 w-12 flex ml-3 mb-4 shadow-lg justify-center items-center px-3 p-b-3 border border-transparent text-xs rounded-md text-white bg-gray-600 hover:bg-grey-900"
                       type="submit"
                     />
@@ -165,7 +164,7 @@ function DashboardClient() {
               </div>
               Selected workers:
               {/* {hiredworker.map((obj) => ( */}
-              <div className="flex px-5 py-5 bg-indigo-100 rounded-xl mt-6 w-full hover:bg-indigo-200 shadow-inner">
+              <div className="flex px-5 py-5 bg-indigo-100 rounded-xl mt-6 w-full h-full hover:bg-indigo-200 shadow-inner">
                 <div className="flex flex-col float-left">Thala</div>
                 <a className="flex flex-col float-right ml-24 mt-2 cursor-pointer">
                   <i className="far fa-comments"></i>
@@ -177,7 +176,7 @@ function DashboardClient() {
             <div className="w-1/2 h-full mr-4">
               {worker.map((obj) => (
                 <div
-                  className="flex justify-between bg-indigo-50 ml-6 mt-8 h-40 w-11/12 shadow-inner sm:rounded-2xl border-b-4 
+                  className="flex justify-between bg-indigo-50 ml-6 mt-8 w-11/12 shadow-inner sm:rounded-2xl border-b-4 
                border-green-800 
                transition duration-300 ease-in-out hover:scale-y-125 hover:bg-indigo-100
                "
@@ -187,24 +186,28 @@ function DashboardClient() {
                     src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
                     alt=""
                   ></img>
-                  <h1 className="flex ml-5 mt-6 font-display text-xl text-green-800">
+                  <h1 className="ml-5 mt-6 font-display text-xl text-green-800">
                     {obj.user.username}
                   </h1>
-                  <p className="flex flex-row mt-16 -ml-12 font-display text-sm font-bold text-green-800">
+                  <p className="flex-row mt-16 -ml-12 font-display text-sm font-bold text-green-800">
                     Age{obj.user.age}
                   </p>
                   <button className="w-14 h-8 mt-24 mr-8 -ml-8 shadow-lg flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700">
                     Hire!
                   </button>
-                  <div className="flex flex-col">
-                  <p className="ml-1 mt-9 mr-2 mb-3 font-display text-mg text-green-800">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Odit repellat quas velit.
-                  </p>
-                  {obj.services.map((service: string) => {
-                      <p className="text-xs w-full justify-center items-center bg-gray-500 text-white p-2 rounded-full">{service.split(',')}</p>
-                  })}
-                  
+                  <div className="flex-col">
+                    <p className="ml-1 mt-9 mr-2 mb-3 font-display text-mg text-green-800">
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                      Odit repellat quas velit.
+                    </p>
+                    <div className="text-xs flex">
+                      {obj.services.map((item: any) => (
+                        <p className="mt-2 mr-2 bg-gray-700 text-white shadow-2xl p-2 rounded-full text-xs flex-row 
+                        hover:scale-125">
+                          {item}
+                        </p>
+                      ))}
+                    </div>
                   </div>
                   <a className="ml-2 -mr-10 mt-12 w-12 h-12 px-5 py-5 shadow-lg flex items-center justify-center rounded-full bg-green-300 hover:bg-green-500">
                     <i className="far fa-comments"></i>
@@ -221,14 +224,24 @@ function DashboardClient() {
                 Workers Near By:
                 {workernearby.map((obj) => (
                   <div className="flex px-5 py-2 bg-indigo-100 rounded-xl mt-6 w-full hover:bg-indigo-200 shadow-inner">
-                    <div className="text-sm ">
-                      <div className="text-sm flex-col">{obj.username}</div>                
-                      <div className="text-xs flex-col">10,000</div>
+                    <div className="text-sm">
+                      <div className="text-sm flex-col">
+                        {obj.user.username}
+                      </div>
+                      <div className="text-xs flex-row">₹{obj.pay}</div>
+                      <div className="text-xs flex">
+                        {obj.services.map((item: any) => (
+                          <p className="mt-2 mr-2 bg-gray-400 p-2 rounded-full text-xs flex-row">
+                            {item}
+                          </p>
+                        ))}
+                      </div>
                     </div>
+
                     <div className="ml-20">
-                    <a className="mt-2 cursor-pointer">
-                      <i className="far fa-comments"></i>
-                    </a>
+                      <a className="mt-2 cursor-pointer">
+                        <i className="far fa-comments"></i>
+                      </a>
                     </div>
                   </div>
                 ))}
