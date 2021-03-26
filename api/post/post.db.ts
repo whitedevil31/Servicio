@@ -1,12 +1,6 @@
 import * as mongodb from "mongodb";
 import { getClient } from "../db/db.connect";
-import {
-  workerPosts,
-  postSchema,
-  postType,
-  ServiceType,
-  userLocation,
-} from "./post.schema";
+import { workerPosts, postSchema, postType, ServiceType } from "./post.schema";
 import { userDB, userInterface } from "../user/user.schema";
 import findDistance from "../utils/calc.distance";
 
