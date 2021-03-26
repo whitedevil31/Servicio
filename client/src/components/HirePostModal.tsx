@@ -67,8 +67,8 @@ export default function HireModal() {
     setOpen(false);
   };
 
-  const onSubmit = () => {
-    alert("yov poda");
+  const onSubmit = (data: any) => {
+    console.log(data);
   };
   return (
     <div>
@@ -91,7 +91,7 @@ export default function HireModal() {
         }}
       >
         <Fade in={open}>
-          <div className="bg-gray-200 w-3/4 h-1/3 py-2 px-3 rounded shadow-xl text-gray-800">
+          <div className="bg-gray-200 w-5/6 h-1/2 py-2 px-3 rounded shadow-xl text-gray-800">
             <div className="flex justify-between items-center">
               <h4 className="text-lg mt-3 ml-5 font-bold font-display">
                 Select required timeslots:
@@ -114,32 +114,42 @@ export default function HireModal() {
             <form onSubmit={handleSubmit(onSubmit)} id="worker">
               <div className="flex flex-col mt-10">
                 <div className="mr-4 ml-4 mt-3 flex flex-row space-x-3">
-                
-               
-                  {/* <input
-                        name="Plumbing"
-                        ref={register}
-                        type="checkbox"
-                        value="Plumbing"
-                        className="focus:ring-gray-500 h-4 w-4 text-gray-600 border-gray-400 rounded-full"
-                    ></input>
-                    <label className="font-medium mr-5 text-gray-700">
-                    {hire && (hire!.map((item: any) =>
-                    item.timeslots.map((time: any) => (
-                      <div>
-                      <p>{time.start.startTime}</p>
-                      <p>{time.start.startFormat}</p>
-                      </div>
-                    ))
-                  ))}
-                    </label> */}
+                  {hire &&
+                    hire!.map((item: any) =>
+                      item.timeslots.map((time: any) => (
+                        <div className="flex-row">
+                          <input
+                            className="mr-20"
+                            type="radio"
+                            name="time"
+                            value={`timeslot:{
+                                      start:{
+                                        ${time.start.startTime},
+                                        ${time.start.startFormat}
+                                      },
+                                      end:{
+                                        ${time.end.endTime},
+                                        ${time.end.endFormat}
+                                      }
+                                    }`}
+                            ref={register}
+                          />
+                          <div className="flex flex-row bg-gray-400 p-2 rounded-full text-xs">
+                            <p>{time.start.startTime} </p>
+                            <p>{time.start.startFormat}</p> -
+                            <p>{time.end.endTime}</p>
+                            <p>{time.end.endFormat}</p>
+                            {/* `${time.start.startTime} + ${time.start.startFormat} + ${time.end.endTime}+ ${time.end.endFormat}` */}
+                          </div>
+                        </div>
+                      ))
+                    )}
                 </div>
+                <input
+                  type="submit"
+                  className="cursor-pointer h-12 w-24 shadow-lg items-center justify-center mt-5 mb-2 ml-5 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
+                />
               </div>
-
-              <input
-                type="submit"
-                className="cursor-pointer h-12 w-24 shadow-lg items-center justify-center mb-5 ml-5 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
-              />
             </form>
           </div>
         </Fade>

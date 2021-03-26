@@ -25,7 +25,7 @@ function DashboardClient() {
       .then((response) => {
         setWorker(response.data);
       });
-  });
+  }, []);
 
   useEffect(() => {
     axios
@@ -38,7 +38,7 @@ function DashboardClient() {
       .then((response) => {
         setWorkernearby(response.data);
       });
-  });
+  },[]);
 
   const history = useHistory();
   const logoutHandler = () => {
