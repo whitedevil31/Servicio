@@ -23,10 +23,12 @@ export const workerPost = async (data: postType, user: userInterface) => {
   return { _id: add.insertedId };
 };
 
-export const getAllPost = async () => {
+export const getPost = async (id: string) => {
   const client: mongodb.MongoClient = await getClient();
-  const DB = await client.db().collection<workerPosts>("post");
-  return await DB.find({}).toArray();
+  return await client
+    .db()
+    .collection<workerPosts>("post")
+    .findOne({ _id: new mongodb.ObjectId(id) });
 };
 
 export const filterPost = async (service: ServiceType[]) => {
