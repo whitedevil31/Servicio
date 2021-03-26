@@ -3,6 +3,7 @@ import { useHistory, Link, Redirect } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios, { AxiosRequestConfig } from "axios";
 import NavBar from "./NavBar";
+import HireModal from './HirePostModal'
 import { useForm } from "react-hook-form";
 
 function DashboardClient() {
@@ -12,7 +13,6 @@ function DashboardClient() {
 
   const [worker, setWorker] = useState<any[]>([]);
   const [workernearby, setWorkernearby] = useState<any[]>([]);
-  const [service, setService] = useState<any[]>([]);
 
   useEffect(() => {
     axios
@@ -25,7 +25,7 @@ function DashboardClient() {
       .then((response) => {
         setWorker(response.data);
       });
-  });
+  }, []);
 
   useEffect(() => {
     axios
@@ -38,7 +38,7 @@ function DashboardClient() {
       .then((response) => {
         setWorkernearby(response.data);
       });
-  });
+  },[]);
 
   const history = useHistory();
   const logoutHandler = () => {
@@ -192,9 +192,7 @@ function DashboardClient() {
                   <p className="flex-row mt-16 -ml-12 font-display text-sm font-bold text-green-800">
                     Age{obj.user.age}
                   </p>
-                  <button className="w-14 h-8 mt-24 mr-8 -ml-8 shadow-lg flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700">
-                    Hire!
-                  </button>
+                  <HireModal />
                   <div className="flex-col">
                     <p className="ml-1 mt-9 mr-2 mb-3 font-display text-mg text-green-800">
                       Lorem, ipsum dolor sit amet consectetur adipisicing elit.
@@ -236,12 +234,6 @@ function DashboardClient() {
                           </p>
                         ))}
                       </div>
-                    </div>
-
-                    <div className="ml-20">
-                      <a className="mt-2 cursor-pointer">
-                        <i className="far fa-comments"></i>
-                      </a>
                     </div>
                   </div>
                 ))}
