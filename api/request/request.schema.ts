@@ -1,9 +1,9 @@
 import * as yup from "yup";
 
-const requestSchema = yup
+export const requestSchema = yup
   .object({
-    timeslots: yup.array().of(yup.object()).required(),
-    clientId: yup.string().required(),
+    timeslots: yup.object().required(),
+    clientId: yup.string(),
     workerId: yup.string().required(),
     accepted: yup.boolean().required(),
   })
