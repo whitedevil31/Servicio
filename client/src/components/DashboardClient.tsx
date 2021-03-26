@@ -197,8 +197,7 @@ function DashboardClient() {
                   </button>
                   <div className="flex-col">
                     <p className="ml-1 mt-9 mr-2 mb-3 font-display text-mg text-green-800">
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Odit repellat quas velit.
+                      {obj.username.about}
                     </p>
                     <div className="text-xs flex">
                       {obj.services.map((item: any) => (
