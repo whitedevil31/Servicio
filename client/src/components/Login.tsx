@@ -25,7 +25,7 @@ function Login() {
         if (response.status === 200) {
           login!();
           // Cookies.set("user", "true");
-          console.log(res.role);
+          console.log(res.role); 
           if (res.role == "User") {
             history.push("/dashboard");
             Cookies.set("user", "true");
