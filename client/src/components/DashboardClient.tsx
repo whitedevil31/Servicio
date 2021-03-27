@@ -3,13 +3,11 @@ import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios, { AxiosRequestConfig } from "axios";
 import NavBar from "./NavBar";
-import HireModal from './HirePostModal'
 import { useForm } from "react-hook-form";
 
 function DashboardClient() {
-
   const history = useHistory();
-  const [timeslot, setTimeslot] = useState<any[]>([])
+  const [timeslot, setTimeslot] = useState<any[]>([]);
   const [worker, setWorker] = useState<any[]>([]);
   const [workernearby, setWorkernearby] = useState<any[]>([]);
   const { register, handleSubmit, errors } = useForm({
@@ -17,17 +15,17 @@ function DashboardClient() {
   });
 
   const time = (data: any) => {
-    axios.get(`http://localhost:5000/api/worker/post/${data}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-    }).then((response) => {
-        setTimeslot(response.data)
-        console.log(response.data)
-    })
-  }
-
+    axios
+      .get(`http://localhost:5000/api/worker/post/${data}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
+      .then((response) => {
+        setTimeslot(response.data.timeslots);
+      });
+  };
 
   useEffect(() => {
     axios
@@ -40,25 +38,25 @@ function DashboardClient() {
       .then((response) => {
         setWorkernearby(response.data);
       });
-  },[]);
-  
+  }, []);
 
   const filterData: any = {
     services: [],
   };
 
   useEffect(() => {
-    axios.post("http://localhost:5000/api/worker/filter", filterData, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-    })
-    .then((response) => {
-      // console.log(response.data)
-      setWorker(response.data);
-    });
-  }, [])
+    axios
+      .post("http://localhost:5000/api/worker/filter", filterData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
+      .then((response) => {
+        console.log(response.data);
+        setWorker(response.data);
+      });
+  }, []);
 
   const filterServiceSubmit = (data: any) => {
     var selected = new Array();
@@ -78,16 +76,17 @@ function DashboardClient() {
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true,
     };
-   
+
     const filterData: any = {
-      filter: selected,
+      services: selected,
     };
-    console.log(filterData)
+    console.log(filterData);
     axios
       .post("http://localhost:5000/api/worker/filter", filterData, config)
       .then((response) => {
-        console.log(response);
+        setWorker(response.data);
       });
   };
 
@@ -116,7 +115,7 @@ function DashboardClient() {
                     <input
                       name="plumber"
                       type="radio"
-                      value="plumber"
+                      value="Plumber"
                       ref={register}
                       className="focus:ring-gray-800 h-3 w-3 text-gray-800 border-gray-300 mr-5"
                     />
@@ -138,7 +137,7 @@ function DashboardClient() {
                     <input
                       type="radio"
                       name="Driver"
-                      value="driver"
+                      value="Driver"
                       ref={register}
                       className="focus:ring-gray-800 h-3 w-3 text-gray-800 border-gray-300 mr-5"
                     />
@@ -177,14 +176,15 @@ function DashboardClient() {
               {/* ))} */}
             </div>
 
-            <div className="w-1/2 h-full mr-4" >
+            <div className="w-1/2 h-full mr-4">
               {worker.map((obj) => (
                 <div
                   className="flex justify-between cursor-pointer bg-indigo-50 ml-6 mt-8 w-11/12 shadow-inner sm:rounded-2xl border-b-4 
                border-green-800 
                transition duration-300 ease-in-out hover:scale-y-125 hover:bg-indigo-100
-               " onClick={()=>time(obj._id)}
+               "
                 >
+                  {" "}
                   <img
                     className="h-8 w-8 ml-6 mt-7 rounded-b-full"
                     src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
@@ -196,7 +196,6 @@ function DashboardClient() {
                   <p className="flex-row mt-16 -ml-12 font-display text-sm font-bold text-green-800">
                     Age{obj.user.age}
                   </p>
-                  <HireModal />
                   <div className="flex-col">
                     <p className="ml-1 mt-9 mr-2 mb-3 font-display text-mg text-green-800">
                       Lorem, ipsum dolor sit amet consectetur adipisicing elit.
@@ -204,8 +203,10 @@ function DashboardClient() {
                     </p>
                     <div className="text-xs flex">
                       {obj.services.map((item: any) => (
-                        <p className="mt-2 mr-2 bg-gray-700 text-white shadow-2xl p-2 rounded-full text-xs flex-row 
-                        hover:scale-125">
+                        <p
+                          className="mt-2 mr-2 bg-gray-700 text-white shadow-2xl p-2 rounded-full text-xs flex-row 
+                        hover:scale-125"
+                        >
                           {item}
                         </p>
                       ))}
