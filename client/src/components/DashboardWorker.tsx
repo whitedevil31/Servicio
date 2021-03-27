@@ -12,16 +12,15 @@ const DashboardWorker = () => {
   const [assignee, setAssignee] = useState<any[]>([]);
   const [workerRequest, setWorkerRequest] = useState<any[]>([]);
   useEffect(() => {
+    const workerId = Cookies.get("uuid");
+    console.log(workerId);
     axios
-      .get(
-        "http://localhost:5000/api/worker/request/605d906d2516812ccc138919",
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      )
+      .get(`http://localhost:5000/api/worker/request/${workerId}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
       .then((response) => {
         setWorkerRequest(response.data);
         console.log(response.data);
@@ -48,6 +47,7 @@ const DashboardWorker = () => {
       setTimeout(() => {
         if (response.status === 200) {
           Cookies.remove("user");
+          Cookies.remove("uuid");
           history.push("/", {});
         }
       }, 800);
