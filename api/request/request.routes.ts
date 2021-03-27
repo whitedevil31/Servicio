@@ -1,7 +1,7 @@
 import { Router, Request, Response, NextFunction } from "express";
 import adminMiddleware from "../middleware/auth";
 import { requestType } from "./request.schema";
-import { sendRequest } from "./request.db";
+import { sendRequest, findRequest } from "./request.db";
 import { userDB } from "../user/user.schema";
 
 const router: Router = Router();
@@ -17,6 +17,18 @@ router.post(
       res.json(result);
     } catch (err) {
       res.json(err).status(400);
+    }
+  }
+);
+router.get(
+  "/api/worker/request/:workerId",
+  async (req: Request, res: Response) => {
+    try {
+      const workerId = req.params.workerId;
+      const result = await findRequest(workerId);
+      res.json(result);
+    } catch (err) {
+      res.json(err);
     }
   }
 );

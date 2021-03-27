@@ -10,7 +10,23 @@ const DashboardWorker = () => {
   const { register, handleSubmit } = useForm();
   const [client, setClient] = useState<any[]>([]);
   const [assignee, setAssignee] = useState<any[]>([]);
-
+  const [workerRequest, setWorkerRequest] = useState<any[]>([]);
+  useEffect(() => {
+    axios
+      .get(
+        "http://localhost:5000/api/worker/request/605d906d2516812ccc138919",
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        setWorkerRequest(response.data);
+        console.log(response.data);
+      });
+  }, []);
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
@@ -38,7 +54,6 @@ const DashboardWorker = () => {
     });
   };
 
- 
   const onSubmit = (data: any) => {
     var selected = new Array();
     var worker = document.getElementById("worker");
@@ -101,42 +116,56 @@ const DashboardWorker = () => {
                transition duration-300 ease-in-out hover:scale-y-125 hover:shadow-inner hover:bg-gray-200
                "
               >
-                <div className="flex">
-                  <img
-                    className="h-8 w-8 ml-6 mt-7 rounded-b-full"
-                    src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-                    alt=""
-                  ></img>
-                  <h1 className="flex ml-5 mt-6 float-left font-display text-xl text-green-800">
-                    Name
-                  </h1>
-                  <p className="flex flex-row mt-16 -ml-12 float-left font-display text-sm font-bold text-green-800">
-                    Age
-                  </p>
-                  <button className="w-14 h-8 mt-40 mr-12 -ml-8 shadow-lg items-center justify-center text-base font-medium rounded-md text-green-700 border-2 border-green-600 hover:bg-green-700 hover:text-white">
-                    Accept
-                  </button>
-                  <button className="w-14 h-8 mt-40 mr-12 -ml-8 float-right shadow-lg flex flex-row items-center justify-center px-8 py-3 text-base font-medium rounded-md text-blue-700 border-2 border-blue-600 hover:bg-blue-700 hover:text-white">
-                    Reject
-                  </button>
-                  {/* <button className="w-14 h-8 mt-40 mr-12 -ml-8 float-left shadow-lg flex flex-row items-center justify-center px-8 py-3 text-base font-medium rounded-md text-red-500 border-2 border-red-600 hover:bg-yellow-600 hover:text-white">
+                {workerRequest.map((item: any) => (
+                  <div className="flex">
+                    <img
+                      className="h-8 w-8 ml-6 mt-7 rounded-b-full"
+                      src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+                      alt=""
+                    ></img>
+                    <h1 className="flex ml-5 mt-6 float-left font-display text-xl text-green-800">
+                      {item.client.username}
+                    </h1>
+                    <p className="flex flex-row mt-16 -ml-12 float-left font-display text-sm font-bold text-green-800">
+                      {item.client.age}
+                    </p>
+                    <button className="w-14 h-8 mt-40 mr-12 -ml-8 shadow-lg items-center justify-center text-base font-medium rounded-md text-green-700 border-2 border-green-600 hover:bg-green-700 hover:text-white">
+                      Accept
+                    </button>
+                    <button className="w-14 h-8 mt-40 mr-12 -ml-8 float-right shadow-lg flex flex-row items-center justify-center px-8 py-3 text-base font-medium rounded-md text-blue-700 border-2 border-blue-600 hover:bg-blue-700 hover:text-white">
+                      Reject
+                    </button>
+                    {/* <button className="w-14 h-8 mt-40 mr-12 -ml-8 float-left shadow-lg flex flex-row items-center justify-center px-8 py-3 text-base font-medium rounded-md text-red-500 border-2 border-red-600 hover:bg-yellow-600 hover:text-white">
                     Reject
                   </button> */}
-                  <div className="mt-16 mr-2 -ml-32 mb-3 font-display text-mg text-green-800">
-                    <p>
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Odit repellat quas velit.
-                    </p>
+                    <div className="mt-16 mr-2 -ml-32 mb-3 font-display text-mg text-green-800">
+                      <p>{item.client.residence}</p>
+                    </div>
+                    <div className="flex float-right mt-12">
+                      <a className="flex w-12 h-12 cursor-pointer px-5 py-5 shadow-lg rounded-full items-center justify-center bg-green-300 hover:bg-green-500">
+                        <i className="far fa-comments"></i>
+                      </a>
+                      <p className="flex float-right mt-20 -mr-40 font-cursive text-xl text-green-800">
+                        <b>{item.pay}</b>
+                      </p>
+                      <div className="w-20 h-12 border-2 border-red-200 mr-24 mt-20">
+                        {item.services.map((item: any) => (
+                          <p>{item}</p>
+                        ))}
+                      </div>
+                      <div className="flex ml-28">
+                        <div className="w-16 h-8 bg-blue-500 flex rounded-xl">
+                          <p>{item.timeslots.start.startTime}</p>
+                          <p>{item.timeslots.start.startFormat}</p>
+                        </div>
+                        <div className="w-16 h-8 bg-blue-500 flex rounded-xl">
+                          <p>{item.timeslots.end.endTime}</p>
+                          <p>{item.timeslots.end.endFormat}</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex float-right mt-12">
-                    <a className="flex w-12 h-12 cursor-pointer px-5 py-5 shadow-lg rounded-full items-center justify-center bg-green-300 hover:bg-green-500">
-                      <i className="far fa-comments"></i>
-                    </a>
-                    <p className="flex float-right mt-20 -mr-40 font-cursive text-xl text-green-800">
-                      <b>₹20,000</b>
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
             {/* ))} */}
