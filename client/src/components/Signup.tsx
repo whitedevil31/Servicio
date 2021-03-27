@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import {
@@ -9,6 +10,7 @@ import {
 } from "../types/types";
 
 function Signup() {
+  let history = useHistory();
   const [position, setPosition] = useState<Coordinates | null>();
   const { register, handleSubmit, errors } = useForm();
   useEffect(() => {
@@ -53,6 +55,8 @@ function Signup() {
     axios
       .post("http://localhost:5000/api/register ", userData, config)
       .then((response) => {
+        alert('Successfully Registered')
+        history.push('/login')
         console.log(response);
       });
   };
@@ -132,8 +136,7 @@ function Signup() {
                     className="mt-1 h-10 focus:ring-indigo-500  focus:border-indigo-500 block w-full shadow-xl sm:text-sm border-gray-500 border-b-2 rounded-md hover:shadow-inner"
                   ></input>
                   <p className="flex-col mt-2 text-xs text-indigo-400">
-                    Use atleast 6-8 characters, include numbers and uppercase{" "}
-                    <b>only</b>.
+                    Use atleast <b>6-8 characters. </b>
                   </p>
                 </div>
               </div>

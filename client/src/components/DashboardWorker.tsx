@@ -99,7 +99,7 @@ const DashboardWorker = () => {
             {/* {client.map((obj) => ( */}
             <div className="flex flex-col w-3/4  mr-4">
               <div
-                className="flex bg-gray-100 ml-6 mt-4 h-40 w-full shadow-2xl sm:rounded-2xl border-b-4 
+                className="flex bg-gray-100 ml-6 mt-4 h-40 w-full p-5 shadow-2xl sm:rounded-2xl border-b-4 
                border-green-800 
                transition duration-300 ease-in-out hover:scale-y-125 hover:shadow-inner hover:bg-gray-200
                "
@@ -109,15 +109,15 @@ const DashboardWorker = () => {
                   <WorkerPostModal />
                 </div>
               </div>
-
+              {workerRequest.map((item: any) => (
               <div
                 className="flex bg-gray-300 ml-6 mt-20 h-52 w-1/2 shadow-2xl sm:rounded-2xl border-b-4 
                border-green-800 
                transition duration-300 ease-in-out hover:scale-y-125 hover:shadow-inner hover:bg-gray-200
                "
               >
-                {workerRequest.map((item: any) => (
-                  <div className="flex">
+                
+                  <div className="flex mr-5 ">
                     <img
                       className="h-8 w-8 ml-6 mt-7 rounded-b-full"
                       src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
@@ -126,7 +126,7 @@ const DashboardWorker = () => {
                     <h1 className="flex-row ml-5 mt-6 float-left font-display text-xl text-green-800">
                       {item.client.username}
                     </h1>
-                    <p className="flex-row mt-16 -ml-12 font-display text-sm font-bold text-green-800">
+                    <p className="flex-row mt-16 -ml-24 font-display text-sm font-bold text-green-800">
                       {item.client.age}yr
                     </p>
                     <div className="mr-2 -ml-10 mt-24 mb-3 font-display text-mg text-green-800">
@@ -167,8 +167,9 @@ const DashboardWorker = () => {
                       </div>
                     </div>
                   </div>
-                ))}
+               
               </div>
+               ))}
             </div>
             {/* ))} */}
             <div className="w-1/5 float-right bg-gray-100 rounded-md h-96 ml-5 mt-5 shadow-2xl transition duration-400 ease-in-out hover:scale-y-125 hover:bg-gray-200 ">
