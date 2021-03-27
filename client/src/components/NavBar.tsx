@@ -20,6 +20,7 @@ function NavBar() {
       setTimeout(() => {
         if (response.status === 200) {
           Cookies.remove("user");
+          Cookies.remove("uuid");
           history.push("/", {});
         }
       }, 800);
