@@ -9,6 +9,7 @@ function DashboardClient() {
   const history = useHistory();
   const [timeslot, setTimeslot] = useState<any[]>([]);
   const [worker, setWorker] = useState<any[]>([]);
+  const [hire, setHireTime] = useState<any[]>([]);
   const [workernearby, setWorkernearby] = useState<any[]>([]);
   const { register, handleSubmit, errors } = useForm({
     criteriaMode: "all",
@@ -26,6 +27,43 @@ function DashboardClient() {
         setTimeslot(response.data.timeslots);
       });
   };
+
+  const timeslotSubmit = (data: any) => {
+    var selected = new Array();
+    var time = document.getElementById("timeslot");
+
+    if (time) {
+      var ticks = time.getElementsByTagName("input");
+
+      for (var i = 0; i < ticks.length; i++) {
+        if (ticks[i].checked) {
+          selected.push(ticks[i].value);
+        }
+      }
+    }
+
+    console.log(selected);
+    console.log(data);
+
+    let config = {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const timeslotData: any = {
+      slotsSelected: data.time,
+      accepted: false,
+
+    };
+     console.log(timeslotData)
+    // axios
+    //   .post("http://localhost:5000/api/worker/request", timeslotData, config)
+    //   .then((response) => {
+    //     // console.log(response);
+    //   });
+  }
 
   useEffect(() => {
     axios
@@ -53,7 +91,7 @@ function DashboardClient() {
         withCredentials: true,
       })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setWorker(response.data);
       });
   }, []);
@@ -190,10 +228,10 @@ function DashboardClient() {
                     src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
                     alt=""
                   ></img>
-                  <h1 className="ml-5 mt-6 font-display text-xl text-green-800">
+                  <h1 className="ml-5 mt-6 mr-5 font-display text-xl text-green-800">
                     {obj.user.username}
                   </h1>
-                  <p className="flex-row mt-16 -ml-12 font-display text-sm font-bold text-green-800">
+                  <p className="flex-row mt-16 mr-5 -ml-12 font-display text-sm font-bold text-green-800">
                     Age{obj.user.age}
                   </p>
                   <div className="flex-col">
@@ -210,6 +248,29 @@ function DashboardClient() {
                           {item}
                         </p>
                       ))}
+                    </div>
+                    <div className="text-xs flex">
+                      <form onSubmit={handleSubmit(timeslotSubmit)} id="timeslot">
+                      
+                       {obj.timeslots.map((time: any) => (
+                         <div className="flex-row mb-2">
+                           <input
+                            className="mr-20"
+                            type="radio"
+                            name="time"
+                            value={`${time.start.startTime} + ${time.start.startFormat} + ${time.end.endTime} + ${time.end.endFormat}`}
+                            ref={register}
+                          />
+                          <div className="flex flex-row bg-gray-400 p-2 rounded-full text-xs">
+                            <p>{time.start.startTime} </p>
+                            <p>{time.start.startFormat}</p> -
+                             <p>{time.end.endTime}</p>
+                             <p>{time.end.endFormat}</p>
+                           </div>
+                         </div>
+                     ))}
+                      <input type="submit" />
+                      </form>
                     </div>
                   </div>
                   <a className="ml-2 -mr-10 mt-12 w-12 h-12 px-5 py-5 shadow-lg flex items-center justify-center rounded-full bg-green-300 hover:bg-green-500">
