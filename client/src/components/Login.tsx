@@ -24,13 +24,16 @@ function Login() {
       response.json().then((res) => {
         if (response.status === 200) {
           login!();
-          Cookies.set("user", "true");
-          console.log(res.role);
+          Cookies.set("uuid", res._id);
+          // Cookies.set("user", "true");
+          console.log(res.role); 
           if (res.role == "User") {
             history.push("/dashboard");
+            Cookies.set("user", "true");
             console.log("he i user");
           } else {
             console.log("he is worler");
+            Cookies.set("worker", "true");
             history.push("/worker/dashboard");
           }
         }
@@ -112,6 +115,22 @@ function Login() {
             </button>
           </div>
         </form>
+        <div className="pt-5 flex text-xs">
+          Not a member yet?{" "}
+          <a
+            className="ml-2 font-bold flex-row"
+            href="http://localhost:3000/signup"
+          >
+            {" "}
+            Sign Up Here!
+          </a>
+          <a
+            className="font-bold flex-row flex ml-44"
+            href="http://localhost:3000"
+          >
+            Home Page?
+          </a>
+        </div>
       </div>
     </div>
   );

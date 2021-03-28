@@ -1,14 +1,18 @@
 import * as mongodb from "mongodb";
 import { getClient } from "../db/db.connect";
-import { workerPosts, postSchema, postType } from "./post.schema";
-import { userInterface } from "../user/user.schema";
-import { ServiceType } from "../post/post.schema";
+import { workerPosts, postSchema, postType, ServiceType } from "./post.schema";
+import { userDB, userInterface } from "../user/user.schema";
+import findDistance from "../utils/calc.distance";
 
 export const workerPost = async (data: postType, user: userInterface) => {
   await postSchema.validate(data).catch((err) => {
     throw { success: false, message: err.errors };
   });
-  const workerPost = { pay: data.pay, services: data.services };
+  const workerPost = {
+    pay: data.pay,
+    services: data.services,
+    timeslots: data.timeslots,
+  };
   const client: mongodb.MongoClient = await getClient();
   const DB = await client.db().collection<workerPosts>("post");
   const addData = { user, ...workerPost };
@@ -19,18 +23,29 @@ export const workerPost = async (data: postType, user: userInterface) => {
   return { _id: add.insertedId };
 };
 
-export const getAllPost = async () => {
+export const getPost = async (id: string) => {
   const client: mongodb.MongoClient = await getClient();
-  const DB = await client.db().collection<workerPosts>("post");
-  return await DB.find({}).toArray();
+  return await client
+    .db()
+    .collection<workerPosts>("post")
+    .findOne({ _id: new mongodb.ObjectId(id) });
 };
 
-export const filterPost = async (service: string) => {
+export const filterPost = async (service: ServiceType[]) => {
   const client: mongodb.MongoClient = await getClient();
   const DB = await client.db().collection<workerPosts>("post");
-  const PostArray = await DB.find().toArray();
-  const filterArray = PostArray.filter((item) =>
-    item.services!.find((item) => item === service)
-  );
-  return filterArray;
+  if (service.length == 0) {
+    return await DB.find().toArray();
+  }
+  return await DB.find({ services: { $all: service } }).toArray();
+};
+export const nearbyWorkers = async (user: userDB) => {
+  const client: mongodb.MongoClient = await getClient();
+  const postList: any = await client
+    .db()
+    .collection("post")
+    .find({ "user._id": { $ne: new mongodb.ObjectID(user._id) } })
+    .toArray();
+  const result = findDistance(postList, user.location);
+  return result;
 };
