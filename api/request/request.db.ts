@@ -32,3 +32,25 @@ export const findRequest = async (workerId: string) => {
 
   return requestResult;
 };
+
+export const acceptRequest = async (postId: string) => {
+  const client: mongodb.MongoClient = await getClient();
+  const requestResult = await client
+    .db()
+    .collection("request")
+    .updateOne(
+      { _id: new mongodb.ObjectID(postId) },
+      { $set: { accepted: true } }
+    );
+
+  console.log(requestResult);
+  return requestResult;
+};
+export const deleteRequest = async (postId: string) => {
+  const client: mongodb.MongoClient = await getClient();
+  const requestResult = await client
+    .db()
+    .collection("request")
+    .deleteOne({ _id: new mongodb.ObjectID(postId) });
+  return requestResult;
+};
