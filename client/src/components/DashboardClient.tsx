@@ -69,6 +69,7 @@ function DashboardClient() {
       .post("http://localhost:5000/api/worker/request", timeslotData, config)
       .then((response) => {
         console.log(response);
+        alert('Hey, you have successfully requested help. Please wait until furthur communication arrives!')
       });
   };
 
@@ -259,15 +260,15 @@ function DashboardClient() {
                       </div>
                       <div className="text-xs flex">
                         {obj.timeslots.map((time: any) => (
-                          <div className="flex-row mb-2">
+                          <div className="flex-row mb-2 mr-3 mt-5 text-sm text-white">
                             <input
-                              className="mr-20"
+                              className="mr-20 bg-gray-600"
                               type="radio"
                               name="time"
                               value={`${time.start.startTime} + ${time.start.startFormat} + ${time.end.endTime} + ${time.end.endFormat}`}
                               onChange={(e) => setSelectSlot(e.target.value)}
                             />
-                            <div className="flex flex-row bg-gray-400 p-2 rounded-full text-xs">
+                            <div className="flex flex-row bg-gray-600 p-2 rounded-full text-xs">
                               <p>{time.start.startTime} </p>
                               <p>{time.start.startFormat}</p> -
                               <p>{time.end.endTime}</p>
@@ -277,6 +278,7 @@ function DashboardClient() {
                         ))}
                         <input
                           type="submit"
+                          className="text-sm text-white bg-green-800 h-8  p-2 rounded-full"
                           onClick={() =>
                             setAdd({
                               pay: obj.pay,
