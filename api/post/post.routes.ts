@@ -1,7 +1,8 @@
 import { Router, Request, Response, NextFunction } from "express";
 import adminMiddleware from "../middleware/auth";
-import { postType } from "./post.schema";
-import { workerPost, getAllPost, filterPost } from "./post.db";
+import { postType, ServiceType, userLocation } from "./post.schema";
+import { userDB } from "../user/user.schema";
+import { workerPost, getPost, filterPost, nearbyWorkers } from "./post.db";
 import { userInterface } from "../user/user.schema";
 
 const router: Router = Router();
@@ -22,11 +23,11 @@ router.post(
 );
 
 router.get(
-  "/api/worker/get",
+  "/api/worker/post/:postId",
   adminMiddleware,
   async (req: Request, res: Response) => {
     try {
-      const result = await getAllPost();
+      const result = await getPost(req.params.postId);
       res.json(result);
     } catch (err) {
       res.json(err);
@@ -34,14 +35,32 @@ router.get(
   }
 );
 
-router.get(
-  "/api/worker/filter/:service",
+router.post(
+  "/api/worker/filter",
+  adminMiddleware,
   async (req: Request, res: Response) => {
     try {
-      const result = await filterPost(req.params.service);
-      res.json(result);
+      const services = req.body.services as ServiceType[];
+      if (services) {
+        const result = await filterPost(services);
+        res.json(result);
+      }
     } catch (err) {
       res.json(err);
+    }
+  }
+);
+router.get(
+  "/api/nearby",
+  adminMiddleware,
+  async (req: Request, res: Response) => {
+    try {
+      const user = req.user as userDB;
+      console.log(user);
+      const workerList = await nearbyWorkers(user);
+      res.json(workerList);
+    } catch (err) {
+      res.json(err).status(400);
     }
   }
 );

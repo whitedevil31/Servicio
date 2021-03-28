@@ -5,6 +5,7 @@ const postSchema = yup
   .object({
     services: yup.array().of(yup.string().strict().required()),
     pay: yup.number().required(),
+    timeslots: yup.array().of(yup.object()).required(),
   })
   .required();
 
@@ -17,6 +18,10 @@ interface workerPosts extends postType {
 
 export interface ServiceType {
   services: Array<string>;
+}
+export interface userLocation {
+  longitude: number;
+  latitude: number;
 }
 
 export { postSchema, postType, workerPosts };

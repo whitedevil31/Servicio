@@ -17,7 +17,6 @@ passport.use(
       bcrypt.compare(password, user.password, (err, result: boolean) => {
         if (err) throw err;
         if (result === true) {
-          console.log(user);
           return done(null, {
             _id: user._id,
             username: user.username,
@@ -46,7 +45,6 @@ passport.deserializeUser(async (username: string, cb) => {
 
   try {
     const user = await DB.findOne({ username: username });
-    console.log(user);
     cb(null, user);
   } catch (err) {
     cb(err, undefined);

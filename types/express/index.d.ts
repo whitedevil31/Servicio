@@ -1,6 +1,7 @@
 declare namespace Express {
   interface User {
-    username?: string;
+    username: string;
+    location: { latitude: number; longitude: number };
   }
   interface Response {
     data: { username: string };
