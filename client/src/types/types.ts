@@ -3,6 +3,7 @@ export interface workerPost {
   pay: number;
   user: {
     username: string;
+    age: number;
   };
 }
 export interface Coordinates {

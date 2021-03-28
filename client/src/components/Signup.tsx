@@ -8,9 +8,9 @@ import {
   userType,
   UserDetails,
 } from "../types/types";
-
 function Signup() {
   let history = useHistory();
+
   const [position, setPosition] = useState<Coordinates | null>();
   const { register, handleSubmit, errors } = useForm();
   useEffect(() => {
@@ -58,6 +58,11 @@ function Signup() {
         alert('Successfully Registered')
         history.push('/login')
         console.log(response);
+        if (response.status == 201) {
+          setTimeout(() => {
+            history.push("/");
+          }, 500);
+        }
       });
   };
 
