@@ -30,7 +30,16 @@ export const getPost = async (id: string) => {
     .collection<workerPosts>("post")
     .findOne({ _id: new mongodb.ObjectId(id) });
 };
-
+export const getSingleWorkerPost = async (user: userDB) => {
+  const client: mongodb.MongoClient = await getClient();
+  const singleWorkerPosts = await client
+    .db()
+    .collection<workerPosts>("post")
+    .find({ "user._id": new mongodb.ObjectID(user._id) })
+    .toArray();
+  console.log(singleWorkerPosts);
+  return singleWorkerPosts;
+};
 export const filterPost = async (service: ServiceType[]) => {
   const client: mongodb.MongoClient = await getClient();
   const DB = await client.db().collection<workerPosts>("post");

@@ -143,7 +143,7 @@ export default function WorkerModal() {
                 <form onSubmit={handleSubmit(onSubmit)} id="worker">
                   <div className="flex flex-col mt-10">
                     <div className="flex- row">
-                    <input
+                      <input
                         type="submit"
                         className="cursor-pointer h-12 w-24 shadow-lg items-center justify-center mb-5 ml-5 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
                       />
@@ -158,17 +158,20 @@ export default function WorkerModal() {
                         type="number"
                         name="pay"
                         ref={register({
-                          required: "This input is required."
+                          required: "This input is required.",
                         })}
                         autoComplete="off"
                         className="bg-transparent border-b-2 border-gray-500 shadow-inner h-4 px-3 py-3 rounded-md w-20"
                       ></input>
                       <div className="text-red-600">
-                      {errors.pay && (
-                  <p className="ml-5 mt-2 name-error text-red-700 text-sm">Please enter the pay you require.</p> )}
+                        {errors.pay && (
+                          <p className="ml-5 mt-2 name-error text-red-700 text-sm">
+                            Please enter the pay you require.
+                          </p>
+                        )}
                       </div>
                     </div>
-                   
+
                     <div className="flex mt-5">
                       <label className="mr-96 ml-5">Services: </label>
                     </div>

@@ -13,7 +13,7 @@ router.post(
       const result = await signUpClient(data);
       res.status(201).json(result);
     } catch (err) {
-      res.json(err);
+      res.status(400).json(err);
     }
   }
 );
@@ -34,14 +34,14 @@ router.get("/api/logout", (req: Request, res: Response) => {
     req.logout();
     res.json({ success: true, message: "Logged Out" }).status(200);
   } catch (err) {
-    res.json({ process: false, message: err });
+    res.status(400).json({ process: false, message: err });
   }
 });
 router.get("/api/user", adminMiddleware, (req: Request, res: Response) => {
   try {
     res.json(req.user).status(200);
   } catch (err) {
-    res.json({ success: false, message: err });
+    res.status(400).json({ success: false, message: err });
   }
 });
 
