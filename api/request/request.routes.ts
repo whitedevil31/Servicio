@@ -21,7 +21,7 @@ router.post(
       const result = await sendRequest(data, user);
       res.json(result);
     } catch (err) {
-      res.json(err).status(400);
+      res.status(400).json(err);
     }
   }
 );
@@ -33,7 +33,7 @@ router.get(
       const result = await findRequest(workerId);
       res.json(result);
     } catch (err) {
-      res.json(err);
+      res.status(400).json(err);
     }
   }
 );
@@ -43,7 +43,7 @@ router.patch("/api/request/:postId", async (req: Request, res: Response) => {
     await acceptRequest(postId);
     res.json({ success: true, message: "updated" });
   } catch (err) {
-    res.json(err);
+    res.status(400).json(err);
   }
 });
 router.delete("/api/request/:postId", async (req: Request, res: Response) => {
@@ -52,7 +52,7 @@ router.delete("/api/request/:postId", async (req: Request, res: Response) => {
     await deleteRequest(postId);
     res.json({ success: true, message: "deleted" });
   } catch (err) {
-    res.json(err);
+    res.status(400).json(err);
   }
 });
 export default router;

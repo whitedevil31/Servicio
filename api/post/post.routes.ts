@@ -1,8 +1,14 @@
-import { Router, Request, Response, NextFunction } from "express";
+import { Router, Request, Response } from "express";
 import adminMiddleware from "../middleware/auth";
-import { postType, ServiceType, userLocation } from "./post.schema";
+import { postType, ServiceType } from "./post.schema";
 import { userDB } from "../user/user.schema";
-import { workerPost, getPost, filterPost, nearbyWorkers } from "./post.db";
+import {
+  workerPost,
+  getPost,
+  filterPost,
+  nearbyWorkers,
+  getSingleWorkerPost,
+} from "./post.db";
 import { userInterface } from "../user/user.schema";
 
 const router: Router = Router();
@@ -17,7 +23,7 @@ router.post(
       const result = await workerPost(data, user);
       res.status(201).send(result);
     } catch (err) {
-      res.json(err);
+      res.status(400).json(err);
     }
   }
 );
@@ -30,7 +36,24 @@ router.get(
       const result = await getPost(req.params.postId);
       res.json(result);
     } catch (err) {
-      res.json(err);
+      res.status(400).json(err);
+    }
+  }
+);
+router.get(
+  "/api/worker/get",
+  adminMiddleware,
+  async (req: Request, res: Response) => {
+    try {
+      res.send("heelo");
+    } catch (err) {
+      // try {
+      //   console.log("yes");
+      //   const user = req.user as userDB;
+      //   console.log(user);
+      //   const result = await getSingleWorkerPost(user);
+      //   res.json(result);
+      res.status(400).json(err);
     }
   }
 );
@@ -46,7 +69,7 @@ router.post(
         res.json(result);
       }
     } catch (err) {
-      res.json(err);
+      res.status(400).json(err);
     }
   }
 );
@@ -60,7 +83,7 @@ router.get(
       const workerList = await nearbyWorkers(user);
       res.json(workerList);
     } catch (err) {
-      res.json(err).status(400);
+      res.status(400).json(err);
     }
   }
 );

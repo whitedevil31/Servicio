@@ -93,11 +93,10 @@ const DashboardWorker = () => {
   return (
     <div>
       {Cookies.get("worker") ? (
-        <div className="w-full h-screen flex flex-col">
+        <div className="w-screen h-screen flex flex-col">
           <NavBar />
           <div className="w-screen h-full flex ">
-            {/* {client.map((obj) => ( */}
-            <div className="flex flex-col w-3/4  mr-4">
+            <div className="flex flex-col w-screen">
               <div
                 className="flex bg-gray-100 ml-6 mt-4 h-40 w-full p-5 shadow-2xl sm:rounded-2xl border-b-4 
                border-green-800 
@@ -174,8 +173,9 @@ const DashboardWorker = () => {
                 </div>
               ))}
             </div>
-            {/* ))} */}
-            <div className="w-1/5 float-right bg-gray-100 rounded-md h-96 ml-5 mt-5 shadow-2xl transition duration-400 ease-in-out hover:scale-y-125 hover:bg-gray-200 ">
+            {/* {client.map((obj) => ( */}
+
+            <div className="w-1/5 float-right bg-gray-100 rounded-md h-96 ml-5 mt-52 shadow-2xl transition duration-400 ease-in-out hover:scale-y-125 hover:bg-gray-200 ">
               <div className="px-5 py-5">
                 Assigned To:
                 {/* {assignee.map((obj) => ( */}
