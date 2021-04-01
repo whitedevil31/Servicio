@@ -2,9 +2,9 @@ import { Router, Request, Response, NextFunction } from "express";
 import bodyParser from "body-parser";
 const router: Router = Router();
 
-router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
 router.post("/ussd", (req: Request, res: Response) => {
-  // console.log(req.body)
+  //console.log(req.body)
   const text = req.body.text;
   const contactNumber = req.body.phoneNumber;
   let message;
@@ -12,7 +12,7 @@ router.post("/ussd", (req: Request, res: Response) => {
   switch (text) {
     case "":
       res.send(
-        "CON Hey there! Greetings from Servicio. \n\n Please enter your application number to continue"
+        "CON Hey there! Greetings from Servicio. \nPlease enter your application number to continue"
       );
 
     case "1":
