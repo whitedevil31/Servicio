@@ -14,8 +14,8 @@ app.get("/", (req, res) => {
   res.send("Hey, working.");
 });
 
-app.post("/", (req, res) => {
-   // console.log(req.body)
+app.post("/ussd", (req, res) => {
+  // console.log(req.body)
   const text = req.body.text;
   const contactNumber = req.body.phoneNumber;
   let message;
@@ -25,11 +25,10 @@ app.post("/", (req, res) => {
       res.send(
         "CON Hey there! Greetings from Servicio. \n\n Click below to accept or reject your job. \n1.Accept my job. \n2.Naah, reject it."
       );
-  
+
     case "1":
-      res.send(
-        "END Good luck on your new Job!"
-      );
+      res.send("END Good luck on your new Job!");
+      app.post();
       break;
 
     case "2":
@@ -43,7 +42,7 @@ app.post("/", (req, res) => {
       break;
   }
   console.log(text);
-  console.log(contactNumber)
+  console.log(contactNumber);
 });
 
 app.listen(port, () => {
