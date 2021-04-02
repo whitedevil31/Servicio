@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+import { Router, Request, Response, NextFunction } from "express";
 import adminMiddleware from "../middleware/auth";
 import { postType, ServiceType } from "./post.schema";
 import { userDB } from "../user/user.schema";
@@ -10,20 +10,25 @@ import {
   getSingleWorkerPost,
 } from "./post.db";
 import { userInterface } from "../user/user.schema";
-
+import HttpError from "http-errors";
 const router: Router = Router();
 
 router.post(
   "/api/worker/post",
   adminMiddleware,
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     const data = req.body as postType;
     const user = req.user as userInterface;
+
     try {
+      if (req.user) {
+        if (req.user.role == "User")
+          throw HttpError(403, "Users are not allowed to post ");
+      }
       const result = await workerPost(data, user);
       res.status(201).send(result);
     } catch (err) {
-      res.status(400).json(err);
+      next(err);
     }
   }
 );
