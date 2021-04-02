@@ -6,6 +6,7 @@ export const requestSchema = yup
     clientId: yup.string(),
     pay: yup.string(),
     workerId: yup.string().required(),
+    workerContact: yup.string(),
     accepted: yup.boolean().required(),
     services: yup.array().required(),
   })

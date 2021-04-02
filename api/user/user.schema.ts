@@ -4,6 +4,7 @@ import * as yup from "yup";
 const userSchema = yup.object({
   password: yup.string().trim().required(),
   role: yup.string().required(),
+  contact: yup.string().required(),
   username: yup.string().trim().required(),
   gender: yup.string().trim().required(),
   age: yup.number().required(),
@@ -20,6 +21,7 @@ const userSchema = yup.object({
 export interface userDB {
   _id: mongoDB.ObjectID;
   role: string;
+  contact: string;
   username: string;
   password: string;
   gender: string;
