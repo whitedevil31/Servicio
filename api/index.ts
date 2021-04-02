@@ -12,6 +12,7 @@ require("./passport/passport.config");
 import clientroute from "./user/user.routes";
 import postroute from "./post/post.routes";
 import requestroute from "./request/request.routes";
+import ussdroute from "./ussd/ussd.routes";
 
 const app: Express = express();
 
@@ -31,7 +32,7 @@ app.use(passport.session());
 app.use(clientroute);
 app.use(postroute);
 app.use(requestroute);
-
+app.use(ussdroute);
 app.listen(5000, () => {
   console.log("server is up and running on port 5000");
 });

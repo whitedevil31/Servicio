@@ -21,6 +21,7 @@ passport.use(
             _id: user._id,
             username: user.username,
             role: user.role,
+            contact: user.contact,
             gender: user.gender,
             age: user.age,
             residence: user.residence,

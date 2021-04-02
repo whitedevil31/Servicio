@@ -19,6 +19,7 @@ export const signUpClient = async (data: userType) => {
     password: hashedPassword,
     role: data.role,
     age: data.age,
+    contact: data.contact,
     gender: data.gender,
     residence: data.residence,
     about: data.about,

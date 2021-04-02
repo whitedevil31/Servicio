@@ -45,14 +45,11 @@ router.get(
   adminMiddleware,
   async (req: Request, res: Response) => {
     try {
-      res.send("heelo");
+      const user = req.user as userDB;
+      console.log(user);
+      const result = await getSingleWorkerPost(user);
+      res.json(result);
     } catch (err) {
-      // try {
-      //   console.log("yes");
-      //   const user = req.user as userDB;
-      //   console.log(user);
-      //   const result = await getSingleWorkerPost(user);
-      //   res.json(result);
       res.status(400).json(err);
     }
   }
