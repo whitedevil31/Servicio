@@ -3,10 +3,12 @@ import { getClient } from "../db/db.connect";
 import { workerPosts, postSchema, postType, ServiceType } from "./post.schema";
 import { userDB, userInterface } from "../user/user.schema";
 import findDistance from "../utils/calc.distance";
+import HttpError from "http-errors";
+import { array } from "yup";
 
 export const workerPost = async (data: postType, user: userInterface) => {
   await postSchema.validate(data).catch((err) => {
-    throw { success: false, message: err.errors };
+    throw HttpError(400, err.errors.toString());
   });
   const workerPost = {
     pay: data.pay,
@@ -18,17 +20,22 @@ export const workerPost = async (data: postType, user: userInterface) => {
   const addData = { user, ...workerPost };
   const add = await DB.insertOne(addData);
   if (add.insertedCount <= 0) {
-    throw { success: false, message: "MongoDB error" };
+    throw HttpError(500, "MongoDB error");
   }
   return { _id: add.insertedId };
 };
 
 export const getPost = async (id: string) => {
   const client: mongodb.MongoClient = await getClient();
-  return await client
+  const Posts = await client
     .db()
     .collection<workerPosts>("post")
     .findOne({ _id: new mongodb.ObjectId(id) });
+  if (Posts) {
+    return Posts;
+  } else {
+    throw HttpError(404, "Post could not be found");
+  }
 };
 export const getSingleWorkerPost = async (user: userDB) => {
   const client: mongodb.MongoClient = await getClient();
@@ -37,16 +44,30 @@ export const getSingleWorkerPost = async (user: userDB) => {
     .collection<workerPosts>("post")
     .find({ "user._id": new mongodb.ObjectID(user._id) })
     .toArray();
-  console.log(singleWorkerPosts);
+  if (singleWorkerPosts.length == 0) {
+    throw HttpError(404, "Posts could not be found");
+  }
   return singleWorkerPosts;
 };
-export const filterPost = async (service: ServiceType[]) => {
-  const client: mongodb.MongoClient = await getClient();
-  const DB = await client.db().collection<workerPosts>("post");
-  if (service.length == 0) {
-    return await DB.find().toArray();
+export const filterPost = async (service: ServiceType) => {
+  if (Array.isArray(service)) {
+    const client: mongodb.MongoClient = await getClient();
+    const DB = await client.db().collection<workerPosts>("post");
+    if (service.length == 0) {
+      return await DB.find().toArray();
+    }
+    const FilteredPosts = await DB.find({
+      services: { $all: service },
+    }).toArray();
+    if (FilteredPosts.length == 0) {
+      throw HttpError(
+        404,
+        "Workers of that particular service could not be found"
+      );
+    }
+    return FilteredPosts;
   }
-  return await DB.find({ services: { $all: service } }).toArray();
+  throw HttpError(400, "Services should be of type Array");
 };
 export const nearbyWorkers = async (user: userDB) => {
   const client: mongodb.MongoClient = await getClient();
@@ -56,5 +77,8 @@ export const nearbyWorkers = async (user: userDB) => {
     .find({ "user._id": { $ne: new mongodb.ObjectID(user._id) } })
     .toArray();
   const result = findDistance(postList, user.location);
+  if (result.length == 0) {
+    return HttpError(404, "No nearby users are found");
+  }
   return result;
 };

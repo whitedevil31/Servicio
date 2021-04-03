@@ -36,26 +36,26 @@ router.post(
 router.get(
   "/api/worker/post/:postId",
   adminMiddleware,
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result = await getPost(req.params.postId);
       res.json(result);
     } catch (err) {
-      res.status(400).json(err);
+      next(err);
     }
   }
 );
 router.get(
   "/api/worker/get",
   adminMiddleware,
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user = req.user as userDB;
       console.log(user);
       const result = await getSingleWorkerPost(user);
       res.json(result);
     } catch (err) {
-      res.status(400).json(err);
+      next(err);
     }
   }
 );
@@ -63,29 +63,29 @@ router.get(
 router.post(
   "/api/worker/filter",
   adminMiddleware,
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const services = req.body.services as ServiceType[];
+      const services = req.body.services as ServiceType;
       if (services) {
         const result = await filterPost(services);
         res.json(result);
       }
     } catch (err) {
-      res.status(400).json(err);
+      next(err);
     }
   }
 );
 router.get(
   "/api/nearby",
   adminMiddleware,
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user = req.user as userDB;
       console.log(user);
       const workerList = await nearbyWorkers(user);
       res.json(workerList);
     } catch (err) {
-      res.status(400).json(err);
+      next(err);
     }
   }
 );

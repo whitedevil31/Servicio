@@ -14,10 +14,10 @@ import postroute from "./post/post.routes";
 import requestroute from "./request/request.routes";
 import { HttpError } from "http-errors";
 import ussdroute from "./ussd/ussd.routes";
-// import errorHandler from "./utils/errors.ts";
+// import errorHandler from "./utils/errors.ts ";
 
 const app: Express = express();
-
+const port = process.env.PORT || 3000;
 app.use(
   session({
     resave: false,
@@ -38,11 +38,13 @@ app.use(postroute);
 app.use(requestroute);
 app.use(ussdroute);
 app.use((error: HttpError, req: Request, res: Response, next: NextFunction) => {
-  if (error) res.status(error.status).json({ message: error.message });
+  if (error) {
+    res.status(error.status).json({ message: error.message });
+  }
 });
 app.use("*", (req: Request, res: Response) => {
-  res.status(400).json({ success: false, message: "Resource not found" });
+  res.status(404).json({ message: "Resource not found" });
 });
-app.listen(5000, () => {
-  console.log("server is up and running on port 5000");
+app.listen(port, () => {
+  console.log(`server is up and running on port ${port}`);
 });

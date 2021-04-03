@@ -27,6 +27,7 @@ router.post(
 );
 router.get(
   "/api/worker/request/:workerId",
+  adminMiddleware,
   async (req: Request, res: Response) => {
     try {
       const workerId = req.params.workerId;
@@ -37,22 +38,30 @@ router.get(
     }
   }
 );
-router.patch("/api/request/:postId", async (req: Request, res: Response) => {
-  try {
-    const postId = req.params.postId;
-    await acceptRequest(postId);
-    res.json({ success: true, message: "updated" });
-  } catch (err) {
-    res.status(400).json(err);
+router.patch(
+  "/api/request/:postId",
+  adminMiddleware,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const postId = req.params.postId;
+      await acceptRequest(postId);
+      res.json({ message: "Requested accepted" });
+    } catch (err) {
+      next(err);
+    }
   }
-});
-router.delete("/api/request/:postId", async (req: Request, res: Response) => {
-  try {
-    const postId = req.params.postId;
-    await deleteRequest(postId);
-    res.json({ success: true, message: "deleted" });
-  } catch (err) {
-    res.status(400).json(err);
+);
+router.delete(
+  "/api/request/:postId",
+  adminMiddleware,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const postId = req.params.postId;
+      await deleteRequest(postId);
+      res.json({ message: "Request rejected" });
+    } catch (err) {
+      next(err);
+    }
   }
-});
+);
 export default router;

@@ -2,25 +2,21 @@ import * as mongodb from "mongodb";
 import { getClient } from "../db/db.connect";
 import { userDB } from "../user/user.schema";
 import { requestType, requestSchema } from "./request.schema";
-import { uuid } from "../utils/uuid";
+
 import HttpError from "http-errors";
 
 export const sendRequest = async (data: requestType, user: userDB) => {
-  console.log(data);
-  console.log(user);
   await requestSchema.validate(data).catch((err: any) => {
-    throw { success: false, message: err.errors };
+    throw HttpError(400, err.errors.toString());
   });
   const client: mongodb.MongoClient = await getClient();
-  const uniqueId = await uuid();
-  const insertData = { client: user, ...data, uuid: uniqueId };
-  console.log(insertData);
+  const insertData = { client: user, ...data };
   const response = await client
     .db()
     .collection("request")
     .insertOne(insertData);
   if (response.insertedCount <= 0) {
-    throw { process: false, message: "MongoDB Error" };
+    HttpError(500, "Internal Server Error");
   }
   // sms logic should come here
   //send sms to worker using his phone number
@@ -51,7 +47,15 @@ export const acceptRequest = async (postId: string) => {
       { $set: { accepted: true } }
     );
 
-  return requestResult;
+  if (requestResult.matchedCount !== 1) {
+    throw HttpError(404, "Request of that id could not be found");
+  }
+  if (requestResult.modifiedCount !== 1) {
+    throw HttpError(
+      409,
+      "Request has either been processed already or Internal server error "
+    );
+  }
 };
 export const deleteRequest = async (postId: string) => {
   const client: mongodb.MongoClient = await getClient();
@@ -59,5 +63,7 @@ export const deleteRequest = async (postId: string) => {
     .db()
     .collection("request")
     .deleteOne({ _id: new mongodb.ObjectID(postId) });
-  return requestResult;
+  if (requestResult.deletedCount !== 1) {
+    throw HttpError(404, "Request could not be found");
+  }
 };

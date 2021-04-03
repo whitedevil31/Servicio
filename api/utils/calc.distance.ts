@@ -1,6 +1,4 @@
-interface CORDS {
-  user: { location: { latitude: string; longitude: string } };
-}
+import { CORDS } from "../../types/types";
 var rad = function (x: number) {
   return (x * Math.PI) / 180;
 };
