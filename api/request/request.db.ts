@@ -1,7 +1,7 @@
 import * as mongodb from "mongodb";
 import { getClient } from "../db/db.connect";
 import { userDB } from "../user/user.schema";
-import { requestType, requestSchema } from "./request.schema";
+import { requestType, requestSchema, assignType } from "./request.schema";
 
 import HttpError from "http-errors";
 
@@ -46,6 +46,27 @@ export const acceptRequest = async (postId: string) => {
       { _id: new mongodb.ObjectID(postId) },
       { $set: { accepted: true } }
     );
+  if (requestResult.modifiedCount == 1) {
+    const assignedTo = await client
+      .db()
+      .collection("request")
+      .findOne({ _id: new mongodb.ObjectID(postId) });
+    const worker = await client
+      .db()
+      .collection("users")
+      .findOne({ _id: new mongodb.ObjectID(assignedTo.workerId) });
+    const assign: assignType = {
+      worker: worker.username,
+      client: assignedTo.client.username,
+    };
+    const assignConnection = await client
+      .db()
+      .collection("connections")
+      .insertOne({ assign });
+    if (assignConnection.insertedCount !== 1) {
+      throw HttpError(500, "Could not assign worker and client");
+    }
+  }
 
   if (requestResult.matchedCount !== 1) {
     throw HttpError(404, "Request of that id could not be found");
@@ -66,4 +87,17 @@ export const deleteRequest = async (postId: string) => {
   if (requestResult.deletedCount !== 1) {
     throw HttpError(404, "Request could not be found");
   }
+};
+
+export const findAssignedWorkers = async (name: string) => {
+  const client: mongodb.MongoClient = await getClient();
+  const requestResult = await client
+    .db()
+    .collection("connections")
+    .find({ "assign.client": name })
+    .toArray();
+  if (requestResult.length == 0) {
+    throw HttpError(404, "No workers assigned");
+  }
+  return requestResult;
 };

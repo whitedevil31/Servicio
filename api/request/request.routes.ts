@@ -6,6 +6,7 @@ import {
   findRequest,
   acceptRequest,
   deleteRequest,
+  findAssignedWorkers,
 } from "./request.db";
 import { userDB } from "../user/user.schema";
 
@@ -59,6 +60,20 @@ router.delete(
       const postId = req.params.postId;
       await deleteRequest(postId);
       res.json({ message: "Request rejected" });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+router.get(
+  "/api/client/get/:username",
+  adminMiddleware,
+  async (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.params.username);
+    try {
+      const allWorkers = await findAssignedWorkers(req.params.username);
+      res.status(200).json(allWorkers);
     } catch (err) {
       next(err);
     }

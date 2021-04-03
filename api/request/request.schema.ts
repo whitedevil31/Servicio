@@ -11,5 +11,9 @@ export const requestSchema = yup
     services: yup.array().required(),
   })
   .required();
-
+export const assignSchema = yup.object({
+  worker: yup.string().required(),
+  client: yup.string().required(),
+});
+export type assignType = yup.InferType<typeof assignSchema>;
 export type requestType = yup.InferType<typeof requestSchema>;
