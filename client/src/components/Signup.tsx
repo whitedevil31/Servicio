@@ -52,15 +52,15 @@ function Signup() {
         "Content-Type": "application/json",
       },
     };
+    //console.log(userData)
     axios
       .post("http://localhost:5000/api/register ", userData, config)
       .then((response) => {
-        alert('Successfully Registered')
-        history.push('/login')
         console.log(response);
         if (response.status == 201) {
           setTimeout(() => {
-            history.push("/");
+            alert('Successfully Registered')
+            history.push('/login')
           }, 500);
         }
       });
@@ -147,7 +147,7 @@ function Signup() {
               </div>
 
               <div className="flex flex-row ">
-                <div className="mt-7 float-left w-1/2 ml-3 mr-5">
+                <div className="mt-7 float-left w-1/3 ml-3 mr-5">
                   <label className="block text-sm font-medium text-indigo-700">
                     Age
                   </label>
@@ -168,7 +168,28 @@ function Signup() {
                   ></input>
                 </div>
 
-                <div className="mt-7 float-right w-1/2 ml-3 mr-5">
+                <div className="mt-7 float-left w-1/3 ml-3 mr-5">
+                  <label className="block text-sm font-medium text-indigo-700">
+                    Contact
+                  </label>
+                  {errors.contact && (
+                    <p className="name-error text-red-700 text-sm">
+                      Please enter an valid phone number.
+                    </p>
+                  )}
+                  <input
+                    type="number"
+                    name="contact"
+                    autoComplete="off"
+                    ref={register({
+                      required: true,
+                      minLength: 10,
+                    })}
+                    className="mt-1 h-10 px-2 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-2xl sm:text-sm border-gray-500 border-b-2 rounded-md hover:shadow-inner"
+                  ></input>
+                </div>
+
+                <div className="mt-7 float-right w-1/3 ml-3 mr-5">
                   <label className="block text-sm font-medium text-indigo-700">
                     Gender
                   </label>
