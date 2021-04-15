@@ -71,7 +71,7 @@ function Home() {
                   </div>
                 </div>
                 <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
-                  <a
+                  {/* <a
                     href="#"
                     className="font-medium text-gray-500 hover:text-gray-900"
                   >
@@ -90,7 +90,7 @@ function Home() {
                     className="font-medium text-gray-500 hover:text-gray-900"
                   >
                     Contact us
-                  </a>
+                  </a> */}
 
                   <a
                     onClick={loginHandler}
@@ -177,9 +177,10 @@ function Home() {
                   </span>
                 </h1>
                 <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure
-                  qui lorem cupidatat commodo. Elit sunt amet fugiat veniam
-                  occaecat fugiat aliqua.
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Cupiditate saepe repudiandae minima repellendus harum quidem
+                  aliquam at fugiat perspiciatis omnis fuga, impedit nisi culpa
+                  quam assumenda dolores numquam commodi praesentium?
                 </p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                   <div className="rounded-md shadow">

@@ -4,8 +4,8 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { useForm } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 import axios from "axios";
+import { SLOT } from "../../types/types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,16 +22,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-interface Slot {
-  startTime: string;
-  endTime: string;
-}
+
 export default function WorkerModal() {
   const [startTime, setStartTime] = useState<string | null>("");
   const [startFormat, setStartFormat] = useState<string | null>("");
   const [endTime, setEndTime] = useState<string | null>("");
   const [endFormat, setEndFormat] = useState<string | null>("");
-  const [slot, setSlot] = useState<any>([]);
+
+  const [slot, setSlot] = useState<SLOT[]>([]);
   const { register, handleSubmit, errors } = useForm({
     criteriaMode: "all",
   });
@@ -90,7 +88,9 @@ export default function WorkerModal() {
     axios
       .post("http://localhost:5000/api/worker/post", workerData, config)
       .then((response) => {
-        console.log(response);
+        //console.log(response);
+        alert('Koodos! You have successfully registered a job request!')
+        setOpen(false)
       });
   };
 
@@ -143,14 +143,12 @@ export default function WorkerModal() {
                 <form onSubmit={handleSubmit(onSubmit)} id="worker">
                   <div className="flex flex-col mt-10">
                     <div className="flex- row">
-                      <input
+                      <button
                         type="submit"
-                        className="cursor-pointer h-12 w-24 shadow-lg items-center justify-center mb-5 ml-5 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
-                      />
-
-                      <label className="mr-3 ml-5 text-green-900">
-                        Click here to submit your form.
-                      </label>
+                        className="cursor-pointer h-12 w-40 shadow-lg items-center justify-center mb-5 ml-5 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
+                      >
+                        Create Work Post!
+                      </button>
                     </div>
                     <div>
                       <label className="mr-3 ml-5">Pay: </label>
@@ -173,15 +171,15 @@ export default function WorkerModal() {
                     </div>
 
                     <div className="flex mt-5">
-                      <label className="mr-96 ml-5">Services: </label>
+                      <label className="mr-96 ml-5 font-display">Services you provide: </label>
                     </div>
 
                     <div className="mr-4 ml-4 mt-3 flex flex-row space-x-3">
                       <input
-                        name="Plumbing"
+                        name="Plumber"
                         ref={register}
                         type="checkbox"
-                        value="Plumbing"
+                        value="plumber"
                         className="focus:ring-gray-500 h-4 w-4 text-gray-600 border-gray-400 rounded-full"
                       ></input>
                       <label className="font-medium mr-5 text-gray-700">
@@ -192,7 +190,7 @@ export default function WorkerModal() {
                         name="Driver"
                         ref={register}
                         type="checkbox"
-                        value="Driver"
+                        value="driver"
                         className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                       ></input>
                       <label className="font-medium text-gray-700">
@@ -202,7 +200,7 @@ export default function WorkerModal() {
                         name="Carpentry"
                         ref={register}
                         type="checkbox"
-                        value="Carpentry"
+                        value="carpenter"
                         className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                       ></input>
                       <label className="font-medium text-gray-700">
@@ -212,7 +210,7 @@ export default function WorkerModal() {
                         name="Cleaning"
                         ref={register}
                         type="checkbox"
-                        value="Cleaning"
+                        value="cleaning"
                         className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                       ></input>
                       <label className="font-medium text-gray-700">
@@ -222,10 +220,10 @@ export default function WorkerModal() {
                         name="Cooking"
                         ref={register}
                         type="checkbox"
-                        value="Cooking"
+                        value="cooking"
                         className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                       ></input>
-                      <label className="font-medium text-gray-700">Chef</label>
+                      <label className="font-medium text-gray-700">Cook</label>
                     </div>
                   </div>
                 </form>{" "}

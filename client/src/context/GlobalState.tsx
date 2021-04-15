@@ -1,29 +1,31 @@
 import React, { createContext, useReducer } from "react";
 import AppReducer from "./AppReducer";
-
+interface filters {
+  pay: number;
+}
 export interface globalState {
-  loggedIn: boolean;
-  login?: () => void;
+  workerData: filters[];
+  addFilter?: any;
 }
 
-const initialState = { loggedIn: false };
+const initialState = { workerData: [] };
 
 export const GlobalContext = createContext<globalState>(initialState);
 
 export const GlobalProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
-
-  const login = () => {
+  function addFilter(filters: any) {
     dispatch({
-      type: "LOGIN_USER",
+      type: "ADD_FILTER",
+      payload: filters,
     });
-  };
+  }
 
   return (
     <GlobalContext.Provider
       value={{
-        loggedIn: state.loggedIn,
-        login,
+        workerData: state.workerData,
+        addFilter,
       }}
     >
       {children}

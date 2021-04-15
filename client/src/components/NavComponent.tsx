@@ -1,14 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Cookies from "js-cookie";
-import { useHistory, Link, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function NavBar() {
-  var isOpen;
-
-  if (isOpen) {
-    isOpen = true;
-  }
-
   const history = useHistory();
   const logoutHandler = () => {
     fetch("http://localhost:5000/api/logout", {
@@ -18,10 +12,9 @@ function NavBar() {
       },
     }).then((response) => {
       setTimeout(() => {
-        if (response.status === 200) {
+        if (response.status == 200) {
           Cookies.remove("user");
-          Cookies.remove("uuid");
-          history.push("/", {});
+          history.push("/");
         }
       }, 800);
     });
@@ -85,7 +78,7 @@ function NavBar() {
               </div>
               <div className="hidden sm:block sm:ml-6">
                 <div className="flex space-x-4">
-                  <a
+                  {/* <a
                     href="#"
                     className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
@@ -108,7 +101,7 @@ function NavBar() {
                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     Contact Us
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>

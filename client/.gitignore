@@ -4,9 +4,9 @@
 /node_modules
 /.pnp
 .pnp.js
+
 # testing
 /coverage
-src/style/master.css
 
 # production
 /build

@@ -1,18 +1,19 @@
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+
 import {
   geoPosition,
   Coordinates,
   userType,
   UserDetails,
 } from "../types/types";
-function Signup() {
-  let history = useHistory();
 
-  const [position, setPosition] = useState<Coordinates | null>();
+export default function NavBar() {
+  let history = useHistory();
   const { register, handleSubmit, errors } = useForm();
+  const [position, setPosition] = useState<Coordinates | null>();
   useEffect(() => {
     var options = {
       enableHighAccuracy: true,
@@ -52,15 +53,14 @@ function Signup() {
         "Content-Type": "application/json",
       },
     };
-    //console.log(userData)
     axios
       .post("http://localhost:5000/api/register ", userData, config)
       .then((response) => {
         console.log(response);
         if (response.status == 201) {
           setTimeout(() => {
-            alert('Successfully Registered')
-            history.push('/login')
+            alert("Successfully Registered");
+            history.push("/login");
           }, 500);
         }
       });
@@ -68,26 +68,6 @@ function Signup() {
 
   return (
     <div>
-      <div className="flex float-left">
-        <img
-          className="h-full w-4/5 sm:h-full md:h-screen lg:w-96 lg:h-screen rounded-r-2xl"
-          src="https://images.unsplash.com/photo-1613608698681-47e441065aa0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
-          alt=""
-        ></img>
-        <div className="px-2 py-2 shadow-inner bg-blur-md bg-brightness-75 sm:p-6 rounded-xl -ml-72 mt-28 h-full w-72 text-white">
-          <div className="pt-12 text-3xl font-extrabold">
-            Find your perfect Utility helper
-          </div>
-          <div className="pt-12 text-5xl font-bold">In a single Click</div>
-          <div className="pt-5 text-xs">
-            Already a member?{" "}
-            <a className="font-bold" href="http://localhost:3000/login">
-              Sign in
-            </a>
-          </div>
-        </div>
-      </div>
-
       <div className="float-right w-2/4 mt-10 sm:mt-3 sm:mb-3 sm:mr-28">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="shadow-2xl overflow-hidden sm:rounded-md ">
@@ -141,7 +121,7 @@ function Signup() {
                     className="mt-1 h-10 focus:ring-indigo-500  focus:border-indigo-500 block w-full shadow-xl sm:text-sm border-gray-500 border-b-2 rounded-md hover:shadow-inner"
                   ></input>
                   <p className="flex-col mt-2 text-xs text-indigo-400">
-                    Use atleast <b>6-8 characters. </b>
+                    Use atleast <b>6-8 characters</b>
                   </p>
                 </div>
               </div>
@@ -167,7 +147,6 @@ function Signup() {
                     className="mt-1 h-10 px-2 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-2xl sm:text-sm border-gray-500 border-b-2 rounded-md hover:shadow-inner"
                   ></input>
                 </div>
-
                 <div className="mt-7 float-left w-1/3 ml-3 mr-5">
                   <label className="block text-sm font-medium text-indigo-700">
                     Contact
@@ -238,6 +217,7 @@ function Signup() {
                     type="text"
                     name="residence"
                     id="area"
+                    autoComplete="off"
                     ref={register({
                       required: true,
                     })}
@@ -308,5 +288,3 @@ function Signup() {
     </div>
   );
 }
-
-export default Signup;
