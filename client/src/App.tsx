@@ -1,10 +1,9 @@
 import React from "react";
-import Home from "./components/Home";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import DashboardClient from "./components/DashboardClient";
-import DashboardWorker from "./components/DashboardWorker";
-import Test from "./components/test";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import DashboardClient from "./pages/DashboardClient";
+import DashboardWorker from "./pages/DashboardWorker";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import { GlobalProvider } from "./context/GlobalState";
 
@@ -19,7 +18,7 @@ function App() {
           <Route exact path="/login">
             <Login />
           </Route>
-          <Route path="/signup">
+          <Route exact path="/signup">
             <Signup />
           </Route>
           <Route path="/dashboard">
@@ -27,9 +26,6 @@ function App() {
           </Route>
           <Route path="/worker/dashboard">
             <DashboardWorker />
-          </Route>
-          <Route path="/test">
-            <Test />
           </Route>
         </Switch>
       </Router>

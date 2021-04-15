@@ -1,44 +1,40 @@
+import React, { useState } from "react";
 import Cookies from "js-cookie";
-import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { GlobalContext } from "../context/GlobalState";
+import axios from "axios";
 
 function Login() {
   const [username, setUsername] = React.useState<string | null>("");
   const [password, setPassword] = React.useState<string | null>("");
+  const [incorrectPwd, setIncorrectPwd] = useState(false);
 
   let history = useHistory();
-  const { login, loggedIn } = useContext(GlobalContext);
 
   const handleSubmit = (e: React.FormEvent<EventTarget>): void => {
     e.preventDefault();
     const data = { username: username, password: password };
-    fetch("http://localhost:5000/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(data),
-    }).then((response) => {
-      response.json().then((res) => {
+    axios
+      .post("http://localhost:5000/api/login", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
+      .then((response) => {
         if (response.status === 200) {
-          login!();
-          Cookies.set("uuid", res._id);
-          // Cookies.set("user", "true");
-          console.log(res.role); 
-          if (res.role == "User") {
+          Cookies.set("user", response.data._id, { expires: 7 });
+          if (response.data.role === "User") {
             history.push("/dashboard");
-            Cookies.set("user", "true");
-            console.log("he i user");
           } else {
-            console.log("he is worler");
-            Cookies.set("worker", "true");
             history.push("/worker/dashboard");
           }
         }
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          setIncorrectPwd(true);
+        }
       });
-    });
   };
 
   return (
@@ -79,34 +75,20 @@ function Login() {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-full px-3 py-2  border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
               ></input>
             </div>
           </div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember_me"
-                name="remember_me"
-                type="checkbox"
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-              />
-              <label className="ml-2 block text-sm text-gray-900">
-                Remember me
-              </label>
-            </div>
-            <div className="text-sm">
-              <a
-                href="#"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                Forgot your password?
-              </a>
-            </div>
-          </div>
           <div>
+            {incorrectPwd && (
+              <div>
+                <h4 className="mb-4 font-medium text-red-500 hover:text-red-700">
+                  Incorrect credentials.
+                </h4>
+              </div>
+            )}
             <button
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -115,7 +97,7 @@ function Login() {
             </button>
           </div>
         </form>
-        <div className="pt-5 flex text-xs">
+        <div className="pt-2 flex text-xs">
           Not a member yet?{" "}
           <a
             className="ml-2 font-bold flex-row"
