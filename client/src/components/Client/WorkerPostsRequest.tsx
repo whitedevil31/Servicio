@@ -102,8 +102,9 @@ export function WorkerPosts() {
                   </div>
                   <div>
                     <div className="ml-12 mt-8 font-display text-mg text-green-800">
-                      <p>
-                        <b>About:</b>
+                    <p>
+                        <b className="mb-2">About:</b>
+                        <br></br>
                         {obj.user.about}
                       </p>
                     </div>

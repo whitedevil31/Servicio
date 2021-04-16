@@ -177,10 +177,7 @@ function Home() {
                   </span>
                 </h1>
                 <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Cupiditate saepe repudiandae minima repellendus harum quidem
-                  aliquam at fugiat perspiciatis omnis fuga, impedit nisi culpa
-                  quam assumenda dolores numquam commodi praesentium?
+                 <em><b>Bridging the gap for workers who face difficulty in finding jobs by helping them in improving their work oppurtunities.</b> This can also be used for students who are in a different place for their studies, who are facing difficulty to find authentic helpers within their community in their area.</em>
                 </p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                   <div className="rounded-md shadow">

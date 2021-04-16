@@ -71,10 +71,12 @@ export default function FilterService() {
     const filterData: FilterData = {
       services: selected,
     };
+    console.log(filterData)
     axios
       .post("http://localhost:5000/api/worker/filter", filterData, config)
       .then((response) => {
-        addFilter(response.data);
+        //addFilter(response.data);
+        console.log(response.data)
       });
   };
 
@@ -106,18 +108,11 @@ export default function FilterService() {
     <div className="w-1/5 px-7 py-7 font-bold  bg-gray-200 shadow-2xl rounded-2xl h-full ml-5 mr-5 mt-5">
       <div className="mb-3">Select the service: </div>
 
-      {/* <Select
-        
-        value={search}
-        options={myArray}
-        onChange={handleChange}
-        placeholder="Services"
-        openMenuOnClick={false}
-      /> */}
+     
       <div className="mb-5">
         <form onSubmit={handleSubmit(filterServiceSubmit)} id="service">
           <div className="flex items-center mb-2">
-          <Select
+          {/* <Select
         onFocus={() => setSearch(null)}
         isMulti
         name="services"
@@ -127,7 +122,17 @@ export default function FilterService() {
         classNamePrefix="select"
         placeholder="Services"
         openMenuOnClick={false}
-  />
+  /> */}
+   <Select
+        
+        value={search}
+        options={myArray}
+        onChange={handleChange}
+        ref={register}
+        placeholder="Services"
+        openMenuOnClick={false}
+        className="w-32"
+      />
             {/* <input
               type="text"
               placeholder="Search"
