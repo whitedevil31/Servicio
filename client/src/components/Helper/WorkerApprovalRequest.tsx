@@ -45,7 +45,7 @@ export default function () {
     }).then((response) => {
       // console.log(response);
       alert(
-        "We will let the worker know that you have accepted their request. Thank you for using Servicio!"
+        "We will let the worker know that you could not accept their request. Thank you for using Servicio! Please do return to us!"
       );
     });
   };

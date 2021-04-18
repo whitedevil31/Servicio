@@ -4,6 +4,9 @@ import axios from "axios";
 import { GlobalContext } from "../../context/GlobalState";
 import { timeslotData, ADD } from "../../types/types";
 
+//This is the componentA that will display the worker posts, after the worker have opened themselves to jobs.
+
+
 export function WorkerPosts() {
   const { workerData } = useContext(GlobalContext);
   console.log(workerData);

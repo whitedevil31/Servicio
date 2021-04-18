@@ -234,7 +234,7 @@ export default function WorkerModal() {
                   </div>
                   <div className="flex">
                     <input
-                      type="number"
+                      type="time"
                       name="startingtime"
                       ref={register}
                       className="px-1 py-1 ml-5"
@@ -262,7 +262,7 @@ export default function WorkerModal() {
                     <div className="m-2">to</div>
                     <input
                       id="endTime"
-                      type="number"
+                      type="time"
                       ref={register}
                       name="endtime"
                       className="px-1 py-1"
