@@ -44,9 +44,7 @@ export const getSingleWorkerPost = async (user: userDB) => {
     .collection<workerPosts>("post")
     .find({ "user._id": new mongodb.ObjectID(user._id) })
     .toArray();
-  if (singleWorkerPosts.length == 0) {
-    throw HttpError(404, "Posts could not be found");
-  }
+
   return singleWorkerPosts;
 };
 export const filterPost = async (service: ServiceType) => {

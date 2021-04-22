@@ -89,8 +89,8 @@ export default function WorkerModal() {
       .post("http://localhost:5000/api/worker/post", workerData, config)
       .then((response) => {
         //console.log(response);
-        alert('Koodos! You have successfully registered a job request!')
-        setOpen(false)
+        alert("Koodos! You have successfully registered a job request!");
+        setOpen(false);
       });
   };
 
@@ -171,7 +171,9 @@ export default function WorkerModal() {
                     </div>
 
                     <div className="flex mt-5">
-                      <label className="mr-96 ml-5 font-display">Services you provide: </label>
+                      <label className="mr-96 ml-5 font-display">
+                        Services you provide:{" "}
+                      </label>
                     </div>
 
                     <div className="mr-4 ml-4 mt-3 flex flex-row space-x-3">
@@ -234,7 +236,7 @@ export default function WorkerModal() {
                   </div>
                   <div className="flex">
                     <input
-                      type="number"
+                      type="text"
                       name="startingtime"
                       ref={register}
                       className="px-1 py-1 ml-5"
@@ -262,7 +264,7 @@ export default function WorkerModal() {
                     <div className="m-2">to</div>
                     <input
                       id="endTime"
-                      type="number"
+                      type="text"
                       ref={register}
                       name="endtime"
                       className="px-1 py-1"

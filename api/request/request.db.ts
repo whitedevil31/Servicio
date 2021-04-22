@@ -31,9 +31,7 @@ export const findRequest = async (workerId: string) => {
     .collection("request")
     .find({ workerId: workerId, accepted: false })
     .toArray();
-  if (requestResult.length == 0) {
-    throw HttpError(404, "No request found");
-  }
+
   return requestResult;
 };
 

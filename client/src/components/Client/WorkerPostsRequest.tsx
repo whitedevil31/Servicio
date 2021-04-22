@@ -102,7 +102,7 @@ export function WorkerPosts() {
                   </div>
                   <div>
                     <div className="ml-12 mt-8 font-display text-mg text-green-800">
-                    <p>
+                      <p>
                         <b className="mb-2">About:</b>
                         <br></br>
                         {obj.user.about}
@@ -121,7 +121,7 @@ export function WorkerPosts() {
                             onChange={(e) => setSelectSlot(e.target.value)}
                           />
                           <div className="flex flex-row bg-gray-600 p-2 rounded-full text-xs">
-                            <p>{time.start.startTime} </p>
+                            <p>{time.start.startTime}</p>
                             <p>{time.start.startFormat}</p> -
                             <p>{time.end.endTime}</p>
                             <p>{time.end.endFormat}</p>
