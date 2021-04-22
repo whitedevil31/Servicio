@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import Toastify from 'toastify-js'
-import "toastify-js/src/toastify.css"
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
 import { GlobalContext } from "../../context/GlobalState";
 import { timeslotData, ADD } from "../../types/types";
 
 //This is the componentA that will display the worker posts, after the worker have opened themselves to jobs.
-
 
 export function WorkerPosts() {
   const { workerData } = useContext(GlobalContext);
@@ -61,8 +60,13 @@ export function WorkerPosts() {
       .then((response) => {
         console.log(response);
         Toastify({
+<<<<<<< HEAD
           text: "✨ Hey, you have successfully requested help. Please wait until furthur communication arrives!",
           duration: 5000,
+=======
+          text:
+            "✨ Hey, you have successfully requested help. Please wait until furthur communication arrives!",
+>>>>>>> b44f8d9e17875e83bebfdbeb0bc3484b3a088399
           backgroundColor: "linear-gradient(315deg, #3bb78f 0%, #0bab64 74%)",
           className: "info",
         }).showToast();
@@ -72,7 +76,11 @@ export function WorkerPosts() {
       });
   };
   return (
+<<<<<<< HEAD
     <div className="w-2/3 h-screen">
+=======
+    <div className="w-2/3 h-full">
+>>>>>>> b44f8d9e17875e83bebfdbeb0bc3484b3a088399
       {workerData ? (
         workerData.map((obj: any) => (
           <form onSubmit={handleSubmit(timeslotSubmit)} id="timeslot">
@@ -113,8 +121,13 @@ export function WorkerPosts() {
                       ))}
                     </div>
                   </div>
+<<<<<<< HEAD
                   <div className = "w-2/3">
                     <div className="ml-12 w-3/4 font-display text-mg text-green-800">
+=======
+                  <div>
+                    <div className="ml-12 -mt-2  font-display text-mg text-green-800">
+>>>>>>> b44f8d9e17875e83bebfdbeb0bc3484b3a088399
                       <p>
                         <b className="mb-2">About:</b>
                         <br></br>
