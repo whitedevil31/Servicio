@@ -135,7 +135,7 @@ export default function FilterService() {
               ref={register}
               placeholder="Services"
               openMenuOnClick={false}
-              className="w-32"
+              className="w-5/6"
             />
             {/* <input
               type="text"
@@ -143,10 +143,10 @@ export default function FilterService() {
               className="mt-1 mb-5 h-8 px-2 py-2 block w-full shadow-sm text-black sm:text-sm bg-gray-300 rounded-md"
             ></input> */}
             <button
-              className="cursor-pointer h-7 w-5 flex ml-3 shadow-lg justify-center items-center px-3 p-b-3 border border-transparent text-xs rounded-md text-white bg-gray-600 hover:bg-grey-900"
+              className="text-lg cursor-pointer h-9 w-9 flex ml-2 shadow-lg justify-center items-center border border-transparent rounded-md text-white bg-gray-600 hover:bg-grey-900"
               type="submit"
             >
-              <i className="fab fa-searchengin"></i>
+              <i className="fas fa-search-plus"></i>
             </button>
           </div>
           {/* <div className="flex items-center mb-2">

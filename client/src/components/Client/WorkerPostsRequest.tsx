@@ -62,6 +62,7 @@ export function WorkerPosts() {
         console.log(response);
         Toastify({
           text: "✨ Hey, you have successfully requested help. Please wait until furthur communication arrives!",
+          duration: 5000,
           backgroundColor: "linear-gradient(315deg, #3bb78f 0%, #0bab64 74%)",
           className: "info",
         }).showToast();
@@ -71,30 +72,32 @@ export function WorkerPosts() {
       });
   };
   return (
-    <div className="w-2/3">
+    <div className="w-2/3 h-screen">
       {workerData ? (
         workerData.map((obj: any) => (
           <form onSubmit={handleSubmit(timeslotSubmit)} id="timeslot">
             <div className="flex flex-col">
               <div
-                className="mb-5 mr-5 justify-between cursor-pointer bg-indigo-50 shadow-inner sm:rounded-2xl border-b-4 
+                className="mt-5 mb-5 mr-5 justify-between cursor-pointer bg-indigo-50 shadow-inner sm:rounded-2xl border-b-4 
                border-green-800 p-5
                transition duration-300 ease-in-out hover:scale-y-125 hover:bg-indigo-100
                "
               >
                 <div className="flex w-full">
-                  <div className="pb-2 h-1/3">
+                  <div className="pb-2 w-1/3 h-1/3">
                     <img
                       className="h-8 w-8 rounded-b-full"
                       src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
                       alt=""
                     ></img>
                     <div className="w-full h-8">
-                      <h1 className="font-display text-xl text-green-800">
+                      <h1 className="w-1/3 font-display text-xl text-green-800">
                         {obj.user.username}
                       </h1>
+                      
                     </div>
-                    <div className=" h-2/3 pt-1">
+                    
+                    <div className="w-1/3 h-2/3 pt-1">
                       <p className="flex-col text-sm font-bold text-green-800">
                         Age: {obj.user.age}
                       </p>
@@ -110,8 +113,8 @@ export function WorkerPosts() {
                       ))}
                     </div>
                   </div>
-                  <div>
-                    <div className="ml-12 mt-8 font-display text-mg text-green-800">
+                  <div className = "w-2/3">
+                    <div className="ml-12 w-3/4 font-display text-mg text-green-800">
                       <p>
                         <b className="mb-2">About:</b>
                         <br></br>
@@ -139,20 +142,15 @@ export function WorkerPosts() {
                         </div>
                       ))}
                     </div>
-                  </div>
-
-                  {/* <a className="float-right w-12 h-12 px-5 py-5 shadow-lg  items-center justify-center rounded-full bg-green-300 hover:bg-green-500">
-                  <i className="far fa-comments"></i>
-                </a>*/}
-                  <p className="ml-24 mt-7 font-cursive text-xl text-green-800">
+                    <p className="ml-5 mt-7 font-cursive text-xl text-green-800">
                     <i className="fas fa-money-bill-wave"></i>
                     <b> ₹{obj.pay}</b>
                   </p>
-                </div>
-
-                <button
+                  </div>
+                  <div className ="w-1/3 flex justify-end">
+                  <button
                   type="submit"
-                  className="text-sm float-right font-display text-white bg-green-800 h-10  p-2 rounded-md"
+                  className="flex justify-end text-sm font-display text-white bg-green-800 h-10  p-2 rounded-md"
                   onClick={() =>
                     setAdd({
                       pay: obj.pay,
@@ -163,6 +161,15 @@ export function WorkerPosts() {
                 >
                   Hire Me!
                 </button>
+                  </div>
+
+                  {/* <a className="float-right w-12 h-12 px-5 py-5 shadow-lg  items-center justify-center rounded-full bg-green-300 hover:bg-green-500">
+                  <i className="far fa-comments"></i>
+                </a>*/}
+                
+                </div>
+
+                
               </div>
             </div>
           </form>

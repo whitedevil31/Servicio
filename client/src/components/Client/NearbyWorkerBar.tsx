@@ -31,7 +31,6 @@ export default function NearbyWorker() {
           workernearby.map((obj) => (
             <div className="flex px-5 py-2 bg-indigo-100 rounded-xl mt-6 w-full hover:bg-indigo-200 shadow-inner">
               <div className="text-sm">
-                <NearbyHireModal workerData={obj} />
                 <div className="text-sm flex-col">{obj.user.username}</div>
                 <div className="text-xs flex-row">₹{obj.pay}</div>
                 <div className="text-xs flex">
@@ -41,6 +40,7 @@ export default function NearbyWorker() {
                     </p>
                   ))}
                 </div>
+                <NearbyHireModal workerData={obj} />
               </div>
             </div>
           ))

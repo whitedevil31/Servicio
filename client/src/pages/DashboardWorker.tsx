@@ -11,12 +11,12 @@ export default function DashboardWorker() {
         <div className="w-full h-screen flex flex-col">
           <NavBar />
           <div className="flex">
-            <div className="w-3/5">
+            <div className="w-3/4">
               <WorkerCreatePost />
               <WorkerApprovalRequest />
             </div>
             
-             <AssignedClientBar /> 
+              <AssignedClientBar /> 
             
           </div>
         </div>

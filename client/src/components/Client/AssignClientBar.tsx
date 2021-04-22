@@ -21,7 +21,7 @@ export default function AssignedClientBar() {
   }, []);
 
   return (
-    <div className="font-display w-1/5 mb-3 mt-10 ml-36 bg-gray-100 rounded-md h-full shadow-2xl transition duration-400 ease-in-out hover:scale-y-125 hover:bg-gray-200 ">
+    <div className="font-display w-1/5 mb-3 mt-5 ml-10 bg-gray-100 rounded-md h-full shadow-2xl transition duration-400 ease-in-out hover:scale-y-125 hover:bg-gray-200 ">
       <div className="px-5 py-5">
         Assigned To:
         {assignee.length > 0 ? (
@@ -30,8 +30,9 @@ export default function AssignedClientBar() {
               <div className="text-sm">
                 <div className="text-sm flex-col">
                   <b>{obj.client.username}</b>
+                  <div className="text-sm">{obj.client.residence}</div>
                 </div>{" "}
-                -<div className="text-sm">{obj.client.residence}</div>
+                
                 <div className="text-xs flex">
                   <div className="mt-4 flex flex-row text-white bg-gray-600 rounded-md p-2">
                     <p>{obj.timeslots.start.startTime} </p>
@@ -42,7 +43,8 @@ export default function AssignedClientBar() {
                 </div>
               </div>
 
-              <div className="text-xs float-right"> ₹{obj.pay}</div>
+              <div className="text-xs float-right"><b>₹{obj.pay}</b></div>
+             
             </div>
           ))
         ) : (
