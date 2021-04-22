@@ -148,21 +148,9 @@ export default function WorkerModal() {
                   </button>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} id="worker">
-<<<<<<< HEAD
                 
                   <div className="flex flex-col">
                     
-=======
-                  <div className="flex flex-col mt-10">
-                    <div className="flex justify-end ">
-                      <button
-                        type="submit"
-                        className="cursor-pointer h-12 w-40 shadow-lg items-center justify-center mb-5 ml-5 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
-                      >
-                        Create Work Post!
-                      </button>
-                    </div>
->>>>>>> b44f8d9e17875e83bebfdbeb0bc3484b3a088399
                     <div>
                       <label className="mr-3 ml-5">Pay: </label>
                       <input
