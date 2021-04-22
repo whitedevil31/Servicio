@@ -24,6 +24,12 @@ export default function DashboardClient() {
               You are not Authenticated{" "}
             </h1>
             <h3 className="text-yellow-300 text-xl">Kindly, Go back!</h3>
+            <a
+            className="font-bold flex-row flex ml-44"
+            href="http://localhost:3000"
+          >
+            Home Page?
+          </a>
           </div>
         </div>
       )}

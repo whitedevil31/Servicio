@@ -10,12 +10,14 @@ export default function DashboardWorker() {
       {Cookies.get("user") ? (
         <div className="w-full h-screen flex flex-col">
           <NavBar />
-          <div className="h-full">
-            <div className="flex-col w-3/4">
+          <div className="flex">
+            <div className="w-3/5">
               <WorkerCreatePost />
               <WorkerApprovalRequest />
             </div>
-            {/* <AssignedClientBar /> */}
+            
+             <AssignedClientBar /> 
+            
           </div>
         </div>
       ) : (

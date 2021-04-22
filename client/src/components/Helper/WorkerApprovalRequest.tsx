@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { workerRequest } from "../../types/types";
+import Toastify from 'toastify-js'
+import "toastify-js/src/toastify.css"
 
 export default function () {
   const [workerRequest, setWorkerRequest] = useState<workerRequest[]>([]);
@@ -28,10 +30,15 @@ export default function () {
       },
       credentials: "include",
     }).then((response) => {
+      Toastify({
+        text: "✨ We will let the worker know that you have accepted their request. Thank you for using Servicio!",
+        backgroundColor: "linear-gradient(315deg, #3bb78f 0%, #0bab64 74%)",
+        className: "info",
+      }).showToast();
       // console.log(response);
-      alert(
-        "We will let the worker know that you have accepted their request. Thank you for using Servicio!"
-      );
+      // alert(
+      //   "We will let the worker know that you have accepted their request. Thank you for using Servicio!"
+      // );
     });
   };
 
@@ -43,10 +50,16 @@ export default function () {
       },
       credentials: "include",
     }).then((response) => {
+      Toastify({
+        text: "😞 We will let the worker know that you could not accept their request. Thank you for using Servicio! Please do return to us!",
+        backgroundColor: "linear-gradient(315deg, #6b0f1a 0%, #b91372 74%)",
+        duration: 3000,
+        className: "info",
+      }).showToast();
       // console.log(response);
-      alert(
-        "We will let the worker know that you could not accept their request. Thank you for using Servicio! Please do return to us!"
-      );
+      // alert(
+      //   "We will let the worker know that you could not accept their request. Thank you for using Servicio! Please do return to us!"
+      // );
     });
   };
 
@@ -55,7 +68,7 @@ export default function () {
       {workerRequest.map((item: any) => (
         <div
           className="flex bg-
-                  gray-300 ml-6 mt-20 h-52 w-3/6 shadow-2xl sm:rounded-2xl border-b-4 
+                  gray-300 ml-6 mt-20 h-52 w-4/6 shadow-2xl sm:rounded-2xl border-b-4 
                border-green-800 
                transition duration-300 ease-in-out hover:scale-y-125 hover:shadow-inner hover:bg-gray-200
                "

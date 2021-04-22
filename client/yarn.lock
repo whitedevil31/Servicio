@@ -2382,6 +2382,11 @@
   dependencies:
     "@types/jest" "*"
 
+"@types/toastify-js@^1.9.1":
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/@types/toastify-js/-/toastify-js-1.9.1.tgz#fd0c39dae7b218ac004d1bf661e16f370cea866a"
+  integrity sha512-y97gmQ6WIG39JU0wLaZaZ8IodW2i40jgqJlg4KLmLgtdcyjWgV3skBTFnkfQQWleQNCJKtodTS1x1n7q1Co3Gg==
+
 "@types/uglify-js@*":
   version "3.13.0"
   resolved "https://registry.yarnpkg.com/@types/uglify-js/-/uglify-js-3.13.0.tgz#1cad8df1fb0b143c5aba08de5712ea9d1ff71124"
@@ -11916,6 +11921,11 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     extend-shallow "^3.0.2"
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
+
+toastify-js@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/toastify-js/-/toastify-js-1.10.0.tgz#dcbcb01bfdcb213c4b207619085061738174b97c"
+  integrity sha512-xuO499S1sw9gTdiBkZSMNE4sIoiQv/y0y534F7g2dcprVMAJZIdtOaphqiQlNJPfh0YQFDvgD4R3KcX5r94cAQ==
 
 toidentifier@1.0.0:
   version "1.0.0"
