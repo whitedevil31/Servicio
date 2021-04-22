@@ -6,8 +6,8 @@ import Fade from "@material-ui/core/Fade";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { SLOT } from "../../types/types";
-import Toastify from 'toastify-js'
-import "toastify-js/src/toastify.css"
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -92,11 +92,11 @@ export default function WorkerModal() {
       .then((response) => {
         //console.log(response);
         Toastify({
-          text: "✨ Koodos! You have successfully registered a job request! Thank you for using Servicio!",
+          text:
+            "✨ Koodos! You have successfully registered a job request! Thank you for using Servicio!",
           backgroundColor: "linear-gradient(315deg, #3bb78f 0%, #0bab64 74%)",
           className: "info",
         }).showToast();
-        alert("");
         setOpen(false);
       });
   };
@@ -149,7 +149,7 @@ export default function WorkerModal() {
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} id="worker">
                   <div className="flex flex-col mt-10">
-                    <div className="flex- row">
+                    <div className="flex justify-end ">
                       <button
                         type="submit"
                         className="cursor-pointer h-12 w-40 shadow-lg items-center justify-center mb-5 ml-5 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
@@ -243,10 +243,7 @@ export default function WorkerModal() {
                   </div>
                   <div className="flex">
                     <input
-
                       type="time"
-
-                 
                       name="startingtime"
                       ref={register}
                       className="px-1 py-1 ml-5"
@@ -274,7 +271,7 @@ export default function WorkerModal() {
                     <div className="mr-2 mt-1">to</div>
                     <input
                       id="endTime"
-                      type="time"    
+                      type="time"
                       ref={register}
                       name="endtime"
                       className="px-1 py-1"
