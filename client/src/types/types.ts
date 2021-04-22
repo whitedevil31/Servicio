@@ -115,3 +115,12 @@ export interface workerModal {
     };
   };
 }
+
+export interface AssignedClient {
+  client: {
+    username: string,
+    residence: string;
+  };
+  pay: string,
+  timeslots: SLOT;
+}
