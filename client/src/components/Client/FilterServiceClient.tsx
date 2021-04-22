@@ -112,7 +112,7 @@ export default function FilterService() {
       });
   }, []);
   return (
-    <div className="w-1/5 px-7 py-7 font-bold  bg-gray-200 shadow-2xl rounded-2xl h-full ml-5 mr-5 mt-5">
+    <div className="w-1/5 px-5 py-5 font-bold  bg-gray-200 shadow-2xl rounded-2xl h-full mr-8 mt-5">
       <div className="mb-3">Select the service: </div>
       <div className="mb-5">
         <form onSubmit={handleSubmit(filterServiceSubmit)} id="service">
@@ -135,7 +135,7 @@ export default function FilterService() {
               ref={register}
               placeholder="Services"
               openMenuOnClick={false}
-              className="w-5/6"
+              className="w-11/12"
             />
             {/* <input
               type="text"
