@@ -5,6 +5,8 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import Toastify from 'toastify-js'
+import "toastify-js/src/toastify.css"
 import { timeslotData, DATA, workerModal } from "../../types/types";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -81,9 +83,14 @@ const NearbyModal: React.FC<workerModal> = (props: workerModal) => {
       .post("http://localhost:5000/api/worker/request", timeslotData, config)
       .then((response) => {
         console.log(response);
-        alert(
-          "Hey, you have successfully requested help. Please wait until furthur communication arrives!"
-        );
+        Toastify({
+          text: "✨ Hey, you have successfully requested help. Please wait until furthur communication arrives!",
+          backgroundColor: "linear-gradient(315deg, #3bb78f 0%, #0bab64 74%)",
+          className: "info",
+        }).showToast();
+        // alert(
+        //   "Hey, you have successfully requested help. Please wait until furthur communication arrives!"
+        // );
         setOpen(false);
       });
   };

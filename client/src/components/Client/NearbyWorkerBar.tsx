@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { nearbyWorker } from "../../types/types";
 import NearbyHireModal from "../Client/NeabyHireModal";
+
+// Near by workers are shown from the API endpoint and the values are passed to the REQUEST endpoint through which work requests are made
+
+
 export default function NearbyWorker() {
   const [workernearby, setWorkernearby] = useState<any[]>([]);
 
