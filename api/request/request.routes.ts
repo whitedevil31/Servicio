@@ -5,6 +5,7 @@ import {
   sendRequest,
   findRequest,
   acceptRequest,
+  findAssignedWorks,
   deleteRequest,
   findAssignedWorkers,
 } from "./request.db";
@@ -73,6 +74,19 @@ router.get(
     try {
       const allWorkers = await findAssignedWorkers(req.params.username);
       res.status(200).json(allWorkers);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+router.get(
+  "/api/worker/get/assigned/:workerId",
+
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await findAssignedWorks(req.params.workerId);
+      res.status(200).json(result);
     } catch (err) {
       next(err);
     }
