@@ -6,6 +6,8 @@ import Fade from "@material-ui/core/Fade";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { SLOT } from "../../types/types";
+import Toastify from 'toastify-js'
+import "toastify-js/src/toastify.css"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -89,7 +91,12 @@ export default function WorkerModal() {
       .post("http://localhost:5000/api/worker/post", workerData, config)
       .then((response) => {
         //console.log(response);
-        alert("Koodos! You have successfully registered a job request!");
+        Toastify({
+          text: "✨ Koodos! You have successfully registered a job request! Thank you for using Servicio!",
+          backgroundColor: "linear-gradient(315deg, #3bb78f 0%, #0bab64 74%)",
+          className: "info",
+        }).showToast();
+        alert("");
         setOpen(false);
       });
   };
@@ -249,7 +256,7 @@ export default function WorkerModal() {
                     <div className="text-sm ml-3 text-red-700">
                       {errors.startingtime && "Enter starting time."}
                     </div>
-                    <select
+                    {/* <select
                       className="mt-1 ml-3 h-10 px-2 py-2 focus:ring-indigo-500  block w-20 shadow-2xl sm:text-sm border-gray-500 border-b-2 rounded-md hover:shadow-inner "
                       name="AM/PM"
                       onChange={(e) => setStartFormat(e.target.value)}
@@ -263,8 +270,8 @@ export default function WorkerModal() {
                       <option className="select" value="PM">
                         PM
                       </option>
-                    </select>
-                    <div className="m-2">to</div>
+                    </select> */}
+                    <div className="mr-2 mt-1">to</div>
                     <input
                       id="endTime"
                       type="time"    
@@ -277,7 +284,7 @@ export default function WorkerModal() {
                     <div className="text-sm ml-3 text-red-700">
                       {errors.endtime && "Enter ending time."}
                     </div>
-                    <select
+                    {/* <select
                       className="mt-1 ml-3 h-10 px-2 py-2 focus:ring-indigo-500  block w-20 shadow-2xl sm:text-sm border-gray-500 border-b-2 rounded-md hover:shadow-inner "
                       name="AM/PM"
                       onChange={(e) => setEndFormat(e.target.value)}
@@ -291,7 +298,7 @@ export default function WorkerModal() {
                       <option className="select" value="PM">
                         PM
                       </option>
-                    </select>
+                    </select> */}
                     <input
                       className="cursor-pointer h-10 w-20 flex shadow-lg ml-5 justify-center items-center px-3 p-b-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-900"
                       type="submit"
