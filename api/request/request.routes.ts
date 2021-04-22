@@ -70,7 +70,6 @@ router.get(
   "/api/client/get/:username",
   adminMiddleware,
   async (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.params.username);
     try {
       const allWorkers = await findAssignedWorkers(req.params.username);
       res.status(200).json(allWorkers);

@@ -96,8 +96,6 @@ export const findAssignedWorkers = async (name: string) => {
     .collection("connections")
     .find({ "assign.client": name })
     .toArray();
-  if (requestResult.length == 0) {
-    throw HttpError(404, "No workers assigned");
-  }
+
   return requestResult;
 };
