@@ -8,9 +8,9 @@ import Select from "react-select";
 
 export default function FilterService() {
   const myArray = [
-    { value: "plumber", label: "Plumber" },
-    { value: "cooking", label: "Cook" },
-    { value: "carpenter", label: "Carpenter" },
+    { value: "plumber", label: "plumber" },
+    { value: "cooking", label: "cook" },
+    { value: "Carpenter", label: "carpentry" },
     { value: "driver", label: "Driver" },
   ];
   interface SEARCH {
@@ -34,14 +34,21 @@ export default function FilterService() {
   const filterData: FilterData = {
     services: [],
   };
+
   useEffect(() => {
+    // console.log(filterData);
     axios
-      .post("http://localhost:5000/api/worker/filter", filterData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
+      .post(
+        "http://localhost:5000/api/worker/filter",
+        filterData,
+
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      )
       .then((response) => {
         addFilter(response.data);
       });
@@ -69,14 +76,14 @@ export default function FilterService() {
     };
 
     const filterData: FilterData = {
-      services: selected,
+      services: [search!.value],
     };
-    console.log(filterData)
+    console.log(filterData);
     axios
       .post("http://localhost:5000/api/worker/filter", filterData, config)
       .then((response) => {
-        //addFilter(response.data);
-        console.log(response.data)
+        addFilter(response.data);
+        console.log(response.data);
       });
   };
 
@@ -107,12 +114,10 @@ export default function FilterService() {
   return (
     <div className="w-1/5 px-7 py-7 font-bold  bg-gray-200 shadow-2xl rounded-2xl h-full ml-5 mr-5 mt-5">
       <div className="mb-3">Select the service: </div>
-
-     
       <div className="mb-5">
         <form onSubmit={handleSubmit(filterServiceSubmit)} id="service">
           <div className="flex items-center mb-2">
-          {/* <Select
+            {/* <Select
         onFocus={() => setSearch(null)}
         isMulti
         name="services"
@@ -123,16 +128,15 @@ export default function FilterService() {
         placeholder="Services"
         openMenuOnClick={false}
   /> */}
-   <Select
-        
-        value={search}
-        options={myArray}
-        onChange={handleChange}
-        ref={register}
-        placeholder="Services"
-        openMenuOnClick={false}
-        className="w-32"
-      />
+            <Select
+              value={search}
+              options={myArray}
+              onChange={handleChange}
+              ref={register}
+              placeholder="Services"
+              openMenuOnClick={false}
+              className="w-32"
+            />
             {/* <input
               type="text"
               placeholder="Search"

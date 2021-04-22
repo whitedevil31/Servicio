@@ -31,9 +31,7 @@ export const findRequest = async (workerId: string) => {
     .collection("request")
     .find({ workerId: workerId, accepted: false })
     .toArray();
-  if (requestResult.length == 0) {
-    throw HttpError(404, "No request found");
-  }
+
   return requestResult;
 };
 
@@ -96,8 +94,15 @@ export const findAssignedWorkers = async (name: string) => {
     .collection("connections")
     .find({ "assign.client": name })
     .toArray();
-  if (requestResult.length == 0) {
-    throw HttpError(404, "No workers assigned");
-  }
+
   return requestResult;
+};
+export const findAssignedWorks = async (workerId: string) => {
+  const client: mongodb.MongoClient = await getClient();
+  const assignedWorks = await client
+    .db()
+    .collection("request")
+    .find({ workerId: workerId, accepted: true })
+    .toArray();
+  return assignedWorks;
 };

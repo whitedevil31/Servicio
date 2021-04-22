@@ -90,7 +90,6 @@ export interface DATA {
   workerId: string;
 }
 
-
 export interface timeslotData {
   timeslots: SLOT;
   accepted: boolean;

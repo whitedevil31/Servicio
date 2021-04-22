@@ -23,7 +23,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     secret: "thisissparta",
-    cookie: { maxAge: 2 * 60 * 60 * 1000 },
+    cookie: { maxAge: 24 * 60 * 60 * 1000 },
   })
 );
 // app.use(errorHandler);
