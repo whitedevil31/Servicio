@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
 
 import {
   geoPosition,
@@ -59,7 +61,13 @@ export default function NavBar() {
         console.log(response);
         if (response.status == 201) {
           setTimeout(() => {
-            alert("Successfully Registered");
+            Toastify({
+              text: "✨ Successfully Registered!",
+              backgroundColor:
+                "linear-gradient(315deg, #3bb78f 0%, #0bab64 74%)",
+              className: "info",
+            }).showToast();
+            //alert("Successfully Registered");
             history.push("/login");
           }, 500);
         }

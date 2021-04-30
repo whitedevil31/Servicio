@@ -105,7 +105,7 @@ export default function WorkerModal() {
     <div>
       <button type="button" onClick={handleOpen}>
         <input
-          className="ml-3 mt-5 px-2 py-2 w-96 rounded-md cursor-pointer"
+          className="ml-3 mt-5 px-2 py-2 w-96 rounded-2xl cursor-pointer"
           placeholder="Create a post"
         ></input>
       </button>
@@ -127,7 +127,7 @@ export default function WorkerModal() {
               className="bg-black bg-opacity-50 absolute inset-0 flex justify-center items-center"
               id="overlay"
             >
-              <div className="bg-gray-200 w-3/4 h-4/5  py-2 px-3 rounded shadow-xl text-gray-800">
+              <div className="bg-gray-200 w-3/4 h-3/4 py-2 px-3 rounded shadow-xl text-gray-800">
                 <div className="flex justify-between items-center">
                   <h4 className="text-lg mt-3 ml-5 font-bold font-display">
                     Let's start here
@@ -148,9 +148,13 @@ export default function WorkerModal() {
                   </button>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} id="worker">
-                
-                  <div className="flex flex-col">
-                    
+                  <div className="flex flex-col mt-10">
+                    <button
+                      type="submit"
+                      className="cursor-pointer h-12 w-40 shadow-lg items-center justify-center mb-5 ml-5 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
+                    >
+                      Create Work Post!
+                    </button>
                     <div>
                       <label className="mr-3 ml-5">Pay: </label>
                       <input
@@ -169,15 +173,6 @@ export default function WorkerModal() {
                           </p>
                         )}
                       </div>
-                      <div className="absolute ml-96">
-                      <button
-                        type="submit"
-                        className="cursor-pointer h-12 w-40 shadow-lg items-center justify-center mb-5 ml-5 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
-                      >
-                        Create Work Post!
-                      </button>
-                    </div>
-                      
                     </div>
 
                     <div className="flex mt-5">
@@ -212,11 +207,11 @@ export default function WorkerModal() {
                         name="Carpentry"
                         ref={register}
                         type="checkbox"
-                        value="carpenter"
+                        value="housekeep"
                         className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                       ></input>
                       <label className="font-medium text-gray-700">
-                        Carpenter
+                        House Keeping
                       </label>
                       <input
                         name="Cleaning"
@@ -226,13 +221,13 @@ export default function WorkerModal() {
                         className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                       ></input>
                       <label className="font-medium text-gray-700">
-                        Cleaning
+                        Laundry
                       </label>
                       <input
                         name="Cooking"
                         ref={register}
                         type="checkbox"
-                        value="cooking"
+                        value="cook"
                         className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                       ></input>
                       <label className="font-medium text-gray-700">Cook</label>
@@ -300,9 +295,11 @@ export default function WorkerModal() {
                       </option>
                     </select> */}
                     <button
-                      className="cursor-pointer h-10 w-32 flex shadow-lg ml-5 justify-center items-center px-3 p-b-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-900"
+                      className="cursor-pointer h-10 w-24 flex shadow-lg ml-5 justify-center items-center px-3 p-b-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-900"
                       type="submit"
-                    >Set Time </button>
+                    >
+                      Set Time
+                    </button>
                   </div>
                 </form>
                 {slot.length == 0 ? (

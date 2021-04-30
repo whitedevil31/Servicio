@@ -15,9 +15,8 @@ export default function DashboardWorker() {
               <WorkerCreatePost />
               <WorkerApprovalRequest />
             </div>
-            
-              <AssignedClientBar /> 
-            
+
+            <AssignedClientBar />
           </div>
         </div>
       ) : (

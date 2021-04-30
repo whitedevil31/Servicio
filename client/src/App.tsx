@@ -1,11 +1,12 @@
 import React from "react";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import DashboardClient from "./pages/DashboardClient";
+import Login from "./pages/Login";
 import DashboardWorker from "./pages/DashboardWorker";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import DashboardClient from "./pages/DashboardClient";
 import { GlobalProvider } from "./context/GlobalState";
+
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   return (
