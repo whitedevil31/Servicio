@@ -210,11 +210,11 @@ export default function WorkerModal() {
                         name="Carpentry"
                         ref={register}
                         type="checkbox"
-                        value="carpenter"
+                        value="housekeep"
                         className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                       ></input>
                       <label className="font-medium text-gray-700">
-                        Carpenter
+                        House Keeping
                       </label>
                       <input
                         name="Cleaning"
@@ -224,13 +224,13 @@ export default function WorkerModal() {
                         className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                       ></input>
                       <label className="font-medium text-gray-700">
-                        Cleaning
+                        Laundry
                       </label>
                       <input
                         name="Cooking"
                         ref={register}
                         type="checkbox"
-                        value="cooking"
+                        value="cook"
                         className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                       ></input>
                       <label className="font-medium text-gray-700">Cook</label>
@@ -299,10 +299,12 @@ export default function WorkerModal() {
                         PM
                       </option>
                     </select> */}
-                    <input
-                      className="cursor-pointer h-10 w-20 flex shadow-lg ml-5 justify-center items-center px-3 p-b-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-900"
+                    <button
+                      className="cursor-pointer h-10 w-24 flex shadow-lg ml-5 justify-center items-center px-3 p-b-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-900"
                       type="submit"
-                    />
+                    >
+                      Set Time
+                    </button>
                   </div>
                 </form>
                 {slot.length == 0 ? (

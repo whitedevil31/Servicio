@@ -2,16 +2,16 @@ module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    fontFamily : {
-      'display': ['Ubuntu', 'Monsterrat']
-    }, 
+    fontFamily: {
+      display: ["Ubuntu", "Monsterrat"],
+    },
 
     extend: {},
   },
   variants: {
     extend: {},
   },
-  plugins: [
-    require('tailwind-filter-utilities')
-  ],
+
+  plugins: [require("tailwind-filter-utilities")],
+
 };

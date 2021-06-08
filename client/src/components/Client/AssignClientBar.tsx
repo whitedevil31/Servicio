@@ -30,8 +30,8 @@ export default function AssignedClientBar() {
               <div className="text-sm">
                 <div className="text-sm flex-col">
                   <b>{obj.client.username}</b>
+                  <div className="text-sm">{obj.client.residence}</div>
                 </div>{" "}
-                -<div className="text-sm">{obj.client.residence}</div>
                 <div className="text-xs flex">
                   <div className="mt-4 flex flex-row text-white bg-gray-600 rounded-md p-2">
                     <p>{obj.timeslots.start.startTime} </p>
@@ -42,7 +42,9 @@ export default function AssignedClientBar() {
                 </div>
               </div>
 
-              <div className="text-xs float-right"> ₹{obj.pay}</div>
+              <div className="text-xs float-right">
+                <b>₹{obj.pay}</b>
+              </div>
             </div>
           ))
         ) : (

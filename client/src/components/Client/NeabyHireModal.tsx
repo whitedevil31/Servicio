@@ -98,7 +98,7 @@ const NearbyModal: React.FC<workerModal> = (props: workerModal) => {
   return (
     <div>
       <button>
-        <i className="far fa-check-circle" onClick={handleOpen}></i>
+        <p className="mt-2 font-display" onClick={handleOpen}><b>View </b><i className="fas fa-eye"></i></p>
       </button>
       <Modal
         aria-labelledby="transition-modal-title"

@@ -24,23 +24,23 @@ export default function NearbyWorker() {
   }, []);
 
   return (
-    <div className="bg-gray-200 shadow-2xl rounded-2xl h-full w-1/5 mt-5 mr-5">
+    <div className="bg-gray-200 shadow-2xl rounded-2xl h-full w-1/5 mt-5 ml-8">
       <div className="font-bold text-black text-mg px-5 py-7">
         Workers Near By:
         {workernearby.length > 0 ? (
           workernearby.map((obj) => (
             <div className="flex px-5 py-2 bg-indigo-100 rounded-xl mt-6 w-full hover:bg-indigo-200 shadow-inner">
               <div className="text-sm">
-                <NearbyHireModal workerData={obj} />
                 <div className="text-sm flex-col">{obj.user.username}</div>
                 <div className="text-xs flex-row">₹{obj.pay}</div>
                 <div className="text-xs flex">
                   {obj.services.map((item: any) => (
-                    <p className="mt-2 mr-2 bg-gray-400 p-2 rounded-full text-xs flex-row">
+                    <p className="mt-2 mr-2 bg-gray-400 p-2 rounded-lg text-xs flex-row">
                       {item}
                     </p>
                   ))}
                 </div>
+                <NearbyHireModal workerData={obj} />
               </div>
             </div>
           ))

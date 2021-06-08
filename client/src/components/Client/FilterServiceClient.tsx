@@ -146,7 +146,7 @@ export default function FilterService() {
               className="w-8 h-8 mt-1 cursor-pointer h-7 w-5 flex ml-3 shadow-lg justify-center items-center px-3  border border-transparent text-xs rounded-md text-white bg-gray-600 hover:bg-grey-900"
               type="submit"
             >
-              <i className="fab fa-searchengin"></i>
+              <i className="fas fa-search-plus"></i>
             </button>
           </div>
           {/* <div className="flex items-center mb-2">
