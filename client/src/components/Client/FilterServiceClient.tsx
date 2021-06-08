@@ -112,9 +112,9 @@ export default function FilterService() {
       });
   }, []);
   return (
-    <div className="w-1/5 px-7 py-7 font-bold  bg-gray-200 shadow-2xl rounded-2xl h-full ml-5 mr-5 mt-5">
+    <div className="w-1/5 pl-6 py-3 font-bold  bg-gray-200 shadow-2xl rounded-2xl h-full ml-2 mr-2 mt-5">
       <div className="mb-3">Select the service: </div>
-      <div className="mb-5">
+      <div className="mb-5 w-3/4">
         <form onSubmit={handleSubmit(filterServiceSubmit)} id="service">
           <div className="flex items-center mb-2">
             {/* <Select
@@ -135,7 +135,7 @@ export default function FilterService() {
               ref={register}
               placeholder="Services"
               openMenuOnClick={false}
-              className="w-32"
+              className="w-44 py-2 h-12"
             />
             {/* <input
               type="text"
@@ -143,7 +143,7 @@ export default function FilterService() {
               className="mt-1 mb-5 h-8 px-2 py-2 block w-full shadow-sm text-black sm:text-sm bg-gray-300 rounded-md"
             ></input> */}
             <button
-              className="cursor-pointer h-7 w-5 flex ml-3 shadow-lg justify-center items-center px-3 p-b-3 border border-transparent text-xs rounded-md text-white bg-gray-600 hover:bg-grey-900"
+              className="w-8 h-8 mt-1 cursor-pointer h-7 w-5 flex ml-3 shadow-lg justify-center items-center px-3  border border-transparent text-xs rounded-md text-white bg-gray-600 hover:bg-grey-900"
               type="submit"
             >
               <i className="fab fa-searchengin"></i>

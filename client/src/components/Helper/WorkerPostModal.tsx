@@ -92,8 +92,7 @@ export default function WorkerModal() {
       .then((response) => {
         //console.log(response);
         Toastify({
-          text:
-            "✨ Koodos! You have successfully registered a job request! Thank you for using Servicio!",
+          text: "✨ Koodos! You have successfully registered a job request! Thank you for using Servicio!",
           backgroundColor: "linear-gradient(315deg, #3bb78f 0%, #0bab64 74%)",
           className: "info",
         }).showToast();
@@ -127,10 +126,10 @@ export default function WorkerModal() {
               className="bg-black bg-opacity-50 absolute inset-0 flex justify-center items-center"
               id="overlay"
             >
-              <div className="bg-gray-200 w-3/4 h-3/4 py-2 px-3 rounded shadow-xl text-gray-800">
+              <div className="bg-gray-200 w-1/2 h-2/3 py-2 px-3 rounded shadow-xl text-gray-800">
                 <div className="flex justify-between items-center">
-                  <h4 className="text-lg mt-3 ml-5 font-bold font-display">
-                    Let's start here
+                  <h4 className="text-lg mt-3 ml-5 font-bold font-display underline">
+                    Let's get started here
                   </h4>
                   <button onClick={handleClose}>
                     <svg
@@ -152,13 +151,15 @@ export default function WorkerModal() {
                     <div className="flex justify-end ">
                       <button
                         type="submit"
-                        className="cursor-pointer h-12 w-40 shadow-lg items-center justify-center mb-5 ml-5 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
+                        className="cursor-pointer h-12 w-40 shadow-lg items-center justify-center mb-5 ml-5 border border-transparent text-base font-medium rounded-md text-white bg-green-400 hover:bg-green-600"
                       >
                         Create Work Post!
                       </button>
                     </div>
                     <div>
-                      <label className="mr-3 ml-5">Pay: </label>
+                      <label className="mr-3 ml-5 text-lg font-display">
+                        Pay:{" "}
+                      </label>
                       <input
                         type="number"
                         name="pay"
@@ -166,7 +167,7 @@ export default function WorkerModal() {
                           required: "This input is required.",
                         })}
                         autoComplete="off"
-                        className="bg-transparent border-b-2 border-gray-500 shadow-inner h-4 px-3 py-3 rounded-md w-20"
+                        className=" border-b-2 border-gray-500 shadow-inner h-4 px-4 py-4 rounded-lg w-24"
                       ></input>
                       <div className="text-red-600">
                         {errors.pay && (
@@ -177,13 +178,13 @@ export default function WorkerModal() {
                       </div>
                     </div>
 
-                    <div className="flex mt-5">
-                      <label className="mr-96 ml-5 font-display">
+                    <div className="flex mt-7">
+                      <label className="mr-96 ml-5 font-display text-lg">
                         Services you provide:{" "}
                       </label>
                     </div>
 
-                    <div className="mr-4 ml-4 mt-3 flex flex-row space-x-3">
+                    <div className="mr-4 ml-4 mt-6 flex flex-row space-x-3">
                       <input
                         name="Plumber"
                         ref={register}
@@ -239,7 +240,9 @@ export default function WorkerModal() {
                 <form onSubmit={timeslotSubmit} id="time">
                   {" "}
                   <div className="w-full h-12 border-3 border-red-500">
-                    <h1 className="ml-5 mt-10">Select your time slots</h1>
+                    <h1 className="ml-5 mt-6 ont-display text-lg">
+                      Select your time slots:
+                    </h1>
                   </div>
                   <div className="flex">
                     <input
