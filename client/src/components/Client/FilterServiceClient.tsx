@@ -83,7 +83,7 @@ export default function FilterService() {
       .post("http://localhost:5000/api/worker/filter", filterData, config)
       .then((response) => {
         addFilter(response.data);
-        console.log(response.data);
+        //console.log(response.data);
       });
   };
 
@@ -108,6 +108,7 @@ export default function FilterService() {
           )
           .then((response) => {
             setHiredWorker(response.data);
+            console.log(response.data);
           });
       });
   }, []);

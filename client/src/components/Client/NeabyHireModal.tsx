@@ -5,8 +5,8 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import Toastify from 'toastify-js'
-import "toastify-js/src/toastify.css"
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
 import { timeslotData, DATA, workerModal } from "../../types/types";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -98,7 +98,10 @@ const NearbyModal: React.FC<workerModal> = (props: workerModal) => {
   return (
     <div>
       <button>
-        <p className="mt-2 font-display" onClick={handleOpen}><b>View </b><i className="fas fa-eye"></i></p>
+        <p className="mt-2 font-display" onClick={handleOpen}>
+          <b>View </b>
+          <i className="fas fa-eye"></i>
+        </p>
       </button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -118,7 +121,7 @@ const NearbyModal: React.FC<workerModal> = (props: workerModal) => {
               className="bg-black bg-opacity-50 absolute inset-0 flex justify-center items-center"
               id="overlay"
             >
-              <div className="bg-gray-800 w-2/4 h-5/7 py-2 px-3 rounded shadow-xl text-gray-800">
+              <div className="bg-white w-2/4 h-5/7 py-2 px-3 rounded shadow-xl text-gray-800">
                 <div className="flex justify-between items-center">
                   <h4 className="text-white mt-3 mb-5 font-bold font-display">
                     Hire your helpers now!
@@ -139,22 +142,33 @@ const NearbyModal: React.FC<workerModal> = (props: workerModal) => {
                   </button>
                 </div>
                 <form onSubmit={handleSubmit(timeslotSubmit)} id="timeslot">
-                  <h1 className="text-white text-md h-1/5 w-full p-2 bg-gray-600 border-2 border-gray-400 rounded-md">
-                    Name: {props.workerData.user.username}
-                  </h1>
+                  <span className="flex w-full">
+                    <img
+                      className="h-8 w-8 rounded-b-full"
+                      src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+                      alt=""
+                    ></img>
+                    <h1 className="text-gray-600 text-xl h-1/5 w-full p-2 mb-3 font-bold bg-white">
+                      {props.workerData.user.username}
+                    </h1>
+                  </span>
                   <div className="flex">
-                    <h3 className="mt-3 mr-3 text-white w-full p-2 bg-gray-600 border-2 border-gray-400 rounded-md">
-                      Pay: {props.workerData.pay}
+                    <h3 className="mt-3 mr-3 font-extrabold text-gray-600 w-1/4 p-2 bg-white  rounded-md">
+                      $ {props.workerData.pay}
                     </h3>
-                    <h3 className="mt-3 text-white w-full p-2 bg-gray-600 border-2 border-gray-400 rounded-md">
-                      Age: {props.workerData.user.age}
+                    <h3 className="mt-3 text-gray-600 w-1/4 p-2 rounded-md">
+                      Age of <b>{props.workerData.user.age}.</b>
                     </h3>
                   </div>
-                  <h5 className="mt-3 text-xs text-white w-full p-2 bg-gray-600 border-2 border-gray-400 rounded-md">
-                    About: {props.workerData.user.about}
-                  </h5>
+                  <h4 className="mt-3  text-gray-600 w-full p-2 bg-white rounded-md">
+                    Something about me...
+                  </h4>
+                  <span className="text-justify ml-5">
+                    {" "}
+                    {props.workerData.user.about}
+                  </span>
                   <div className="text-white text-xs mt-5 h-1/5 w-full p-2 bg-gray-600 border-2 border-gray-400 rounded-md">
-                    Timeslots
+                    I am available at:
                     {props.workerData.timeslots.map((time: any) => (
                       <div className="flex mb-2 mr-3 mt-5 text-sm text-white">
                         <input
@@ -179,22 +193,24 @@ const NearbyModal: React.FC<workerModal> = (props: workerModal) => {
                       <p
                         className="mt-3 mr-3 w-32 bg-gray-300 text-gray-700 shadow-2xl p-2 rounded-full text-xs flex-row 
                             hover:scale-125"
-                            >
-                              {item}
-                            </p>
-                          ))}
-                          </div>
-                          <button
-                  type="submit"
-                  className="text-sm float-right text-white bg-gray-700 h-10  p-2 rounded-full"
-                  onClick={() =>
-                    setData({
-                      pay: props.workerData.pay,
-                      services: props.workerData.services,
-                      workerId: props.workerData.user._id,
-                    })
-                  }
-                >Hire Me!</button>
+                      >
+                        {item}
+                      </p>
+                    ))}
+                  </div>
+                  <button
+                    type="submit"
+                    className="text-sm float-right text-white bg-gray-700 h-10  p-2 rounded-full"
+                    onClick={() =>
+                      setData({
+                        pay: props.workerData.pay,
+                        services: props.workerData.services,
+                        workerId: props.workerData.user._id,
+                      })
+                    }
+                  >
+                    Hire Me!
+                  </button>
                 </form>
               </div>
             </div>
