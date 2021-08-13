@@ -56,6 +56,8 @@ export const acceptRequest = async (postId: string) => {
     const assign: assignType = {
       worker: worker.username,
       client: assignedTo.client.username,
+      profession: assignedTo.services,
+      timeslots: assignedTo.timeslots,
     };
     const assignConnection = await client
       .db()
@@ -94,7 +96,7 @@ export const findAssignedWorkers = async (name: string) => {
     .collection("connections")
     .find({ "assign.client": name })
     .toArray();
-
+  console.log(requestResult);
   return requestResult;
 };
 export const findAssignedWorks = async (workerId: string) => {
