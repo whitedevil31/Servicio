@@ -4,7 +4,6 @@ import { workerPosts, postSchema, postType, ServiceType } from "./post.schema";
 import { userDB, userInterface } from "../user/user.schema";
 import findDistance from "../utils/calc.distance";
 import HttpError from "http-errors";
-import { array } from "yup";
 
 export const workerPost = async (data: postType, user: userInterface) => {
   await postSchema.validate(data).catch((err) => {
