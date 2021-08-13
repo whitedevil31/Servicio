@@ -142,75 +142,81 @@ const NearbyModal: React.FC<workerModal> = (props: workerModal) => {
                   </button>
                 </div>
                 <form onSubmit={handleSubmit(timeslotSubmit)} id="timeslot">
-                  <span className="flex w-full">
-                    <img
-                      className="h-8 w-8 rounded-b-full"
-                      src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-                      alt=""
-                    ></img>
-                    <h1 className="text-gray-600 text-xl h-1/5 w-full p-2 mb-3 font-bold bg-white">
-                      {props.workerData.user.username}
-                    </h1>
-                  </span>
-                  <div className="flex">
-                    <h3 className="mt-3 mr-3 font-extrabold text-gray-600 w-1/4 p-2 bg-white  rounded-md">
-                      $ {props.workerData.pay}
-                    </h3>
-                    <h3 className="mt-3 text-gray-600 w-1/4 p-2 rounded-md">
-                      Age of <b>{props.workerData.user.age}.</b>
-                    </h3>
-                  </div>
-                  <h4 className="mt-3  text-gray-600 w-full p-2 bg-white rounded-md">
-                    Something about me...
-                  </h4>
-                  <span className="text-justify ml-5">
-                    {" "}
-                    {props.workerData.user.about}
-                  </span>
-                  <div className="text-white text-xs mt-5 h-1/5 w-full p-2 bg-gray-600 border-2 border-gray-400 rounded-md">
-                    I am available at:
-                    {props.workerData.timeslots.map((time: any) => (
-                      <div className="flex mb-2 mr-3 mt-5 text-sm text-white">
-                        <input
-                          className=" mr-3 bg-white"
-                          type="radio"
-                          name="time"
-                          ref={register}
-                          value={`${time.start.startTime} + ${time.start.startFormat} + ${time.end.endTime} + ${time.end.endFormat}`}
-                          onChange={(e) => setSelectSlot(e.target.value)}
-                        />
-                        <div className="flex flex-row bg-gray-600 rounded-full text-xs">
-                          <p>{time.start.startTime} </p>
-                          <p>{time.start.startFormat}</p> -
-                          <p>{time.end.endTime}</p>
-                          <p>{time.end.endFormat}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="text-xs flex h-full mt-5">
-                    {props.workerData.services.map((item: any) => (
-                      <p
-                        className="mt-3 mr-3 w-32 bg-gray-300 text-gray-700 shadow-2xl p-2 rounded-full text-xs flex-row 
+                  <div className="flex w-full">
+                    <div className="pb-2 w-1/3 h-1/3">
+                      <img
+                        className="h-8 w-8 rounded-b-full"
+                        src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+                        alt=""
+                      ></img>
+                      <span className="w-full h-8">
+                        <h1 className="w-1/3 font-display text-xl text-green-800">
+                          {props.workerData.user.username}
+                        </h1>
+                      </span>
+
+                      <span className="w-1/3 h-2/3 pt-1">
+                        <p className="flex-col text-sm font-bold text-green-800">
+                          Age: {props.workerData.user.age}
+                        </p>
+                      </span>
+                      <div className="text-xs flex h-full mt-5">
+                        {props.workerData.services.map((item: any) => (
+                          <p
+                            className="mt-3 mr-3 w-32 bg-gray-300 text-gray-700 shadow-2xl p-2 rounded-full text-xs flex-row 
                             hover:scale-125"
+                          >
+                            {item}
+                          </p>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="w-2/3">
+                      <div className="ml-12 w-3/4 font-display text-mg text-green-800">
+                        <p>
+                          <b className="mb-2">About:</b>
+                          <br></br>
+                          {props.workerData.user.about}
+                        </p>
+                      </div>
+                      <div className="text-xs flex ml-10">
+                        {props.workerData.timeslots.map((time: any) => (
+                          <div className="flex-row mb-2 mr-3 mt-5 text-sm text-white">
+                            <input
+                              className="mr-20 bg-gray-600"
+                              type="radio"
+                              name="time"
+                              required
+                              ref={register}
+                              value={`${time.start.startTime} + ${time.start.startFormat} + ${time.end.endTime} + ${time.end.endFormat}`}
+                              onChange={(e) => setSelectSlot(e.target.value)}
+                            />
+                            <div className="flex flex-row bg-gray-600 p-2 rounded-md text-xs">
+                              <p>{time.start.startTime}</p>
+                              <p>{time.start.startFormat}</p> -
+                              <p>{time.end.endTime}</p>
+                              <p>{time.end.endFormat}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="w-1/3 flex flex-col justify-start">
+                      <button
+                        type="submit"
+                        className="flex mx-8 justify-center items-center text-sm font-display text-white bg-green-800 h-10  p-2 rounded-md"
+                        onClick={() =>
+                          setData({
+                            pay: props.workerData.pay,
+                            services: props.workerData.services,
+                            workerId: props.workerData.user._id,
+                          })
+                        }
                       >
-                        {item}
-                      </p>
-                    ))}
+                        Hire Me!
+                      </button>
+                    </div>
                   </div>
-                  <button
-                    type="submit"
-                    className="text-sm float-right text-white bg-gray-700 h-10  p-2 rounded-full"
-                    onClick={() =>
-                      setData({
-                        pay: props.workerData.pay,
-                        services: props.workerData.services,
-                        workerId: props.workerData.user._id,
-                      })
-                    }
-                  >
-                    Hire Me!
-                  </button>
                 </form>
               </div>
             </div>
