@@ -85,12 +85,12 @@ export function WorkerPosts() {
                 <div className="flex w-full">
                   <div className="pb-2 w-1/3 h-1/3">
                     <img
-                      className="h-8 w-8 rounded-b-full"
+                      className="h-10 w-10 rounded-b-full"
                       src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
                       alt=""
                     ></img>
                     <div className="w-full h-8">
-                      <h1 className="w-1/3 font-display text-xl text-green-800">
+                      <h1 className="w-1/3 font-display text-xl text-green-800 font-semibold">
                         {obj.user.username}
                       </h1>
                     </div>
@@ -104,7 +104,7 @@ export function WorkerPosts() {
                       {obj.services.map((item: any) => (
                         <p
                           className="mt-2 mr-2 bg-gray-700 text-white shadow-2xl p-2 rounded-md text-xs flex-row 
-                        hover:scale-125"
+                        hover:scale-125 font-semibold"
                         >
                           {item}
                         </p>
@@ -116,7 +116,7 @@ export function WorkerPosts() {
                       <p>
                         <b className="mb-2">About:</b>
                         <br></br>
-                        {obj.user.about}
+                        <p className="font-medium"> {obj.user.about}</p>
                       </p>
                     </div>
 
@@ -132,7 +132,7 @@ export function WorkerPosts() {
                             value={`${time.start.startTime} + ${time.start.startFormat} + ${time.end.endTime} + ${time.end.endFormat}`}
                             onChange={(e) => setSelectSlot(e.target.value)}
                           />
-                          <div className="flex flex-row bg-gray-600 p-2 rounded-md text-xs">
+                          <div className="flex flex-row bg-gray-600 p-2 rounded-md text-xs font-semibold">
                             <p>{time.start.startTime}</p>
                             <p>{time.start.startFormat}</p> -
                             <p>{time.end.endTime}</p>

@@ -5,7 +5,6 @@ import NearbyHireModal from "../Client/NeabyHireModal";
 
 // Near by workers are shown from the API endpoint and the values are passed to the REQUEST endpoint through which work requests are made
 
-
 export default function NearbyWorker() {
   const [workernearby, setWorkernearby] = useState<any[]>([]);
 
@@ -35,7 +34,7 @@ export default function NearbyWorker() {
                 <div className="text-xs flex-row">₹{obj.pay}</div>
                 <div className="text-xs flex">
                   {obj.services.map((item: any) => (
-                    <p className="mt-2 mr-2 bg-gray-400 p-2 rounded-lg text-xs flex-row">
+                    <p className="mt-2 mr-2 bg-black p-2 rounded-lg text-xs flex-row text-white">
                       {item}
                     </p>
                   ))}
