@@ -61,7 +61,7 @@ export function WorkerPosts() {
         console.log(response);
         Toastify({
           text: "✨ Hey, you have successfully requested help. Please wait until furthur communication arrives!",
-          duration: 5000,
+          duration: 1500,
           backgroundColor: "linear-gradient(315deg, #3bb78f 0%, #0bab64 74%)",
           className: "info",
         }).showToast();
@@ -93,9 +93,8 @@ export function WorkerPosts() {
                       <h1 className="w-1/3 font-display text-xl text-green-800">
                         {obj.user.username}
                       </h1>
-                      
                     </div>
-                    
+
                     <div className="w-1/3 h-2/3 pt-1">
                       <p className="flex-col text-sm font-bold text-green-800">
                         Age: {obj.user.age}
@@ -112,7 +111,7 @@ export function WorkerPosts() {
                       ))}
                     </div>
                   </div>
-                  <div className = "w-2/3">
+                  <div className="w-2/3">
                     <div className="ml-12 w-3/4 font-display text-mg text-green-800">
                       <p>
                         <b className="mb-2">About:</b>
@@ -128,6 +127,7 @@ export function WorkerPosts() {
                             className="mr-20 bg-gray-600"
                             type="radio"
                             name="time"
+                            required
                             ref={register}
                             value={`${time.start.startTime} + ${time.start.startFormat} + ${time.end.endTime} + ${time.end.endFormat}`}
                             onChange={(e) => setSelectSlot(e.target.value)}
@@ -140,37 +140,32 @@ export function WorkerPosts() {
                           </div>
                         </div>
                       ))}
-                       
                     </div>
-                   
                   </div>
-                  <div className ="w-1/3 flex flex-col justify-start">
-                  <button
-                  type="submit"
-                  className="flex mx-8 justify-center items-center text-sm font-display text-white bg-green-800 h-10  p-2 rounded-md"
-                  onClick={() =>
-                    setAdd({
-                      pay: obj.pay,
-                      services: obj.services,
-                      workerId: obj.user._id,
-                    })
-                  }
-                >
-                  Hire Me!
-                </button>
-                <p className="ml-9 mt-7 font-cursive text-xl text-green-800">
-                    <i className="fas fa-money-bill-wave"></i>
-                    <b> ₹{obj.pay}</b>
-                  </p>
+                  <div className="w-1/3 flex flex-col justify-start">
+                    <button
+                      type="submit"
+                      className="flex mx-8 justify-center items-center text-sm font-display text-white bg-green-800 h-10  p-2 rounded-md"
+                      onClick={() =>
+                        setAdd({
+                          pay: obj.pay,
+                          services: obj.services,
+                          workerId: obj.user._id,
+                        })
+                      }
+                    >
+                      Hire Me!
+                    </button>
+                    <p className="ml-9 mt-7 font-cursive text-xl text-green-800">
+                      <i className="fas fa-money-bill-wave"></i>
+                      <b> ₹{obj.pay}</b>
+                    </p>
                   </div>
 
                   {/* <a className="float-right w-12 h-12 px-5 py-5 shadow-lg  items-center justify-center rounded-full bg-green-300 hover:bg-green-500">
                   <i className="far fa-comments"></i>
                 </a>*/}
-                
                 </div>
-
-                
               </div>
             </div>
           </form>

@@ -5,8 +5,8 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import Toastify from 'toastify-js'
-import "toastify-js/src/toastify.css"
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
 import { timeslotData, DATA, workerModal } from "../../types/types";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -98,7 +98,10 @@ const NearbyModal: React.FC<workerModal> = (props: workerModal) => {
   return (
     <div>
       <button>
-        <p className="mt-2 font-display" onClick={handleOpen}><b>View </b><i className="fas fa-eye"></i></p>
+        <p className="mt-2 font-display" onClick={handleOpen}>
+          <b>View </b>
+          <i className="fas fa-eye"></i>
+        </p>
       </button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -118,7 +121,7 @@ const NearbyModal: React.FC<workerModal> = (props: workerModal) => {
               className="bg-black bg-opacity-50 absolute inset-0 flex justify-center items-center"
               id="overlay"
             >
-              <div className="bg-gray-800 w-2/4 h-5/7 py-2 px-3 rounded shadow-xl text-gray-800">
+              <div className="bg-white w-2/4 h-5/7 py-2 px-3 rounded shadow-xl text-gray-800">
                 <div className="flex justify-between items-center">
                   <h4 className="text-white mt-3 mb-5 font-bold font-display">
                     Hire your helpers now!
@@ -139,62 +142,81 @@ const NearbyModal: React.FC<workerModal> = (props: workerModal) => {
                   </button>
                 </div>
                 <form onSubmit={handleSubmit(timeslotSubmit)} id="timeslot">
-                  <h1 className="text-white text-md h-1/5 w-full p-2 bg-gray-600 border-2 border-gray-400 rounded-md">
-                    Name: {props.workerData.user.username}
-                  </h1>
-                  <div className="flex">
-                    <h3 className="mt-3 mr-3 text-white w-full p-2 bg-gray-600 border-2 border-gray-400 rounded-md">
-                      Pay: {props.workerData.pay}
-                    </h3>
-                    <h3 className="mt-3 text-white w-full p-2 bg-gray-600 border-2 border-gray-400 rounded-md">
-                      Age: {props.workerData.user.age}
-                    </h3>
-                  </div>
-                  <h5 className="mt-3 text-xs text-white w-full p-2 bg-gray-600 border-2 border-gray-400 rounded-md">
-                    About: {props.workerData.user.about}
-                  </h5>
-                  <div className="text-white text-xs mt-5 h-1/5 w-full p-2 bg-gray-600 border-2 border-gray-400 rounded-md">
-                    Timeslots
-                    {props.workerData.timeslots.map((time: any) => (
-                      <div className="flex mb-2 mr-3 mt-5 text-sm text-white">
-                        <input
-                          className=" mr-3 bg-white"
-                          type="radio"
-                          name="time"
-                          ref={register}
-                          value={`${time.start.startTime} + ${time.start.startFormat} + ${time.end.endTime} + ${time.end.endFormat}`}
-                          onChange={(e) => setSelectSlot(e.target.value)}
-                        />
-                        <div className="flex flex-row bg-gray-600 rounded-full text-xs">
-                          <p>{time.start.startTime} </p>
-                          <p>{time.start.startFormat}</p> -
-                          <p>{time.end.endTime}</p>
-                          <p>{time.end.endFormat}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="text-xs flex h-full mt-5">
-                    {props.workerData.services.map((item: any) => (
-                      <p
-                        className="mt-3 mr-3 w-32 bg-gray-300 text-gray-700 shadow-2xl p-2 rounded-full text-xs flex-row 
+                  <div className="flex w-full">
+                    <div className="pb-2 w-1/3 h-1/3">
+                      <img
+                        className="h-8 w-8 rounded-b-full"
+                        src="https://images.unsplash.com/photo-1521710696740-c8144a7eaf88?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+                        alt=""
+                      ></img>
+                      <span className="w-full h-8">
+                        <h1 className="w-1/3 font-display text-xl text-green-800">
+                          {props.workerData.user.username}
+                        </h1>
+                      </span>
+
+                      <span className="w-1/3 h-2/3 pt-1">
+                        <p className="flex-col text-sm font-bold text-green-800">
+                          Age: {props.workerData.user.age}
+                        </p>
+                      </span>
+                      <div className="text-xs flex h-full mt-5">
+                        {props.workerData.services.map((item: any) => (
+                          <p
+                            className="mt-3 mr-3 w-32 bg-gray-300 text-gray-700 shadow-2xl p-2 rounded-full text-xs flex-row 
                             hover:scale-125"
-                            >
-                              {item}
-                            </p>
-                          ))}
+                          >
+                            {item}
+                          </p>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="w-2/3">
+                      <div className="ml-12 w-3/4 font-display text-mg text-green-800">
+                        <p>
+                          <b className="mb-2">About:</b>
+                          <br></br>
+                          {props.workerData.user.about}
+                        </p>
+                      </div>
+                      <div className="text-xs flex ml-10">
+                        {props.workerData.timeslots.map((time: any) => (
+                          <div className="flex-row mb-2 mr-3 mt-5 text-sm text-white">
+                            <input
+                              className="mr-20 bg-gray-600"
+                              type="radio"
+                              name="time"
+                              required
+                              ref={register}
+                              value={`${time.start.startTime} + ${time.start.startFormat} + ${time.end.endTime} + ${time.end.endFormat}`}
+                              onChange={(e) => setSelectSlot(e.target.value)}
+                            />
+                            <div className="flex flex-row bg-gray-600 p-2 rounded-md text-xs">
+                              <p>{time.start.startTime}</p>
+                              <p>{time.start.startFormat}</p> -
+                              <p>{time.end.endTime}</p>
+                              <p>{time.end.endFormat}</p>
+                            </div>
                           </div>
-                          <button
-                  type="submit"
-                  className="text-sm float-right text-white bg-gray-700 h-10  p-2 rounded-full"
-                  onClick={() =>
-                    setData({
-                      pay: props.workerData.pay,
-                      services: props.workerData.services,
-                      workerId: props.workerData.user._id,
-                    })
-                  }
-                >Hire Me!</button>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="w-1/3 flex flex-col justify-start">
+                      <button
+                        type="submit"
+                        className="flex mx-8 justify-center items-center text-sm font-display text-white bg-green-800 h-10  p-2 rounded-md"
+                        onClick={() =>
+                          setData({
+                            pay: props.workerData.pay,
+                            services: props.workerData.services,
+                            workerId: props.workerData.user._id,
+                          })
+                        }
+                      >
+                        Hire Me!
+                      </button>
+                    </div>
+                  </div>
                 </form>
               </div>
             </div>

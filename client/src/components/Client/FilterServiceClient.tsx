@@ -83,7 +83,7 @@ export default function FilterService() {
       .post("http://localhost:5000/api/worker/filter", filterData, config)
       .then((response) => {
         addFilter(response.data);
-        console.log(response.data);
+        //console.log(response.data);
       });
   };
 
@@ -108,11 +108,12 @@ export default function FilterService() {
           )
           .then((response) => {
             setHiredWorker(response.data);
+            console.log(response.data);
           });
       });
   }, []);
   return (
-    <div className="w-1/5 pl-6 py-3 font-bold  bg-gray-200 shadow-2xl rounded-2xl h-full ml-2 mr-2 mt-5">
+    <div className="w-1/5 pl-6 py-3 font-bold  bg-green-800 shadow-2xl text-white rounded-2xl h-full ml-2 mr-7 mt-5">
       <div className="mb-3">Select the service: </div>
       <div className="mb-5 w-3/4">
         <form onSubmit={handleSubmit(filterServiceSubmit)} id="service">
@@ -135,7 +136,7 @@ export default function FilterService() {
               ref={register}
               placeholder="Services"
               openMenuOnClick={false}
-              className="w-44 py-2 h-12"
+              className="w-56 py-2 h-12"
             />
             {/* <input
               type="text"
@@ -143,7 +144,7 @@ export default function FilterService() {
               className="mt-1 mb-5 h-8 px-2 py-2 block w-full shadow-sm text-black sm:text-sm bg-gray-300 rounded-md"
             ></input> */}
             <button
-              className="w-8 h-8 mt-1 cursor-pointer h-7 w-5 flex ml-3 shadow-lg justify-center items-center px-3  border border-transparent text-xs rounded-md text-white bg-gray-600 hover:bg-grey-900"
+              className="mt-1 cursor-pointer h-7 w-5 flex ml-3 shadow-lg justify-center items-center px-3  border border-transparent text-xs rounded-md text-white bg-gray-900 hover:bg-grey-900"
               type="submit"
             >
               <i className="fas fa-search-plus"></i>
@@ -216,8 +217,24 @@ export default function FilterService() {
       </div>
       Hired workers:
       {hiredworker.map((obj) => (
-        <div className="flex-row px-5 py-5 bg-indigo-100 rounded-xl mt-6 w-full h-full hover:bg-indigo-200 shadow-inner">
+        <div className="flex-row -mx-3 px-5 py-5 bg-gray-300 rounded-xl mt-6 w-full h-full hover:bg-indigo-200 shadow-inner">
           <div className="text-black">{obj.assign.worker}</div>
+          {/* <div className="text-black">{obj.assign.profession.split("  ")}</div> */}
+          <span className="flex">
+            {obj.assign.profession.map((item: any) => (
+              <p className="mt-2 mr-2 text-white bg-gray-800 p-2 rounded-lg text-xs flex-row">
+                {item}
+              </p>
+            ))}
+          </span>
+          <div className="text-xs flex">
+            <div className="mt-4 flex flex-row text-green-900 bg-white rounded-md p-2">
+              <p>{obj.assign.timeslots.start.startTime} </p>
+              <p>{obj.assign.timeslots.start.startFormat}</p> -
+              <p>{obj.assign.timeslots.end.endTime}</p>
+              <p>{obj.assign.timeslots.end.endFormat}</p>
+            </div>
+          </div>
         </div>
       ))}
     </div>

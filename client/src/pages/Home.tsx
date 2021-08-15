@@ -15,8 +15,8 @@ function Home() {
 
   return (
     <div>
-      <div className="relative bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto">
+      <div className="relative mx-auto bg-white overflow-hidden">
+        <div className="max-w-7xl">
           <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
             <svg
               className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/2"
@@ -205,7 +205,7 @@ function Home() {
         </div>
         <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
           <img
-            className="h-full w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
+            className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
             src="https://images.unsplash.com/photo-1551529674-6ca97f9c80a7?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fHNlcnZpY2UlMjB3b3JrZXJ8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"
             alt=""
           ></img>
