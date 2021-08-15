@@ -121,7 +121,7 @@ const NearbyModal: React.FC<workerModal> = (props: workerModal) => {
               className="bg-black bg-opacity-50 absolute inset-0 flex justify-center items-center"
               id="overlay"
             >
-              <div className="bg-white w-2/4 h-5/7 py-2 px-3 rounded-xl shadow-xl text-gray-800">
+              <div className="bg-white w-2/4 h-5/7  px-3 rounded shadow-xl text-gray-800 pb-4">
                 <div className="flex justify-between items-center  ">
                   <h4 className="mt-3 mb-5 font-bold font-display">
                     Hire your helpers now!
@@ -150,7 +150,7 @@ const NearbyModal: React.FC<workerModal> = (props: workerModal) => {
                         alt=""
                       ></img>
                       <span className="w-full h-8">
-                        <h1 className="w-1/3 font-display text-xl text-green-800">
+                        <h1 className="w-1/3 font-display text-xl text-green-800 font-semibold">
                           {props.workerData.user.username}
                         </h1>
                       </span>
@@ -174,7 +174,7 @@ const NearbyModal: React.FC<workerModal> = (props: workerModal) => {
                     <div className="w-2/3">
                       <div className="ml-12 w-3/4 font-display text-mg text-green-800">
                         <p>
-                          <b className="mb-2">About:</b>
+                          <b className="mb-2 underline">About</b>
                           <br></br>
                           {props.workerData.user.about}
                         </p>
