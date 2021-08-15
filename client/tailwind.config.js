@@ -13,5 +13,4 @@ module.exports = {
   },
 
   plugins: [require("tailwind-filter-utilities")],
-
 };
