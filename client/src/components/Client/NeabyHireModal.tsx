@@ -122,7 +122,7 @@ const NearbyModal: React.FC<workerModal> = (props: workerModal) => {
               id="overlay"
             >
               <div className="bg-white w-2/4 h-5/7 py-2 px-3 rounded shadow-xl text-gray-800">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center  ">
                   <h4 className="text-white mt-3 mb-5 font-bold font-display">
                     Hire your helpers now!
                   </h4>
