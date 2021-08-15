@@ -8,7 +8,7 @@ import axios from "axios";
 import { SLOT } from "../../types/types";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
-
+import { FaPlusCircle } from "react-icons/fa";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     modal: {
@@ -30,8 +30,12 @@ export default function WorkerModal() {
   const [startFormat, setStartFormat] = useState<string | null>("");
   const [endTime, setEndTime] = useState<string | null>("");
   const [endFormat, setEndFormat] = useState<string | null>("");
-
+  const [visible, setVisible] = useState<boolean>(false);
   const [slot, setSlot] = useState<SLOT[]>([]);
+  const [extraProfession, setExtraProfession] = useState<string>("");
+  const extraHandler = () => {
+    setVisible(!visible);
+  };
   const { register, handleSubmit, errors } = useForm({
     criteriaMode: "all",
   });
@@ -44,6 +48,8 @@ export default function WorkerModal() {
 
   const handleClose = () => {
     setOpen(false);
+    setExtraProfession("");
+    setVisible(false);
   };
   const timeslotSubmit = (e: any) => {
     e.preventDefault();
@@ -70,9 +76,12 @@ export default function WorkerModal() {
           selected.push(ticks[i].value);
         }
       }
+      if (extraProfession.length > 0) {
+        selected.push(extraProfession);
+      }
     }
 
-    // console.log(selected);
+    console.log(selected);
     // console.log(data);
 
     let config = {
@@ -126,7 +135,7 @@ export default function WorkerModal() {
               className="bg-black bg-opacity-50 absolute inset-0 flex justify-center items-center"
               id="overlay"
             >
-              <div className="bg-gray-200 w-1/2 h-2/3 py-2 px-3 rounded shadow-xl text-gray-800">
+              <div className="bg-gray-200 w-1/2 h-4/5 py-2 px-3 rounded shadow-xl text-gray-800">
                 <div className="flex justify-between items-center">
                   <h4 className="text-lg mt-3 ml-5 font-bold font-display underline">
                     Let's get started here
@@ -148,7 +157,7 @@ export default function WorkerModal() {
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} id="worker">
                   <div className="flex flex-col mt-10">
-                    <div className="flex justify-end ">
+                    <div className="flex justify-start ">
                       <button
                         type="submit"
                         className="cursor-pointer h-12 w-40 shadow-lg items-center justify-center mb-5 ml-5 border border-transparent text-base font-medium rounded-md text-white bg-green-400 hover:bg-green-600"
@@ -236,11 +245,32 @@ export default function WorkerModal() {
                       <label className="font-medium text-gray-700">Cook</label>
                     </div>
                   </div>
+                  <div className="flex mt-2 ">
+                    <FaPlusCircle
+                      size={20}
+                      className="ml-4 mt-2 mr-2 cursor-pointer"
+                      onClick={extraHandler}
+                    ></FaPlusCircle>
+
+                    {visible && (
+                      <div>
+                        <input
+                          name="extra"
+                          ref={register}
+                          value={extraProfession}
+                          type="text"
+                          onChange={(e) => setExtraProfession(e.target.value)}
+                          className="focus:ring-indigo-500 h-8 w-32 text-indigo-600 border-gray-300 rounded px-2"
+                        ></input>
+                        <label className="font-medium text-gray-700"></label>
+                      </div>
+                    )}
+                  </div>
                 </form>{" "}
                 <form onSubmit={timeslotSubmit} id="time">
                   {" "}
                   <div className="w-full h-12 border-3 border-red-500">
-                    <h1 className="ml-5 mt-6 ont-display text-lg">
+                    <h1 className="ml-5 mt-2 ont-display text-lg">
                       Select your time slots:
                     </h1>
                   </div>
