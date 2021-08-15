@@ -9,9 +9,9 @@ export default function DashboardClient() {
   return (
     <div>
       {Cookies.get("user") ? (
-        <div className="w-full bg-gray-300 h-full flex flex-col">
+        <div className="w-full bg-gray-300 flex flex-col">
           <NavBar />
-          <div className="w-full  h-full flex justify-center">
+          <div className="w-full flex justify-center">
             <FilterService />
             <WorkerPosts />
             <NearByWorker />

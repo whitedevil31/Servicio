@@ -9,9 +9,9 @@ import Select from "react-select";
 export default function FilterService() {
   const myArray = [
     { value: "plumber", label: "plumber" },
-    { value: "cooking", label: "cook" },
-    { value: "Carpenter", label: "carpentry" },
-    { value: "driver", label: "Driver" },
+    { value: "cook", label: "cook" },
+    { value: "carpenter", label: "carpenter" },
+    { value: "driver", label: "driver" },
   ];
   interface SEARCH {
     value: string;
@@ -113,8 +113,8 @@ export default function FilterService() {
       });
   }, []);
   return (
-    <div className="w-1/5 pl-6 py-3 font-bold  bg-green-800 shadow-2xl text-white rounded-2xl h-full ml-2 mr-7 mt-5">
-      <div className="mb-3">Select the service: </div>
+    <div className="w-1/5 pl-6 py-3 font-bold  bg-green-800 shadow-2xl  rounded-2xl h-full ml-2 mr-7 mt-5">
+      <div className="mb-3 text-white">Select the service: </div>
       <div className="mb-5 w-3/4">
         <form onSubmit={handleSubmit(filterServiceSubmit)} id="service">
           <div className="flex items-center mb-2">
@@ -215,7 +215,7 @@ export default function FilterService() {
           </div> */}
         </form>
       </div>
-      Hired workers:
+      <p className="text-white">Hired workers:</p>
       {hiredworker.map((obj) => (
         <div className="flex-row -mx-3 px-5 py-5 bg-gray-300 rounded-xl mt-6 w-full h-full hover:bg-indigo-200 shadow-inner">
           <div className="text-black">{obj.assign.worker}</div>
