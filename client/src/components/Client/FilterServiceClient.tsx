@@ -144,7 +144,7 @@ export default function FilterService() {
               className="mt-1 mb-5 h-8 px-2 py-2 block w-full shadow-sm text-black sm:text-sm bg-gray-300 rounded-md"
             ></input> */}
             <button
-              className="mt-1 cursor-pointer h-7 w-5 flex ml-3 shadow-lg justify-center items-center px-3  border border-transparent text-xs rounded-md text-white bg-gray-900 hover:bg-grey-900"
+              className="mt-1 cursor-pointer h-9 w-9 flex ml-3 shadow-lg justify-center items-center px-3  border border-transparent text-xs rounded-md text-white bg-gray-900 hover:bg-grey-900"
               type="submit"
             >
               <i className="fas fa-search-plus"></i>
